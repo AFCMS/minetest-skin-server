@@ -1,15 +1,19 @@
 # Build Backend
 FROM golang:1.19-alpine as builder
 
-RUN apk update && apk add --no-cache git optipng gcc
-RUN mkdir /build
-ADD . /build/
+RUN <<EOR
+    apk update && apk add --no-cache git optipng gcc
+    mkdir /build
+EOR
+COPY . /build/
 WORKDIR /build
-RUN go get -d -v
-RUN go build -o minetest-skin-server .
+RUN <<EOR
+    go get -d -v
+    go build -o minetest-skin-server .
+EOR
 
 # Stage 2
-FROM alpine
+FROM alpine:latest
 RUN adduser -S -D -H -h /app appuser
 USER appuser
 COPY --from=builder /build/ /app/
