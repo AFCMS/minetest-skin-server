@@ -38,7 +38,7 @@ jobs:
 
       - name: Install Go Dependencies
         run: |
-          go get zoom-link-server
+          go get -d -v
 
       - name: Build Go
         run: |
