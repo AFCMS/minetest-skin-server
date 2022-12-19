@@ -1,0 +1,45 @@
+---
+name: Go
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+
+      - name: Set up NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      - name: Install newman
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+
+      - name: Install NodeJS Dependencies
+        run: |
+          cd frontend
+          npm install --include=dev
+
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Install Go Dependencies
+        run: |
+          go get zoom-link-server
+
+      - name: Build Go
+        run: |
+          go build -v ./...
