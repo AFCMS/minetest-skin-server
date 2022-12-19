@@ -1,1 +1,4 @@
 .idea
+.env
+minetest-skin-server
+database.db

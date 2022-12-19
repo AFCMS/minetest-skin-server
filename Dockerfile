@@ -1,7 +1,7 @@
-# Stage 1
+# Build Backend
 FROM golang:1.19-alpine as builder
 
-RUN apk update && apk add --no-cache git
+RUN apk update && apk add --no-cache git optipng gcc
 RUN mkdir /build
 ADD . /build/
 WORKDIR /build
