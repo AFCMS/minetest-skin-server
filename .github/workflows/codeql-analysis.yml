@@ -2,8 +2,6 @@
 name: CodeQL
 
 on:
-  push:
-  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -18,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ "go" ]
+        language: ["go", "javascript"]
 
     steps:
       - name: Checkout repository
