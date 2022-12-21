@@ -1,0 +1,53 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0",
+    "title": "Minetest Skin Server API",
+    "description": "Interact with the Minetest Skin Server"
+  },
+  "servers": [
+    {
+      "url": "localhost:8080",
+      "description": "Local Development server"
+    },
+    {
+      "url": "https://skins.minetest.land",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/api/info": {
+      "get": {
+        "description": "Get info about the running server",
+        "responses": {
+          "200": {
+            "description": "Server informations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "version": {
+                      "description": "Version of the server",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/register": {
+      "post": {
+        "description": "Register a new account",
+         "responses": {
+           "200": {
+             "description": "Account successfully registered"
+           }
+         }
+      }
+    }
+  }
+}

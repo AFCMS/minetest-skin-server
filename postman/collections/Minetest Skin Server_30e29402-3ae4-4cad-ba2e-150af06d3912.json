@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "b918388c-e0e6-4dc9-9f6f-75aeea77a148",
+		"name": "Minetest Skin Server",
+		"description": "Interact with the Minetest Skin Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "/api/info",
+					"id": "43a3fed1-cf93-4ec9-aae7-6d2167bdf9de",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/info",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"info"
+							]
+						},
+						"description": "Get info about the running server"
+					},
+					"response": [
+						{
+							"id": "10f61965-9032-413b-b5ce-611015f74f31",
+							"name": "Server informations",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/info",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"info"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n  \"version\": \"dolor qui\"\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/register",
+					"id": "967b5210-e877-4986-bdc8-ae5cb4583648",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						},
+						"description": "Register a new account"
+					},
+					"response": [
+						{
+							"id": "82051a5b-9a6f-4920-86fc-a72c2bf3b367",
+							"name": "Account successfully registered",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": ""
+						}
+					]
+				}
+			],
+			"id": "57a1e742-554f-462c-9f91-e7d8916a6352"
+		}
+	],
+	"variable": [
+		{
+			"id": "8ef5ec65-19fb-405c-b64c-1045e82f787f",
+			"key": "baseUrl",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
