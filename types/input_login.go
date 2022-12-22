@@ -1,6 +1,6 @@
 package types
 
 type InputLogin struct {
-	Identity string `json:"identity"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
 }

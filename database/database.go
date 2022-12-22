@@ -13,9 +13,14 @@ import (
 var DB *gorm.DB
 
 func ConnectDB() {
-	DB, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{
+	var err error
+	DB, err = gorm.Open(sqlite.Open("database.db"), &gorm.Config{
 		Logger: logger.Default,
 	})
+	//dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
+	//DB, err := gorm.Open(postgres.Open(fmt.Sprintf("host=localhost user=%s password=%s dbname=%s port=%d", os.Getenv("POSTGRES_USER"), os.Getenv("POSTGRES_PASSWORD"), os.Getenv("POSTGRES_DB"), 5432)), &gorm.Config{
+	//	Logger: logger.Default,
+	//})
 
 	if err != nil {
 		log.Fatalln("Failed to connect database")
