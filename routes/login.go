@@ -13,7 +13,7 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-func Login(c *fiber.Ctx) error {
+func AccountLogin(c *fiber.Ctx) error {
 	input := types.InputLogin{}
 
 	if err := c.BodyParser(&input); err != nil {

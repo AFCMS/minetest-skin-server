@@ -32,10 +32,13 @@ func main() {
 	api := app.Group("/api")
 
 	api.Get("/info", routes.Info)
-	api.Post("/register", routes.Register)
-	api.Post("/login", routes.Login)
-	api.Get("/user", routes.User)
-	api.Post("/logout", routes.Logout)
+
+	api_account := api.Group("/account")
+
+	api_account.Post("/register", routes.AccountRegister)
+	api_account.Post("/login", routes.AccountLogin)
+	api_account.Get("/user", routes.AccountUser)
+	api_account.Post("/logout", routes.AccountLogout)
 
 	log.Fatalln(app.Listen(":8080"))
 }

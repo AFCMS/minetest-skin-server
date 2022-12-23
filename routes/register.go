@@ -12,7 +12,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func Register(c *fiber.Ctx) error {
+func AccountRegister(c *fiber.Ctx) error {
 	input := types.InputRegister{}
 
 	if err := c.BodyParser(&input); err != nil {
