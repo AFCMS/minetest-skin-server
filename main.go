@@ -33,12 +33,21 @@ func main() {
 
 	api.Get("/info", routes.Info)
 
+	// API Authentication
+
 	api_account := api.Group("/account")
 
 	api_account.Post("/register", routes.AccountRegister)
 	api_account.Post("/login", routes.AccountLogin)
 	api_account.Get("/user", routes.AccountUser)
 	api_account.Post("/logout", routes.AccountLogout)
+
+	// Interacting with skins
+
+	api_skin := api.Group("/skin")
+
+	api_skin.Get("/list", routes.SkinList)
+	api_skin.Get("/full/:uuid", routes.SkinFull)
 
 	log.Fatalln(app.Listen(":8080"))
 }
