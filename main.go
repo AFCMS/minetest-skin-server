@@ -27,14 +27,14 @@ func main() {
 
 	app.Use(flogger.New())
 
-	// API Routes
+	// TODO: serve React frontend
 
+	// API Routes
 	api := app.Group("/api")
 
 	api.Get("/info", routes.Info)
 
 	// API Authentication
-
 	api_account := api.Group("/account")
 
 	api_account.Post("/register", routes.AccountRegister)
@@ -43,11 +43,15 @@ func main() {
 	api_account.Post("/logout", routes.AccountLogout)
 
 	// Interacting with skins
-
 	api_skin := api.Group("/skin")
 
 	api_skin.Get("/list", routes.SkinList)
 	api_skin.Get("/full/:uuid", routes.SkinFull)
+
+	// Handle 404 errors
+	api.All("/*", func(c *fiber.Ctx) error {
+		return c.SendStatus(fiber.StatusNotFound)
+	})
 
 	log.Fatalln(app.Listen(":8080"))
 }
