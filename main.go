@@ -47,11 +47,10 @@ func main() {
 
 	api_skin.Get("/list", routes.SkinList)
 	api_skin.Get("/full/:uuid", routes.SkinFull)
+	api_skin.Post("/create", routes.SkinCreate)
 
 	// Handle 404 errors
-	api.All("/*", func(c *fiber.Ctx) error {
-		return c.SendStatus(fiber.StatusNotFound)
-	})
+	api.All("/*", routes.NotFound)
 
 	log.Fatalln(app.Listen(":8080"))
 }
