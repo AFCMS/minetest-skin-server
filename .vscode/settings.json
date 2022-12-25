@@ -1,1 +1,4 @@
-{ "material-icon-theme.activeIconPack": "react" }
+{
+	"material-icon-theme.activeIconPack": "react",
+	"material-icon-theme.folders.associations": { "states": "redux-reducer" }
+}
