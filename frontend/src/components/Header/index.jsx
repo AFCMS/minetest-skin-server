@@ -1,6 +1,8 @@
 import { Fragment } from "react";
+import { NavLink } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import minetestIcon from "../../assets/minetest_logo.png";
 
 const user = {
 	name: "Tom Cook",
@@ -9,11 +11,11 @@ const user = {
 		"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-	{ name: "Dashboard", href: "#", current: true },
-	{ name: "Team", href: "#", current: false },
-	{ name: "Projects", href: "#", current: false },
-	{ name: "Calendar", href: "#", current: false },
-	{ name: "Reports", href: "#", current: false },
+	{ name: "Home", href: "/" },
+	{ name: "About", href: "/about" },
+	{ name: "Projects", href: "#" },
+	{ name: "Calendar", href: "#" },
+	{ name: "Reports", href: "#" },
 ];
 const userNavigation = [
 	{ name: "Your Profile", href: "#" },
@@ -29,7 +31,7 @@ function Header() {
 	return (
 		<>
 			<div className="min-h-full">
-				<Disclosure as="nav" className="bg-gray-800">
+				<Disclosure as="nav" className="bg-slate-700">
 					{({ open }) => (
 						<>
 							<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -38,30 +40,20 @@ function Header() {
 										<div className="flex-shrink-0">
 											<img
 												className="h-8 w-8"
-												src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-												alt="Your Company"
+												src={minetestIcon}
+												alt="Minetest Skin Server"
 											/>
 										</div>
 										<div className="hidden md:block">
 											<div className="ml-10 flex items-baseline space-x-4">
 												{navigation.map((item) => (
-													<a
+													<NavLink
 														key={item.name}
-														href={item.href}
-														className={classNames(
-															item.current
-																? "bg-gray-900 text-white"
-																: "text-gray-300 hover:bg-gray-700 hover:text-white",
-															"px-3 py-2 rounded-md text-sm font-medium"
-														)}
-														aria-current={
-															item.current
-																? "page"
-																: undefined
-														}
+														to={item.href}
+														className="active:bg-gray-900 active:text-white text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
 													>
 														{item.name}
-													</a>
+													</NavLink>
 												))}
 											</div>
 										</div>
