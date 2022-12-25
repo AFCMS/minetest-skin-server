@@ -5,6 +5,7 @@ import (
 	"minetest-skin-server/models"
 	"minetest-skin-server/types"
 	"minetest-skin-server/utils"
+	"net/mail"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -25,9 +26,16 @@ func AccountRegister(c *fiber.Ctx) error {
 
 	password, _ := bcrypt.GenerateFromPassword([]byte(input.Password), 14)
 
+	// TODO: validate email
+	var parsed_email *mail.Address
+	var err error
+	if parsed_email, err = mail.ParseAddress(input.Email); err != nil || parsed_email.Name != "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on email format", "data": "Invalid email"})
+	}
+
 	user := models.Account{
 		Name:         input.Name,
-		Email:        input.Email,
+		Email:        parsed_email.Address,
 		Password:     password,
 		CreationDate: time.Now().Unix(),
 	}
