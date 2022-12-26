@@ -19,7 +19,7 @@ RUN npm install --include=dev && npm run build
 
 # Production Image
 FROM alpine:3.9.6 as production
-RUN apk update && apk add --no-cache optipng
+RUN apk update && apk add --no-cache optipng=0.7.7-r1
 COPY --from=builder /build/minetest-skin-server .
 COPY --from=frontend-builder ./build ./frontend
 
