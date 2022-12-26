@@ -15,7 +15,7 @@ FROM node:16 as frontend-builder
 RUN mkdir /build
 COPY ./frontend ./build
 WORKDIR /build
-RUN npm install --dev && npm run build
+RUN npm install --include=dev && npm run build
 
 # Production Image
 FROM alpine:3.9.6 as production
