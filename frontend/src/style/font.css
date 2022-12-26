@@ -1,0 +1,3 @@
+.panel-text-heading {
+	@apply text-xl font-sans font-medium text-slate-900;
+}

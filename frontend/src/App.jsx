@@ -6,7 +6,10 @@ import Login from "./pages/Login";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
+import "./style/main.css";
+import "./style/forms.css";
 import "./style/buttons.css";
+import "./style/font.css";
 
 function App() {
 	return (
