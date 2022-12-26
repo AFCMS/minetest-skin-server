@@ -12,10 +12,8 @@ const user = {
 };
 const navigation = [
 	{ name: "Home", href: "/" },
+	{ name: "Search", href: "/search" },
 	{ name: "About", href: "/about" },
-	{ name: "Projects", href: "#" },
-	{ name: "Calendar", href: "#" },
-	{ name: "Reports", href: "#" },
 ];
 const userNavigation = [
 	{ name: "Your Profile", href: "#" },

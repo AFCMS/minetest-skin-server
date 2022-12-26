@@ -48,6 +48,8 @@ func main() {
 	api_skin.Get("/list", routes.SkinList)
 	api_skin.Get("/full/:uuid", routes.SkinFull)
 	api_skin.Post("/create", routes.SkinCreate)
+	api_skin.Get("/recent", routes.SkinRecent)
+	api_skin.Get("/rss", routes.SkinRSS)
 
 	// Handle 404 errors
 	api.All("/*", routes.NotFound)

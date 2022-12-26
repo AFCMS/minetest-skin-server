@@ -1,7 +1,7 @@
 function Register() {
 	return (
 		<div className="justify-center align-middle flex">
-			<div className="flex flex-col max-w-md rounded bg-slate-50 p-6 gap-4 m-10 shadow-md">
+			<div className="flex flex-col max-w-md p-6 gap-4 m-10 app-pannel">
 				<h1 className="panel-text-heading">Register</h1>
 				<label className="block">
 					<span className="text-slate-800">Username</span>

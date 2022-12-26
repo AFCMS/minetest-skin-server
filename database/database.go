@@ -2,6 +2,7 @@ package database
 
 import (
 	"log"
+	"os"
 
 	"minetest-skin-server/models"
 
@@ -11,6 +12,8 @@ import (
 )
 
 var DB *gorm.DB
+
+var debug = os.Getenv("MSS_DEBUG") == "true"
 
 func ConnectDB() {
 	var err error

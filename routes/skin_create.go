@@ -1,6 +1,8 @@
 package routes
 
 import (
+	"minetest-skin-server/database"
+	"minetest-skin-server/models"
 	"minetest-skin-server/types"
 	"minetest-skin-server/utils"
 
@@ -32,6 +34,16 @@ func SkinCreate(c *fiber.Ctx) error {
 	input.Data = b
 
 	//log.Println(input.Data)
+
+	var l = models.Skin{
+		Description: input.Description,
+		Public:      input.Public,
+		Data:        input.Data,
+	}
+
+	if err := database.DB.Create(&l).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Cannot interact with database", "data": err})
+	}
 
 	return c.SendStatus(fiber.StatusNotImplemented)
 }
