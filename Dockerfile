@@ -13,7 +13,7 @@ RUN go get -d -v && \
     go build -o minetest-skin-server .
 
 # Stage 2
-FROM alpine:latest
+FROM alpine:latest as production
 RUN adduser -S -D -H -h /app appuser
 USER appuser
 COPY --from=builder /build/ /app/
