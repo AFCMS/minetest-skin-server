@@ -1,6 +1,10 @@
 # Build Backend
 FROM golang:1.19-alpine as builder
 
+LABEL appuser="Minetest Skin Server"
+LABEL author="AFCM <afcm.contact@gmail.com>"
+LABEL description="Skin server for the Minetest engine"
+
 RUN apk update && apk add --no-cache git optipng gcc && \
     mkdir /build
 COPY . /build/
