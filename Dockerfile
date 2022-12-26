@@ -18,7 +18,7 @@ WORKDIR /build
 RUN npm install --dev && npm run build
 
 # Production Image
-FROM alpine:latest as production
+FROM alpine:3.9.6 as production
 RUN apk update && apk add --no-cache optipng
 COPY --from=builder /build/minetest-skin-server .
 COPY --from=frontend-builder ./build ./frontend
