@@ -61,14 +61,9 @@ function Header() {
 											<button
 												type="button"
 												className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+												aria-label="View notifications"
 											>
-												<span className="sr-only">
-													View notifications
-												</span>
-												<BellIcon
-													className="h-6 w-6"
-													aria-hidden="true"
-												/>
+												<BellIcon className="h-6 w-6" />
 											</button>
 
 											{/* Profile dropdown */}
@@ -77,10 +72,10 @@ function Header() {
 												className="relative ml-3"
 											>
 												<div>
-													<Menu.Button className="flex max-w-xs items-center rounded bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200">
-														<span className="sr-only">
-															Open user menu
-														</span>
+													<Menu.Button
+														className="flex max-w-xs items-center rounded bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+														aria-label="Open user menu"
+													>
 														<img
 															className="h-8 w-8 rounded"
 															src={user.imageUrl}
