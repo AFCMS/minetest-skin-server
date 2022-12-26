@@ -1,5 +1,7 @@
 package routes
 
-import "os"
+import (
+	"minetest-skin-server/utils"
+)
 
-var secretKey = os.Getenv("JWT_SECRET")
+var secretKey = utils.Config("JWT_SECRET")

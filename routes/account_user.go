@@ -16,7 +16,7 @@ func AccountUser(c *fiber.Ctx) error {
 	})
 
 	if err != nil {
-		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "Unauthenticated"})
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "Unauthenticated", "data": err})
 	}
 
 	claims := token.Claims.(*jwt.RegisteredClaims)
