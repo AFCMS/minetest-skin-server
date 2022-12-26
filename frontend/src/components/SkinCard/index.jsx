@@ -14,12 +14,16 @@ function SkinCard({ description }) {
 				<h2 className="font-bold text-clip text-lg">{description}</h2>
 				<h3>by AFCM</h3>
 				<div className="top-2 static right-2 flex align-baseline items-end">
-					<button className="h-8 w-8">
+					<button aria-label="like skin" className="h-8 w-8">
 						<HeartIcon className="text-red-500" />
 					</button>
 					<Menu as="div" className="relative ml-3">
 						<div>
-							<Menu.Button className="flex items-center text-sm h-8 w-8">
+							<Menu.Button
+								className="flex items-center text-sm h-8 w-8"
+								aria-label="show options"
+								aria-haspopup="listbox"
+							>
 								<span className="sr-only">Skin Options</span>
 								<Bars3Icon className="" />
 							</Menu.Button>
