@@ -1,6 +1,9 @@
 package routes
 
 import (
+	"bytes"
+	"image"
+	"log"
 	"minetest-skin-server/database"
 	"minetest-skin-server/models"
 	"minetest-skin-server/types"
@@ -30,6 +33,19 @@ func SkinCreate(c *fiber.Ctx) error {
 	// TODO: test decoding as PNG
 	// TODO: validate file dimensions
 	// TODO: run optipng
+
+	img, format, err := image.Decode(bytes.NewReader(b))
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on create request (Decode)", "data": err})
+	}
+
+	if format != "png" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on create request", "data": "Image is not PNG"})
+	}
+
+	bounds := img.Bounds()
+
+	log.Println(bounds.Max, bounds.Min)
 
 	input.Data = b
 
