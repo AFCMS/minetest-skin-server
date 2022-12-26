@@ -5,17 +5,23 @@ LABEL appuser="Minetest Skin Server"
 LABEL author="AFCM <afcm.contact@gmail.com>"
 LABEL description="Skin server for the Minetest engine"
 
-RUN apk update && apk add --no-cache git optipng gcc && \
-    mkdir /build
-COPY . /build/
+RUN mkdir /build
+COPY . /build
 WORKDIR /build
-RUN go get -d -v && \
-    go build -o minetest-skin-server .
+RUN CGO_ENABLED=0 go build -o minetest-skin-server .
 
-# Stage 2
+# Build Frontend
+FROM node:16 as frontend-builder
+RUN mkdir /build
+COPY ./frontend ./build
+WORKDIR /build
+RUN npm install --dev && npm run build
+
+# Production Image
 FROM alpine:latest as production
-RUN adduser -S -D -H -h /app appuser
-USER appuser
-COPY --from=builder /build/ /app/
-WORKDIR /app
+RUN apk update && apk add --no-cache optipng
+COPY --from=builder /build/minetest-skin-server .
+COPY --from=frontend-builder ./build ./frontend
+
+EXPOSE 8080
 CMD ["./minetest-skin-server"]
