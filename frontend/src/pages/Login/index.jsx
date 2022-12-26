@@ -1,7 +1,7 @@
 function Login() {
 	return (
 		<div className="justify-center align-middle flex">
-			<div className="flex flex-col max-w-md rounded bg-slate-50 p-6 gap-4 mt-10 shadow-md">
+			<div className="flex flex-col max-w-md rounded bg-slate-50 p-6 gap-4 m-10 shadow-md">
 				<h1 className="panel-text-heading">Login</h1>
 				<label className="block">
 					<span className="text-slate-800">Email</span>
