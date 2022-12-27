@@ -3,6 +3,7 @@ package routes
 import (
 	"minetest-skin-server/database"
 	"minetest-skin-server/models"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
@@ -16,7 +17,15 @@ func AccountUser(c *fiber.Ctx) error {
 
 	var user models.Account
 
-	if err := database.DB.Where("id = ?", claims["iss"]).First(&user).Error; err != nil {
+	cs, err := strconv.ParseInt(claims["iss"].(string), 10, 0)
+
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"message": "User not found"})
+	}
+
+	user, err = database.AccountFromID(int(cs))
+
+	if err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"message": "User not found"})
 	}
 
