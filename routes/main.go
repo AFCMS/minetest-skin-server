@@ -7,8 +7,6 @@ import (
 )
 
 func SetupRoutes(app *fiber.App) {
-	// TODO: serve React frontend
-
 	// API Routes
 	api := app.Group("/api")
 
@@ -33,4 +31,8 @@ func SetupRoutes(app *fiber.App) {
 
 	// Handle 404 errors
 	api.All("/*", NotFound)
+
+	// Serve the React frontend
+	app.Static("/", "./frontend/build")
+	app.Static("*", "./frontend/build/index.html")
 }
