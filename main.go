@@ -9,13 +9,9 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	flogger "github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	log.Println("Reading Env file...")
-	_ = godotenv.Load()
-
 	// Connection to Database
 	log.Println("Connecting to Database...")
 

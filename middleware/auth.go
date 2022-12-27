@@ -9,17 +9,14 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-var secretKey = utils.Config("JWT_SECRET")
-
 func AuthHandler() fiber.Handler {
-	log.Println(secretKey)
 	return jwtware.New(jwtware.Config{
 		//Claims: jwt.RegisteredClaims{},
 		ErrorHandler: func(c *fiber.Ctx, err error) error {
 			log.Println(c.Locals("user"))
 			return err
 		},
-		SigningKey:    []byte(secretKey),
+		SigningKey:    utils.ConfigJWTSecret,
 		SigningMethod: jwt.SigningMethodHS256.Name,
 		TokenLookup:   "cookie:jwt",
 	})

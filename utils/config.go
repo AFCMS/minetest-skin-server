@@ -1,19 +1,32 @@
 package utils
 
 import (
-	"fmt"
+	"log"
 	"os"
 
 	"github.com/joho/godotenv"
 )
 
-// Config function to get value from env file
-// Not the best implementation
-func Config(key string) string {
-	// load .env file
+func rEnv(key string) string {
+	return os.Getenv(key)
+}
+
+var (
+	ConfigJWTSecret      []byte
+	ConfigOptipngEnabled bool
+)
+
+func loadConfig() {
+	ConfigJWTSecret = []byte(rEnv("JWT_SECRET"))
+
+	ConfigOptipngEnabled = rEnv("ENABLE_OPTIPNG") == "true"
+}
+
+func init() {
+	log.Println("Loading config...")
 	err := godotenv.Load(".env")
 	if err != nil {
-		fmt.Print("Error loading .env file")
+		log.Println("Error loading .env file")
 	}
-	return os.Getenv(key)
+	loadConfig()
 }

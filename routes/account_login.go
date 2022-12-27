@@ -4,6 +4,7 @@ import (
 	"minetest-skin-server/database"
 	"minetest-skin-server/models"
 	"minetest-skin-server/types"
+	"minetest-skin-server/utils"
 	"strconv"
 	"time"
 
@@ -40,7 +41,7 @@ func AccountLogin(c *fiber.Ctx) error {
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 24)), // 1 day
 	})
 
-	token, err := claims.SignedString([]byte(secretKey))
+	token, err := claims.SignedString(utils.ConfigJWTSecret)
 
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Could not login"})

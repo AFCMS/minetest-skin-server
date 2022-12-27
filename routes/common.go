@@ -1,7 +1,3 @@
 package routes
 
-import (
-	"minetest-skin-server/utils"
-)
-
-var secretKey = utils.Config("JWT_SECRET")
+// TODO: setup routes here
