@@ -9,23 +9,21 @@ import (
 )
 
 func AccountUser(c *fiber.Ctx) error {
-	cookie := c.Cookies("jwt")
+	token := c.Locals("user").(*jwt.Token)
 
-	token, err := jwt.ParseWithClaims(cookie, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return secretKey, nil
-	})
-
-	if err != nil {
-		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "Unauthenticated", "data": err})
-	}
-
-	claims := token.Claims.(*jwt.RegisteredClaims)
+	// TODO: use RegisteredClaims instead of MapClaims
+	claims := token.Claims.(jwt.MapClaims)
 
 	var user models.Account
 
-	if err := database.DB.Where("id = ?", claims.Issuer).First(&user).Error; err != nil {
+	if err := database.DB.Where("id = ?", claims["iss"]).First(&user).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"message": "User not found"})
 	}
 
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{"version": "1.0"})
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"id":               user.ID,
+		"name":             user.Name,
+		"email":            user.Email,
+		"permission_level": user.PermissionLevel,
+	})
 }

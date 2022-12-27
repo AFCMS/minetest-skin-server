@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"minetest-skin-server/database"
+	"minetest-skin-server/middleware"
 	"minetest-skin-server/routes"
 
 	"github.com/gofiber/fiber/v2"
@@ -39,7 +40,7 @@ func main() {
 
 	api_account.Post("/register", routes.AccountRegister)
 	api_account.Post("/login", routes.AccountLogin)
-	api_account.Get("/user", routes.AccountUser)
+	api_account.Get("/user", middleware.AuthHandler(), routes.AccountUser)
 	api_account.Post("/logout", routes.AccountLogout)
 
 	// Interacting with skins
