@@ -25,8 +25,8 @@ func AccountLogin(c *fiber.Ctx) error {
 
 	// Find user by email
 
-	database.DB.Where("email = ?", input.Email).First(&user)
-	if user.ID == 0 {
+	user, err := database.AccountFromEmail(input.Email)
+	if err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"message": "User not found"})
 	}
 
@@ -57,6 +57,10 @@ func AccountLogin(c *fiber.Ctx) error {
 	}
 
 	c.Cookie(&cookie)
+
+	if err := database.AccountSetLastConnection(&user); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error interacting with database", "data": err.Error()})
+	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "Success"})
 }

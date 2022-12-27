@@ -6,7 +6,6 @@ import (
 	"minetest-skin-server/types"
 	"minetest-skin-server/utils"
 	"net/mail"
-	"time"
 
 	"golang.org/x/crypto/bcrypt"
 
@@ -34,10 +33,9 @@ func AccountRegister(c *fiber.Ctx) error {
 	}
 
 	user := models.Account{
-		Name:         input.Name,
-		Email:        parsed_email.Address,
-		Password:     password,
-		CreationDate: time.Now().Unix(),
+		Name:     input.Name,
+		Email:    parsed_email.Address,
+		Password: password,
 	}
 
 	if err := database.DB.Create(&user).Error; err != nil {
@@ -48,6 +46,6 @@ func AccountRegister(c *fiber.Ctx) error {
 		Id:           user.ID,
 		Name:         user.Name,
 		Email:        user.Email,
-		CreationDate: user.CreationDate,
+		CreationDate: user.CreatedAt.Unix(),
 	})
 }

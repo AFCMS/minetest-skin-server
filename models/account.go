@@ -1,6 +1,8 @@
 package models
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
@@ -11,6 +13,5 @@ type Account struct {
 	Password        []byte `gorm:"not null"`
 	Email           string `gorm:"not null;unique"`
 	PermissionLevel int8   `gorm:"default:1"`
-	CreationDate    int64  `gorm:"not null"`
-	LastConnection  int64
+	LastConnection  time.Time
 }
