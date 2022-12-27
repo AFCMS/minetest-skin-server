@@ -3,10 +3,16 @@ root = true
 [*]
 end_of_line = lf
 
-[*.{js,jsx,ts,tsx,css,scss,html,md}]
+[*.{js,jsx,ts,tsx,css,scss,md}]
 charset = utf8
 indent_style = tab
 tab_width = 4
 insert_final_newline = true
 trim_trailing_whitespace = true
 spaces_around_operators = true
+
+[*.html]
+charset = utf8
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
