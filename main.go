@@ -6,12 +6,23 @@ import (
 	"minetest-skin-server/database"
 	"minetest-skin-server/middleware"
 	"minetest-skin-server/routes"
+	"minetest-skin-server/utils"
 
 	"github.com/gofiber/fiber/v2"
 	flogger "github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 func main() {
+	// Check for OptiPNG installation
+	if utils.ConfigOptipngEnabled {
+		optipngPresent := utils.OptiPNGPresent()
+		if optipngPresent {
+			log.Println("OptiPNG found")
+		} else {
+			log.Fatalln("OptiPNG not found")
+		}
+	}
+
 	// Connection to Database
 	log.Println("Connecting to Database...")
 
