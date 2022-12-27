@@ -4,7 +4,6 @@ import (
 	"log"
 
 	"minetest-skin-server/database"
-	"minetest-skin-server/middleware"
 	"minetest-skin-server/routes"
 	"minetest-skin-server/utils"
 
@@ -35,32 +34,7 @@ func main() {
 
 	app.Use(flogger.New())
 
-	// TODO: serve React frontend
-
-	// API Routes
-	api := app.Group("/api")
-
-	api.Get("/info", routes.Info)
-
-	// API Authentication
-	api_account := api.Group("/account")
-
-	api_account.Post("/register", routes.AccountRegister)
-	api_account.Post("/login", routes.AccountLogin)
-	api_account.Get("/user", middleware.AuthHandler(), routes.AccountUser)
-	api_account.Post("/logout", routes.AccountLogout)
-
-	// Interacting with skins
-	api_skin := api.Group("/skin")
-
-	api_skin.Get("/list", routes.SkinList)
-	api_skin.Get("/full/:uuid", routes.SkinFull)
-	api_skin.Post("/create", routes.SkinCreate)
-	api_skin.Get("/recent", routes.SkinRecent)
-	api_skin.Get("/rss", routes.SkinRSS)
-
-	// Handle 404 errors
-	api.All("/*", routes.NotFound)
+	routes.SetupRoutes(app)
 
 	log.Fatalln(app.Listen(":8080"))
 }
