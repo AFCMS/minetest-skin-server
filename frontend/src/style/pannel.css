@@ -1,3 +1,3 @@
 .app-pannel {
-	@apply bg-slate-50 rounded shadow-md;
+	@apply rounded bg-slate-50 shadow-md;
 }
