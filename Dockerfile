@@ -1,5 +1,5 @@
 # Build Backend
-FROM golang:1.19-alpine as builder
+FROM golang:1.19 as builder
 
 LABEL appuser="Minetest Skin Server"
 LABEL author="AFCM <afcm.contact@gmail.com>"
@@ -8,7 +8,8 @@ LABEL description="Skin server for the Minetest engine"
 RUN mkdir /build
 COPY . /build
 WORKDIR /build
-RUN CGO_ENABLED=0 go build -o minetest-skin-server .
+ENV CGO_ENABLED=1
+RUN go build -o minetest-skin-server .
 
 # Build Frontend
 FROM node:16 as frontend-builder
