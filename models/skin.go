@@ -1,16 +1,26 @@
 package models
 
 import (
+	"time"
+
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type Skin struct {
-	gorm.Model
-	UUID        uint   `json:"uuid" gorm:"primaryKey"`
-	Description string `json:"description" gorm:"not null"`
-	Public      bool   `json:"public" gorm:"not null,default:true"`
-	Approved    bool   `json:"approved" gorm:"not null,default:false"`
-	OwnerID     uint
-	Owner       Account `json:"owner" gorm:"not null"`
-	Data        []byte  `json:"data" gorm:"not null"`
+	UUID        uuid.UUID `json:"uuid" gorm:"primaryKey;type:uuid"`
+	Description string    `json:"description" gorm:"not null"`
+	Public      bool      `json:"public" gorm:"not null,default:true"`
+	Approved    bool      `json:"approved" gorm:"not null,default:false"`
+	OwnerID     uint      `json:"owner_id"`
+	Owner       Account   `json:"-" gorm:"not null"`
+	Data        []byte    `json:"-" gorm:"not null"`
+	DataHead    []byte    `json:"-" gorm:"not null"`
+	CreatedAt   time.Time `json:"creation_date" gorm:"not null"`
+}
+
+func (base *Skin) BeforeCreate(tx *gorm.DB) error {
+	base.UUID = uuid.New()
+
+	return nil
 }

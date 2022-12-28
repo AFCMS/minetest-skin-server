@@ -6,6 +6,7 @@ require (
 	github.com/gofiber/fiber/v2 v2.40.1
 	github.com/gofiber/jwt/v3 v3.3.4
 	github.com/golang-jwt/jwt/v4 v4.4.3
+	github.com/google/uuid v1.3.0
 	github.com/joho/godotenv v1.4.0
 	golang.org/x/crypto v0.4.0
 	gorm.io/driver/sqlite v1.4.3

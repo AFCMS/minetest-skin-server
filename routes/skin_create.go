@@ -2,12 +2,12 @@ package routes
 
 import (
 	"bytes"
-	"image"
-	"log"
+	"image/png"
 	"minetest-skin-server/database"
 	"minetest-skin-server/models"
 	"minetest-skin-server/types"
 	"minetest-skin-server/utils"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -16,6 +16,9 @@ import (
 //
 // Use a multipart request
 func SkinCreate(c *fiber.Ctx) error {
+	// Get User
+	user := c.Locals("user").(models.Account)
+
 	input := types.InputSkinCreate{}
 
 	// Get the text fields
@@ -30,36 +33,40 @@ func SkinCreate(c *fiber.Ctx) error {
 		return err
 	}
 
-	// TODO: test decoding as PNG
-	// TODO: validate file dimensions
-	// TODO: run optipng
-
-	img, format, err := image.Decode(bytes.NewReader(b))
+	// Decode image
+	img, err := png.Decode(bytes.NewReader(b))
 	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on create request (Decode)", "data": err})
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on create request", "data": err})
 	}
 
-	if format != "png" {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on create request", "data": "Image is not PNG"})
-	}
-
+	// Validate image size
 	bounds := img.Bounds()
 
-	log.Println(bounds.Max, bounds.Min)
-
-	input.Data = b
+	if bounds.Max.X != 64 || bounds.Max.Y != 32 {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on create request", "data": "Image have invalid size (64x32 expected)"})
+	}
 
 	//log.Println(input.Data)
 
+	// Extract head
+
+	//head := utils.SkinExtractHead(img)
+	//file, _ := os.Open("test.png")
+	//png.Encode(file, head)
+
+	// Create entry in database
 	var l = models.Skin{
 		Description: input.Description,
 		Public:      input.Public,
-		Data:        input.Data,
+		Owner:       user,
+		Data:        b,
+		DataHead:    b, // FIXME
+		CreatedAt:   time.Now(),
 	}
 
 	if err := database.DB.Create(&l).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Cannot interact with database", "data": err})
 	}
 
-	return c.SendStatus(fiber.StatusNotImplemented)
+	return c.Status(fiber.StatusOK).JSON(l)
 }

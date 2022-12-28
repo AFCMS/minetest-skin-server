@@ -24,10 +24,10 @@ func SetupRoutes(app *fiber.App) {
 	api_skin := api.Group("/skin")
 
 	api_skin.Get("/list", SkinList)
-	api_skin.Get("/full/:uuid", NotImplemented)
-	api_skin.Get("/full/:uuid/full", SkinFull)
-	api_skin.Get("/full/:uuid/head", NotImplemented)
-	api_skin.Post("/create", SkinCreate)
+	api_skin.Get("/skin/:uuid", SkinDetails)
+	api_skin.Get("/skin/:uuid/full", SkinFull)
+	api_skin.Get("/skin/:uuid/head", SkinHead)
+	api_skin.Post("/create", middleware.AuthHandler(), SkinCreate)
 	api_skin.Get("/recent", SkinRecent)
 	api_skin.Get("/rss", SkinRSS)
 

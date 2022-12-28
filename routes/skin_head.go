@@ -9,7 +9,7 @@ import (
 )
 
 // Return the skin file
-func SkinFull(c *fiber.Ctx) error {
+func SkinHead(c *fiber.Ctx) error {
 	var skin models.Skin
 
 	id, err := uuid.Parse(c.Params("uuid"))
@@ -25,5 +25,5 @@ func SkinFull(c *fiber.Ctx) error {
 	c.Status(fiber.StatusOK)
 	c.Set("Content-Type", "image/png")
 
-	return c.Send(skin.Data)
+	return c.Send(skin.DataHead)
 }
