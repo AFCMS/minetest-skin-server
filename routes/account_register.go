@@ -23,7 +23,7 @@ func AccountRegister(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on register request", "data": "Invalid email"})
 	}
 
-	password, _ := bcrypt.GenerateFromPassword([]byte(input.Password), 14)
+	password, _ := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 
 	// TODO: validate email
 	var parsed_email *mail.Address
