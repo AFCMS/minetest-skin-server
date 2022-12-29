@@ -1,15 +1,19 @@
 .button {
-	@apply rounded-md px-4 py-1 text-lg font-medium shadow-sm;
+	@apply rounded-md px-3 py-2 text-base font-medium;
 }
 
 .button-primary {
-	@apply button bg-blue-400 text-slate-50;
+	@apply button bg-blue-500 text-slate-50;
 }
 
 .button-secondary {
-	@apply button border border-blue-400 text-blue-600;
+	@apply button bg-slate-50 text-blue-600;
 }
 
 .button-tertiary {
 	@apply button;
+}
+
+.button-navbar {
+	@apply button px-4 py-1 text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-white active:bg-slate-900 active:text-white;
 }
