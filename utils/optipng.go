@@ -3,6 +3,7 @@ package utils
 import (
 	"bytes"
 	"os/exec"
+	"strings"
 )
 
 func OptiPNGPresent() bool {
@@ -12,13 +13,17 @@ func OptiPNGPresent() bool {
 	return c.Run() == nil
 }
 
-func OptiPNGBytes(b []byte) []byte {
-	c := exec.Command("optipng")
+func OptiPNGBytes(input []byte) (output []byte, err error) {
+	cmd := exec.Command("optipng", "")
+	cmd.Stdin = strings.NewReader(string(input))
+	var o bytes.Buffer
+	cmd.Stdout = &o
+	err = cmd.Run()
 
-	var out []byte
+	if err != nil {
+		return nil, err
+	}
 
-	c.Stdin = bytes.NewReader(b)
-	c.Stdout = bytes.NewBuffer(out)
-
-	return out
+	output = o.Bytes()
+	return output, nil
 }
