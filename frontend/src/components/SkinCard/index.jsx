@@ -29,7 +29,7 @@ function SkinCard({ description }) {
 				<Canvas className="bg-scroll">
 					<Suspense fallback={null}>
 						<PerspectiveCamera />
-						<OrbitControls />
+						<OrbitControls enableZoom={false} enablePan={false} />
 						<ambientLight intensity={0.5} />
 						<directionalLight />
 						<SkinModel />
