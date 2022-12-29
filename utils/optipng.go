@@ -14,7 +14,7 @@ func OptiPNGPresent() bool {
 }
 
 func OptiPNGBytes(input []byte) (output []byte, err error) {
-	cmd := exec.Command("optipng", "")
+	cmd := exec.Command("optipng", "-o7", "-zm1-9", "-nc", "-strip", "all", "-clobber")
 	cmd.Stdin = strings.NewReader(string(input))
 	var o bytes.Buffer
 	cmd.Stdout = &o
