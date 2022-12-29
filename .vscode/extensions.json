@@ -3,6 +3,9 @@
     "ms-azuretools.vscode-docker",
     "golang.go",
     "esbenp.prettier-vscode",
-    "bradlc.vscode-tailwindcss"
+    "bradlc.vscode-tailwindcss",
+    "gruntfuggly.todo-tree",
+    "cesium.gltf-vscode",
+    "dbaeumer.vscode-eslint"
   ]
 }

@@ -1,4 +1,5 @@
 {
 	"material-icon-theme.activeIconPack": "react",
-	"material-icon-theme.folders.associations": { "states": "redux-reducer" }
+	"material-icon-theme.folders.associations": { "states": "redux-reducer" },
+	"todo-tree.filtering.excludedWorkspaces": ["node_modules"]
 }
