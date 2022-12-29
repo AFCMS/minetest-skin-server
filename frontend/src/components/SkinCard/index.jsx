@@ -8,7 +8,6 @@ import { Suspense } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
-//import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Fragment } from "react";
 import PropTypes from "prop-types";
 import SkinModel from "../SkinModel";
@@ -18,11 +17,6 @@ import SkinModel from "../SkinModel";
  * @param {{description: string}} param0
  */
 function SkinCard({ description }) {
-	//const gltf = useGLTF(skinModel, true);
-	//const texture = useTexture(skinTexture);
-
-	//const group = useRef();
-
 	return (
 		<div className="h-72 w-56 rounded border bg-blue-100 shadow shadow-slate-500">
 			<div className="h-3/4">
