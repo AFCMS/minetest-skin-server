@@ -4,31 +4,52 @@ import {
 	FolderArrowDownIcon,
 	DocumentArrowDownIcon,
 } from "@heroicons/react/24/solid";
+import { Suspense } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import { Canvas } from "@react-three/fiber";
+import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
+//import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Fragment } from "react";
 import PropTypes from "prop-types";
+import SkinModel from "../SkinModel";
 
 /**
  * Represent a skin to be displayed in a grid.
  * @param {{description: string}} param0
  */
 function SkinCard({ description }) {
+	//const gltf = useGLTF(skinModel, true);
+	//const texture = useTexture(skinTexture);
+
+	//const group = useRef();
+
 	return (
-		<div className="rounded h-72 w-56 border shadow shadow-slate-500 bg-blue-100">
-			<div className="h-3/4">Skin Here</div>
-			<div className="h-1/4 px-4 py-2 border-t border-t-slate-500 relative">
-				<h2 className="font-bold text-clip text-lg text-slate-800">
+		<div className="h-72 w-56 rounded border bg-blue-100 shadow shadow-slate-500">
+			<div className="h-3/4">
+				<Canvas className="bg-scroll">
+					<Suspense fallback={null}>
+						<PerspectiveCamera />
+						<OrbitControls />
+						<ambientLight intensity={0.5} />
+						<directionalLight />
+						<SkinModel />
+						{/*<Environment preset="sunset" background />*/}
+					</Suspense>
+				</Canvas>
+			</div>
+			<div className="relative h-1/4 border-t border-t-slate-500 px-4 py-2">
+				<h2 className="text-clip text-lg font-bold text-slate-800">
 					{description}
 				</h2>
 				<h3 className="text-slate-800">by AFCM</h3>
-				<div className="bottom-2 absolute right-2 flex align-baseline items-end">
+				<div className="absolute bottom-2 right-2 flex items-end align-baseline">
 					<button aria-label="like skin" className="h-8 w-8">
 						<HeartIcon className="text-red-500" />
 					</button>
 					<Menu as="div" className="relative ml-3">
 						<div>
 							<Menu.Button
-								className="flex items-center text-sm h-8 w-8"
+								className="flex h-8 w-8 items-center text-sm"
 								aria-label="show options"
 								aria-haspopup="listbox"
 							>
@@ -49,7 +70,7 @@ function SkinCard({ description }) {
 								<Menu.Item>
 									<span
 										className={
-											"flex flex-row align-baseline h-8 p-1 gap-2 text-slate-800 text-sm px-2 hover:bg-slate-200"
+											"flex h-8 cursor-pointer flex-row gap-2 p-1 px-2 align-baseline text-sm text-slate-800 hover:bg-slate-200"
 										}
 									>
 										<DocumentArrowDownIcon className="" />
@@ -60,7 +81,7 @@ function SkinCard({ description }) {
 									<a
 										href={"https://google.com"}
 										className={
-											"flex flex-row align-baseline h-8 p-1 gap-2 text-slate-800 text-sm px-2 hover:bg-slate-200"
+											"flex h-8 flex-row gap-2 p-1 px-2 align-baseline text-sm text-slate-800 hover:bg-slate-200"
 										}
 									>
 										<FolderArrowDownIcon className="" />
@@ -71,7 +92,7 @@ function SkinCard({ description }) {
 									<a
 										href={"https://drive.google.com"}
 										className={
-											"flex flex-row align-baseline h-8 p-1 gap-2 text-slate-800 text-sm px-2 hover:bg-slate-200"
+											"flex h-8 flex-row gap-2 p-1 px-2 align-baseline text-sm text-slate-800 hover:bg-slate-200"
 										}
 									>
 										<FolderArrowDownIcon className="" />
