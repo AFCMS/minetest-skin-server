@@ -3,5 +3,5 @@
 }
 
 .panel-text-link {
-	@apply font-medium text-blue-500 after:content-['_↗'];
+	@apply font-medium text-blue-500 after:content-["_↗"];
 }
