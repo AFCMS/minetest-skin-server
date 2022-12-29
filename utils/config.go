@@ -12,11 +12,17 @@ func rEnv(key string) string {
 }
 
 var (
+	ConfigUseSQLite      bool
+	ConfigDebugDatabase  bool
 	ConfigJWTSecret      []byte
 	ConfigOptipngEnabled bool
 )
 
 func loadConfig() {
+	ConfigUseSQLite = rEnv("USE_SQLITE") == "true"
+
+	ConfigDebugDatabase = rEnv("DEBUG_DATABASE") == "true"
+
 	ConfigJWTSecret = []byte(rEnv("JWT_SECRET"))
 
 	ConfigOptipngEnabled = rEnv("ENABLE_OPTIPNG") == "true"

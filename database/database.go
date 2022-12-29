@@ -2,9 +2,8 @@ package database
 
 import (
 	"log"
-	"os"
-
 	"minetest-skin-server/models"
+	"minetest-skin-server/utils"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -13,12 +12,16 @@ import (
 
 var DB *gorm.DB
 
-var debug = os.Getenv("MSS_DEBUG") == "true"
-
 func ConnectDB() {
+	// Allow error logging only if debug enabled
+	var dblogger logger.Interface = logger.Default.LogMode(logger.Silent)
+	if utils.ConfigDebugDatabase {
+		dblogger = logger.Default
+	}
+
 	var err error
 	DB, err = gorm.Open(sqlite.Open("database.db"), &gorm.Config{
-		Logger: logger.Default,
+		Logger: dblogger,
 	})
 	//dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
 	//DB, err := gorm.Open(postgres.Open(fmt.Sprintf("host=localhost user=%s password=%s dbname=%s port=%d", os.Getenv("POSTGRES_USER"), os.Getenv("POSTGRES_PASSWORD"), os.Getenv("POSTGRES_DB"), 5432)), &gorm.Config{
@@ -29,8 +32,8 @@ func ConnectDB() {
 		log.Fatalln("Failed to connect database")
 	}
 
-	if res := DB.Exec("PRAGMA foreign_keys = ON", nil); res.Error != nil {
-		log.Fatalln(res.Error)
+	if err := DB.Exec("PRAGMA foreign_keys = ON", nil).Error; err != nil {
+		log.Fatalln(err)
 	}
 
 	//defer DB.Close()
