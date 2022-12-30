@@ -8,6 +8,7 @@ import (
 	"minetest-skin-server/utils"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	flogger "github.com/gofiber/fiber/v2/middleware/logger"
 )
 
@@ -32,6 +33,10 @@ func main() {
 		AppName: "Minetest Skin Server",
 	})
 
+	// Enable CORS
+	app.Use(cors.New())
+
+	// Log requests
 	app.Use(flogger.New())
 
 	routes.SetupRoutes(app)
