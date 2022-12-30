@@ -11,13 +11,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: 1.19
-
       - name: Set up NodeJS
         uses: actions/setup-node@v3
         with:
@@ -28,20 +21,17 @@ jobs:
           npm install -g newman
           npm install -g newman-reporter-htmlextra
 
-      - name: Install NodeJS Dependencies
-        run: |
-          cd frontend
-          npm install --include=dev
+      - uses: actions/checkout@v3
 
-      - name: Build Frontend
-        run: |
-          cd frontend
-          npm run build
+      - name: Docker Compose Action
+        uses: isbang/compose-action@v1.4.1
 
-      - name: Install Go Dependencies
+      - name: Run Newman
         run: |
-          go get -d -v
-
-      - name: Build Go
-        run: |
-          go build -v ./...
+          newman run ./postman/Minetest Skin Server_30e29402-3ae4-4cad-ba2e-150af06d3912.json -r htmlextra --reporter-htmlextra-export ./postman/report.html
+      
+      - name: Upload report
+        uses: actions/upload-artifact@v2
+        with:
+          name: report
+          path: ./postman/report.html
