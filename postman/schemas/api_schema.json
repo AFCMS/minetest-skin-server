@@ -39,12 +39,58 @@
         }
       }
     },
-    "/api/register": {
+    "/api/account/register": {
       "post": {
         "description": "Register a new account",
          "responses": {
            "200": {
              "description": "Account successfully registered"
+           }
+         }
+      }
+    },
+    "/api/account/login": {
+      "post": {
+        "description": "Login to an account",
+         "responses": {
+           "200": {
+             "description": "Account successfully registered"
+           }
+         }
+      }
+    },
+    "/api/account/user": {
+      "get": {
+        "description": "Get infos for logged in account",
+         "responses": {
+           "200": {
+             "description": "Account successfully registered"
+           }
+         }
+      }
+    },
+    "/api/account/logout": {
+      "post": {
+        "description": "Logout of the accunt",
+         "responses": {
+           "200": {
+             "description": "Account successfully registered"
+           }
+         }
+      }
+    },
+    "/api/skin/create": {
+      "post": {
+        "description": "Create a new skin",
+         "responses": {
+           "500": {
+             "description": "Internal server error"
+           },
+           "400": {
+             "description": "Invalid request"
+           },
+           "200": {
+             "description": "Skin created"
            }
          }
       }
