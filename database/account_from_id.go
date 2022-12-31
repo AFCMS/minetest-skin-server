@@ -3,7 +3,7 @@ package database
 import "minetest-skin-server/models"
 
 // Get account from ID
-func AccountFromID(id int) (models.Account, error) {
+func AccountFromID(id uint) (models.Account, error) {
 	var a = models.Account{}
 
 	if err := DB.Where("id = ?", id).First(&a).Error; err != nil {
