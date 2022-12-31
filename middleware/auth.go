@@ -10,6 +10,9 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
+// Check if the user is authenticated
+//
+// Put the database entry for the user in locals
 func AuthHandler() fiber.Handler {
 	return jwtware.New(jwtware.Config{
 		//Claims: jwt.RegisteredClaims{},
