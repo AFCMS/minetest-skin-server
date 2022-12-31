@@ -2,16 +2,16 @@ package models
 
 import (
 	"time"
-
-	"gorm.io/gorm"
 )
 
 type Account struct {
-	gorm.Model
-	ID              int    `json:"id" gorm:"primarykey"`
-	Name            string `json:"name" gorm:"not null;unique"`
-	Password        []byte `gorm:"not null"`
-	Email           string `gorm:"not null;unique"`
-	PermissionLevel int8   `gorm:"default:1"`
-	LastConnection  time.Time
+	ID              uint      `json:"id" gorm:"primarykey"`
+	Name            string    `json:"name" gorm:"not null;unique"`
+	Password        []byte    `json:"-" gorm:"not null"`
+	Email           string    `json:"email" gorm:"not null;unique"`
+	PermissionLevel int8      `json:"permission_level" gorm:"default:1"`
+	Banned          bool      `json:"banned" gorm:"default:false"`
+	BanReason       string    `json:"ban_reason" gorm:"default:"`
+	CreatedAt       time.Time `json:"created_at"`
+	LastConnection  time.Time `json:"last_connection"`
 }
