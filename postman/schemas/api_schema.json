@@ -15,6 +15,35 @@
       "description": "Production server"
     }
   ],
+  "components": {
+    "schemas": {
+      "skin": {
+        "type": ["object"],
+        "description": "Structure representing a skin",
+        "properties": {
+          "uuid": {
+            "type": ["string"],
+            "description": "UUID of the created skin"
+          },
+          "description": {
+            "type": ["string"]
+          },
+          "public": {
+            "type": ["boolean"]
+          },
+          "approved": {
+            "type": ["boolean"]
+          },
+          "owner_id": {
+            "type": ["integer"]
+          },
+          "creation_date": {
+            "type": ["string"]
+          }
+        }
+      }
+    }
+  },
   "paths": {
     "/api/info": {
       "get": {
@@ -42,57 +71,87 @@
     "/api/account/register": {
       "post": {
         "description": "Register a new account",
-         "responses": {
-           "200": {
-             "description": "Account successfully registered"
-           }
-         }
+        "responses": {
+          "200": {
+            "description": "Account successfully registered"
+          }
+        }
       }
     },
     "/api/account/login": {
       "post": {
         "description": "Login to an account",
-         "responses": {
-           "200": {
-             "description": "Account successfully registered"
-           }
-         }
+        "responses": {
+          "200": {
+            "description": "Account successfully registered"
+          }
+        }
       }
     },
     "/api/account/user": {
       "get": {
         "description": "Get infos for logged in account",
-         "responses": {
-           "200": {
-             "description": "Account successfully registered"
-           }
-         }
+        "responses": {
+          "200": {
+            "description": "Account successfully registered"
+          }
+        }
       }
     },
     "/api/account/logout": {
       "post": {
         "description": "Logout of the accunt",
-         "responses": {
-           "200": {
-             "description": "Account successfully registered"
-           }
-         }
+        "responses": {
+          "200": {
+            "description": "Account successfully registered"
+          }
+        }
       }
     },
     "/api/skin/create": {
       "post": {
         "description": "Create a new skin",
-         "responses": {
-           "500": {
-             "description": "Internal server error"
-           },
-           "400": {
-             "description": "Invalid request"
-           },
-           "200": {
-             "description": "Skin created"
-           }
-         }
+        "responses": {
+          "500": {
+            "description": "Internal server error"
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "200": {
+            "description": "Skin created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/skin"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/skin/recent": {
+      "get": {
+        "description": "Return recently uploaded public skins",
+        "responses": {
+          "200": {
+            "description": "Sucess",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": ["array"],
+                  "items": {
+                    "$ref": "#/components/schemas/skin"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error while fetching database"
+          }
+        }
       }
     }
   }
