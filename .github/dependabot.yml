@@ -19,3 +19,7 @@ updates:
       interval: "daily"
     assignees:
       - "AFCMS"
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "daily"
