@@ -56,25 +56,29 @@ func SkinCreate(c *fiber.Ctx) error {
 	}
 	head_b := head_buffer.Bytes()
 
-	// Run OptiPNG
+	var skin_b_opti = skin_b
+	var head_b_opti = head_b
 
-	//skin_b_opti, err := utils.OptiPNGBytes(skin_b)
-	//if err != nil {
-	//	return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error on create request", "data": "Cannot obtimize image"})
-	//}
+	// Optionally run OptiPNG
+	if utils.ConfigOptipngEnabled {
+		skin_b_opti, err = utils.OptiPNGBytes(skin_b)
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error on create request", "data": "Cannot obtimize image"})
+		}
 
-	//head_b_opti, err := utils.OptiPNGBytes(head_b)
-	//if err != nil {
-	//	return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error on create request", "data": "Cannot obtimize image"})
-	//}
+		head_b_opti, err = utils.OptiPNGBytes(head_b)
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error on create request", "data": "Cannot obtimize image"})
+		}
+	}
 
 	// Create entry in database
 	var l = models.Skin{
 		Description: input.Description,
 		Public:      input.Public,
 		Owner:       user,
-		Data:        skin_b,
-		DataHead:    head_b,
+		Data:        skin_b_opti,
+		DataHead:    head_b_opti,
 		CreatedAt:   time.Now(),
 	}
 
