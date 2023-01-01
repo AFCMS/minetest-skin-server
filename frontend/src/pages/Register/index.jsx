@@ -1,7 +1,16 @@
+import { Navigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { AuthStateIsAuthenticated } from "../../states/auth";
+
 function Register() {
+	// Navigate to homepage if already authenticated
+	if (useRecoilValue(AuthStateIsAuthenticated)) {
+		return <Navigate to="/" />;
+	}
+
 	return (
-		<div className="justify-center align-middle flex">
-			<div className="flex flex-col max-w-md p-6 gap-4 m-10 app-pannel">
+		<div className="flex justify-center align-middle">
+			<div className="app-pannel m-10 flex max-w-md flex-col gap-4 p-6">
 				<h1 className="panel-text-heading">Register</h1>
 				<label className="block">
 					<span className="text-slate-800">Username</span>
@@ -19,7 +28,7 @@ function Register() {
 						type="email"
 						name="email"
 						id="email"
-						placeholder="Ex: someone@gmail.com"
+						placeholder="someone@gmail.com"
 						className="form"
 					/>
 				</label>
@@ -34,7 +43,7 @@ function Register() {
 					/>
 				</label>
 
-				<div className="align-baseline mt-2">
+				<div className="mt-2 align-baseline">
 					<input
 						type="checkbox"
 						name="understand"
@@ -42,11 +51,14 @@ function Register() {
 						className="form-checkbox"
 						defaultChecked={false}
 					/>
-					<span className="ml-2 text-slate-800 text-sm">
+					<label
+						htmlFor="understand"
+						className="ml-2 text-sm text-slate-800"
+					>
 						I aggree to the TOS
-					</span>
+					</label>
 				</div>
-				<button className="button-primary w-full mt-2">Register</button>
+				<button className="button-primary mt-2 w-full">Register</button>
 			</div>
 		</div>
 	);
