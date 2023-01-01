@@ -7,10 +7,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func rEnv(key string) string {
-	return os.Getenv(key)
-}
-
 var (
 	ConfigUseSQLite      bool
 	ConfigDebugDatabase  bool
@@ -19,13 +15,36 @@ var (
 )
 
 func loadConfig() {
-	ConfigUseSQLite = rEnv("USE_SQLITE") == "true"
+	var str string
+	var is_present bool
 
-	ConfigDebugDatabase = rEnv("DEBUG_DATABASE") == "true"
+	str, is_present = os.LookupEnv("USE_SQLITE")
+	if is_present {
+		ConfigUseSQLite = str == "true"
+	} else {
+		ConfigUseSQLite = false
+	}
 
-	ConfigJWTSecret = []byte(rEnv("JWT_SECRET"))
+	str, is_present = os.LookupEnv("DEBUG_DATABASE")
+	if is_present {
+		ConfigDebugDatabase = str == "true"
+	} else {
+		ConfigDebugDatabase = false
+	}
 
-	ConfigOptipngEnabled = rEnv("ENABLE_OPTIPNG") == "true"
+	str, is_present = os.LookupEnv("JWT_SECRET")
+	if is_present {
+		ConfigJWTSecret = []byte(str)
+	} else {
+		log.Panicln("No JWT secret configured!")
+	}
+
+	str, is_present = os.LookupEnv("ENABLE_OPTIPNG")
+	if is_present {
+		ConfigOptipngEnabled = str == "true"
+	} else {
+		ConfigOptipngEnabled = true
+	}
 }
 
 func init() {
