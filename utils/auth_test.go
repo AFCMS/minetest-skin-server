@@ -10,8 +10,9 @@ var TestIsValidEmailCases = []struct {
 	result bool
 }{
 	{"people[at]gmail.com", false},
-	//{"people@gmail", false},
+	{"people@gmail", true},
 	{"people@gmail.com", true},
+	{"randomstring", false},
 }
 
 func TestIsValidEmail(t *testing.T) {

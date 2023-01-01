@@ -11,8 +11,6 @@ func CheckPasswordHash(password, hash string) bool {
 	return err == nil
 }
 
-// TODO: use a regexp instead of mail.ParseAddress
-
 func IsValidEmail(email string) bool {
 	m, err := mail.ParseAddress(email)
 	return err == nil && m.Name == ""
