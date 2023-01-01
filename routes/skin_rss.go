@@ -4,13 +4,27 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func SkinRSS(c *fiber.Ctx) error {
-	c.Type("application/rss+xml")
+type entryDetails struct {
+	Language string `xml:"language"`
+	Title    string `xml:"title"`
+}
 
-	return c.XML(fiber.Map{
-		"note": fiber.Map{
-			"language": "en",
-			"title":    "Some event",
+type entry struct {
+	Note entryDetails `xml:"note"`
+}
+
+func SkinRSS(c *fiber.Ctx) error {
+	err := c.XML(entry{
+		Note: entryDetails{
+			Language: "en",
+			Title:    "Test",
 		},
 	})
+
+	if err != nil {
+		return err
+	}
+
+	c.Type("application/rss+xml")
+	return nil
 }
