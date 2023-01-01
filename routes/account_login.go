@@ -30,6 +30,10 @@ func AccountLogin(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"message": "User not found"})
 	}
 
+	if user.Banned {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "User is banned", "reason": user.BanReason})
+	}
+
 	if err := bcrypt.CompareHashAndPassword(user.Password, []byte(input.Password)); err != nil {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "Incorrect password"})
 	}
