@@ -37,7 +37,7 @@ func AccountLogin(c *fiber.Ctx) error {
 	// Create JWT token
 
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.RegisteredClaims{
-		Issuer:    strconv.Itoa(user.ID),
+		Issuer:    strconv.FormatUint(uint64(user.ID), 10),
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 24)), // 1 day
 	})
 
