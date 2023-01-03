@@ -35,7 +35,7 @@ jobs:
           newman run "./postman/collections/Minetest Skin Server_30e29402-3ae4-4cad-ba2e-150af06d3912.json" -r htmlextra --reporter-htmlextra-export ./postman/report.html
 
       - name: Upload report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: report
           path: ./postman/report.html
