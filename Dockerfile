@@ -1,9 +1,11 @@
 # Build Backend
 FROM golang:1.19-alpine3.17 as builder
 
-LABEL appuser="Minetest Skin Server"
-LABEL author="AFCM <afcm.contact@gmail.com>"
-LABEL description="Skin server for the Minetest engine"
+LABEL org.opencontainers.image.title="Minetest Skin Server"
+LABEL org.opencontainers.image.description="Skin server for the Minetest engine"
+LABEL org.opencontainers.image.authors="AFCM <afcm.contact@gmail.com>"
+LABEL org.opencontainers.image.licenses="GPL-3.0-or-later"
+LABEL org.opencontainers.image.source="https://github.com/AFCMS/minetest-skin-server"
 
 RUN mkdir /build
 COPY . /build
