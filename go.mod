@@ -9,7 +9,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/joho/godotenv v1.4.0
 	golang.org/x/crypto v0.4.0
-	gorm.io/driver/sqlite v1.4.3
+	gorm.io/driver/sqlite v1.4.4
 )
 
 require github.com/mattn/go-sqlite3 v1.14.16 // indirect
@@ -27,5 +27,5 @@ require (
 	github.com/valyala/fasthttp v1.43.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	golang.org/x/sys v0.3.0 // indirect
-	gorm.io/gorm v1.24.2
+	gorm.io/gorm v1.24.3
 )
