@@ -12,6 +12,7 @@ services:
       - db:/var/lib/postgresql/data
 
   server:
+    image: "ghcr.io/afcms/minetest-skin-server:master"
     build: .
     env_file:
       - .env
