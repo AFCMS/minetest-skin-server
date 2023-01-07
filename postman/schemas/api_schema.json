@@ -59,6 +59,14 @@
                     "version": {
                       "description": "Version of the server",
                       "type": "string"
+                    },
+                    "account_count": {
+                      "description": "Number of accounts registered",
+                      "type": "integer"
+                    },
+                    "skin_count": {
+                      "description": "Number of skins created",
+                      "type": "integer"
                     }
                   }
                 }
