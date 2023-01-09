@@ -15,7 +15,7 @@ ENV CGO_ENABLED=1
 RUN go build -o minetest-skin-server .
 
 # Build Frontend
-FROM node:16 as frontend-builder
+FROM node:18 as frontend-builder
 RUN mkdir /build
 COPY ./frontend /frontend
 WORKDIR /frontend
