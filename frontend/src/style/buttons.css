@@ -3,18 +3,18 @@
 }
 
 .button-primary {
-	@apply button bg-blue-500 text-slate-50;
+	@apply button bg-blue-500 text-slate-50 hover:bg-blue-600;
 }
 
 .button-secondary {
-	@apply button bg-slate-50 text-blue-600;
+	@apply button bg-slate-200 text-blue-600 hover:bg-slate-300;
 }
 
 .button-tertiary {
-	@apply button;
+	@apply button text-blue-600;
 }
 
 .button-navbar {
-	@apply button px-4 py-1 text-base font-medium text-slate-300
-	hover:bg-slate-800 hover:text-white active:bg-slate-900 active:text-white;
+	@apply button px-4 py-1 text-base font-medium text-slate-200
+	hover:bg-slate-700 hover:text-white active:bg-slate-900 active:text-white;
 }
