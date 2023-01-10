@@ -5,7 +5,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.7",
     "@heroicons/react": "^2.0.13",
-    "@react-three/drei": "^9.51.22",
+    "@react-three/drei": "^9.51.23",
     "@react-three/fiber": "^8.10.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
