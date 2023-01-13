@@ -28,7 +28,8 @@ The frontend is build with the [**React**](https://reactjs.org) library and the 
 
 ### Production
 
-> 🛈 Publishing pre-build images on GitHub container registery is planned
+> **Note**
+> Publishing pre-build images on GitHub container registery is planned
 
 1. Install `docker` and `docker-compose`
 
@@ -116,7 +117,8 @@ cp exemple.env .env
 
 Edit the `.env` file with the config you want.
 
-> ⚠ If you don't want to setup a PostgreSQL database, you can use SQLite instead
+> **Warning**
+> If you don't want to setup a PostgreSQL database, you can use SQLite instead
 >
 > It will use a `database.db` file created at the root directory of the app
 
@@ -142,7 +144,8 @@ This can be done like this:
 cd frontend && npm run build && cd ..
 ```
 
-> 🛈 You can run the frontend in development mode on another port with `npm start` while the backend is running, it will still use the backend's API
+> **Note**
+> You can run the frontend in development mode on another port with `npm start` while the backend is running, it will still use the backend's API
 
 8. Build and run backend
 
