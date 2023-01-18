@@ -10,7 +10,7 @@ LABEL org.opencontainers.image.source="https://github.com/AFCMS/minetest-skin-se
 RUN mkdir /build
 COPY . /build
 WORKDIR /build
-RUN apk add --no-cache git=2.38.2-r0 make=4.3-r1 build-base=0.5-r3
+RUN apk add --no-cache git=2.38.3-r1 make=4.3-r1 build-base=0.5-r3
 ENV CGO_ENABLED=1
 RUN go build -o minetest-skin-server .
 
