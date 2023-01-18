@@ -28,9 +28,6 @@ The frontend is build with the [**React**](https://reactjs.org) library and the 
 
 ### Production
 
-> **Note**
-> Publishing pre-build images on GitHub container registery is planned
-
 1. Install `docker` and `docker-compose`
 
 Under Debian/Ubuntu:
@@ -70,6 +67,14 @@ POSTGRES_USER=admin
 ```sh
 docker-compose up --build
 ```
+
+> **Note** In case you do not want to build the image yourself, you can use the one present on the GitHub registery.
+>
+> ```py
+> docker pull ghcr.io/afcms/minetest-skin-server:master
+> ```
+>
+> You will be able to use it just by removing the `--build` flag from the docker-compose command line.
 
 ### Development
 
