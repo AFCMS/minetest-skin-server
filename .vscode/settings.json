@@ -4,5 +4,5 @@
 	"todo-tree.filtering.excludedWorkspaces": ["frontend/node_modules"],
 	"files.associations": {
 		"*.css": "tailwindcss"
-	},
+	}
 }
