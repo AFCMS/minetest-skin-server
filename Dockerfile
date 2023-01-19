@@ -25,8 +25,8 @@ RUN npm install --include=dev && npm run build
 FROM alpine:3.17 as production
 RUN apk update && apk add --no-cache optipng=0.7.7-r1
 COPY --from=builder /build/minetest-skin-server /
-RUN mkdir -p /frontend/build
-COPY --from=frontend-builder /frontend/build /frontend/build
+RUN mkdir -p /frontend/dist
+COPY --from=frontend-builder /frontend/dist /frontend/dist
 
 EXPOSE 8080
 CMD ["./minetest-skin-server"]

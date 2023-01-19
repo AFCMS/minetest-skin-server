@@ -12,22 +12,22 @@ const user = {
 	imageUrl:
 		"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
-const navigation = [
+const navigation: { name: string; href: string }[] = [
 	{ name: "Home", href: "/" },
 	{ name: "Search", href: "/search" },
 	{ name: "About", href: "/about" },
 ];
-const userNavigation = [
+const userNavigation: { name: string; href: string }[] = [
 	{ name: "Your Profile", href: "#" },
 	{ name: "Settings", href: "#" },
 	{ name: "Sign out", href: "#" },
 ];
 
-function classNames(...classes) {
+function classNames(...classes: any[]) {
 	return classes.filter(Boolean).join(" ");
 }
 
-function Header() {
+function Header(): JSX.Element {
 	const isAuthenticated = useRecoilValue(AuthStateIsAuthenticated);
 
 	return (
@@ -52,7 +52,11 @@ function Header() {
 													<NavLink
 														key={item.name}
 														to={item.href}
-														className="button-navbar"
+														className={(props) => {
+															return props.isActive
+																? "button-navbar-active"
+																: "button-navbar";
+														}}
 													>
 														{item.name}
 													</NavLink>
@@ -114,12 +118,11 @@ function Header() {
 																				href={
 																					item.href
 																				}
-																				className={classNames(
+																				className={`${
 																					active
 																						? "bg-slate-200"
-																						: "",
-																					"block px-4 py-2 text-sm text-gray-700"
-																				)}
+																						: ""
+																				} block px-4 py-2 text-sm text-gray-700`}
 																			>
 																				{
 																					item.name
@@ -177,21 +180,18 @@ function Header() {
 									{navigation.map((item) => (
 										<Disclosure.Button
 											key={item.name}
-											as="a"
-											href={item.href}
-											className={classNames(
-												item.current
-													? "bg-gray-900 text-white"
-													: "text-gray-300 hover:bg-gray-700 hover:text-white",
-												"block rounded-md px-3 py-2 text-base font-medium"
-											)}
-											aria-current={
-												item.current
-													? "page"
-													: undefined
-											}
+											as="div"
 										>
-											{item.name}
+											<NavLink
+												to={item.href}
+												className={(props) => {
+													return props.isActive
+														? "block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+														: "block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white";
+												}}
+											>
+												{item.name}
+											</NavLink>
 										</Disclosure.Button>
 									))}
 								</div>

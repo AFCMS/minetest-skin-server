@@ -2,6 +2,7 @@ import isDev from "./is_dev";
 
 const prefix = isDev() ? "http://localhost:8080" : "";
 
+// Contains the API URLs
 const ApiUrls = {
 	Info: prefix + "/api/info",
 	AccountLogin: prefix + "/api/account/login",

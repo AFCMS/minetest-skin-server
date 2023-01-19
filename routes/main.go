@@ -49,6 +49,6 @@ func SetupRoutes(app *fiber.App) {
 	api.All("/*", NotFound)
 
 	// Serve the React frontend
-	app.Static("/", "./frontend/build")
-	app.Static("*", "./frontend/build/index.html")
+	app.Static("/", "./frontend/dist")
+	app.Static("*", "./frontend/dist/index.html")
 }
