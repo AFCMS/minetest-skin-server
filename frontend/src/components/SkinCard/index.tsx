@@ -9,14 +9,12 @@ import { Menu, Transition } from "@headlessui/react";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
 import { Fragment } from "react";
-import PropTypes from "prop-types";
 import SkinModel from "../SkinModel";
 
 /**
  * Represent a skin to be displayed in a grid.
- * @param {{description: string}} param0
  */
-function SkinCard({ description }) {
+function SkinCard(props: { description: string }): JSX.Element {
 	return (
 		<div className="h-72 w-56 rounded border bg-blue-100 shadow shadow-slate-500">
 			<div className="h-3/4">
@@ -33,7 +31,7 @@ function SkinCard({ description }) {
 			</div>
 			<div className="relative h-1/4 border-t border-t-slate-500 px-4 py-2">
 				<h2 className="text-clip text-lg font-bold text-slate-800">
-					{description}
+					{props.description}
 				</h2>
 				<h3 className="text-slate-800">by AFCM</h3>
 				<div className="absolute bottom-2 right-2 flex items-end align-baseline">
@@ -101,9 +99,5 @@ function SkinCard({ description }) {
 		</div>
 	);
 }
-
-SkinCard.propTypes = {
-	description: PropTypes.string.isRequired,
-};
 
 export default SkinCard;

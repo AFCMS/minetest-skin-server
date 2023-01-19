@@ -16,7 +16,7 @@ import "./style/pannel.css";
 
 function App() {
 	return (
-		<div className="bg-blue-200 min-h-screen">
+		<div className="min-h-screen bg-blue-200">
 			<BrowserRouter>
 				<Header />
 				<Routes>

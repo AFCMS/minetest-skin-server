@@ -16,5 +16,9 @@
 
 .button-navbar {
 	@apply button px-4 py-1 text-base font-medium text-slate-200
-	hover:bg-slate-700 hover:text-white active:bg-slate-900 active:text-white;
+	hover:bg-slate-700 hover:text-white;
+}
+
+.button-navbar-active {
+	@apply button bg-slate-800 px-4 py-1 text-base font-medium text-white;
 }
