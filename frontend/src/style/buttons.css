@@ -1,13 +1,13 @@
 .button {
-	@apply rounded-md px-3 py-2 text-base font-medium;
+	@apply rounded-md px-3 py-2 text-base font-medium disabled:cursor-not-allowed;
 }
 
 .button-primary {
-	@apply button bg-blue-500 text-slate-50 hover:bg-blue-600;
+	@apply button bg-blue-500 text-slate-50 hover:bg-blue-600 disabled:bg-blue-400;
 }
 
 .button-secondary {
-	@apply button bg-slate-200 text-blue-600 hover:bg-slate-300;
+	@apply button bg-blue-100 text-blue-600 hover:bg-blue-200;
 }
 
 .button-tertiary {
