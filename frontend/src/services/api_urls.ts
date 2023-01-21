@@ -9,6 +9,7 @@ const ApiUrls = {
 	AccountLogout: prefix + "/api/account/logout",
 	AccountRegister: prefix + "/api/account/register",
 	AccountUser: prefix + "/api/account/user",
+	Skin: prefix + "/api/skin/skin/", // +uuid
 	SkinList: prefix + "/api/skin/list",
 	SkinCreate: prefix + "/api/skin/create",
 	SkinRecent: prefix + "/api/skin/recent",
