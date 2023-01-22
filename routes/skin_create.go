@@ -7,6 +7,7 @@ import (
 	"minetest-skin-server/models"
 	"minetest-skin-server/types"
 	"minetest-skin-server/utils"
+	"sync"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -60,16 +61,37 @@ func SkinCreate(c *fiber.Ctx) error {
 	var head_b_opti = head_b
 
 	// Optionally run OptiPNG
+	// TODO: Run them async to get them done faster
+	// https://stackoverflow.com/questions/27792389/golang-functions-parallel-execution-with-return
 	if utils.ConfigOptipngEnabled {
-		skin_b_opti, err = utils.OptiPNGBytes(skin_b)
-		if err != nil {
+		var out_1 []byte
+		var err_1 error
+
+		var out_2 []byte
+		var err_2 error
+
+		var sg sync.WaitGroup
+
+		sg.Add(2)
+
+		go func(out *[]byte, err *error, sg *sync.WaitGroup) {
+			*out, *err = utils.OptiPNGBytes(skin_b)
+			sg.Done()
+		}(&out_1, &err_1, &sg)
+
+		go func(out *[]byte, err *error, sg *sync.WaitGroup) {
+			*out, *err = utils.OptiPNGBytes(head_b)
+			sg.Done()
+		}(&out_2, &err_2, &sg)
+
+		sg.Wait()
+
+		if err_1 != nil || err_2 != nil {
 			return c.Status(fiber.StatusInternalServerError).JSON(utils.ErrorOutput{Message: "Server error", Data: "Cannot obtimize image"})
 		}
 
-		head_b_opti, err = utils.OptiPNGBytes(head_b)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).JSON(utils.ErrorOutput{Message: "Server error", Data: "Cannot obtimize image"})
-		}
+		skin_b_opti = out_1
+		head_b_opti = out_2
 	}
 
 	// Create entry in database
