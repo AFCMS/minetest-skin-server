@@ -55,20 +55,20 @@
             ]
           }
         }
-      }
-    },
-    "error": {
-      "type": "object",
-      "description": "A failed request",
-      "properties": {
-        "message": {
-          "type": "string"
-        },
-        "data": {
-          "type": "string"
-        },
-        "reason": {
-          "type": "string"
+      },
+      "error": {
+        "type": "object",
+        "description": "A failed request",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
         }
       }
     }
