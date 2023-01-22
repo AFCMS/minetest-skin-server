@@ -67,9 +67,9 @@
         "data": {
           "type": "string"
         },
-		"reason": {
-		  "type": "string"
-		}
+        "reason": {
+          "type": "string"
+        }
       }
     }
   },
@@ -150,10 +150,24 @@
         "description": "Create a new skin",
         "responses": {
           "500": {
-            "description": "Internal server error"
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Invalid request"
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
           },
           "200": {
             "description": "Skin created",
