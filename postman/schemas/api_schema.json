@@ -18,29 +18,58 @@
   "components": {
     "schemas": {
       "skin": {
-        "type": ["object"],
+        "type": [
+          "object"
+        ],
         "description": "Structure representing a skin",
         "properties": {
           "uuid": {
-            "type": ["string"],
+            "type": [
+              "string"
+            ],
             "description": "UUID of the created skin"
           },
           "description": {
-            "type": ["string"]
+            "type": [
+              "string"
+            ]
           },
           "public": {
-            "type": ["boolean"]
+            "type": [
+              "boolean"
+            ]
           },
           "approved": {
-            "type": ["boolean"]
+            "type": [
+              "boolean"
+            ]
           },
           "owner_id": {
-            "type": ["integer"]
+            "type": [
+              "integer"
+            ]
           },
           "creation_date": {
-            "type": ["string"]
+            "type": [
+              "string"
+            ]
           }
         }
+      }
+    },
+    "error": {
+      "type": "object",
+      "description": "A failed request",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+		"reason": {
+		  "type": "string"
+		}
       }
     }
   },
@@ -148,7 +177,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": ["array"],
+                  "type": [
+                    "array"
+                  ],
                   "items": {
                     "$ref": "#/components/schemas/skin"
                   }

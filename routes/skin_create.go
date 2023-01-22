@@ -23,7 +23,7 @@ func SkinCreate(c *fiber.Ctx) error {
 
 	// Get the text fields
 	if err := c.BodyParser(&input); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on create request", "data": err})
+		return c.Status(fiber.StatusBadRequest).JSON(utils.ErrorOutput{Message: "Invalid request body", Data: err.Error()})
 	}
 
 	// Get file part
@@ -36,14 +36,14 @@ func SkinCreate(c *fiber.Ctx) error {
 	// Decode image
 	img, err := png.Decode(bytes.NewReader(skin_b))
 	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on create request", "data": err})
+		return c.Status(fiber.StatusBadRequest).JSON(utils.ErrorOutput{Message: "Cannot decode skin", Data: err.Error()})
 	}
 
 	// Validate image size
 	bounds := img.Bounds()
 
 	if bounds.Max.X != 64 || bounds.Max.Y != 32 {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on create request", "data": "Image have invalid size (64x32 expected)"})
+		return c.Status(fiber.StatusBadRequest).JSON(utils.ErrorOutput{Message: "Invalid skin", Data: "Image have invalid size (64x32 expected)"})
 	}
 
 	// Extract head
@@ -52,7 +52,7 @@ func SkinCreate(c *fiber.Ctx) error {
 	head_img := utils.SkinExtractHead(img)
 	err = png.Encode(&head_buffer, head_img)
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error on create request", "data": "Cannot extract head from image"})
+		return c.Status(fiber.StatusInternalServerError).JSON(utils.ErrorOutput{Message: "Server error", Data: "Cannot extract head from image"})
 	}
 	head_b := head_buffer.Bytes()
 
@@ -63,12 +63,12 @@ func SkinCreate(c *fiber.Ctx) error {
 	if utils.ConfigOptipngEnabled {
 		skin_b_opti, err = utils.OptiPNGBytes(skin_b)
 		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error on create request", "data": "Cannot obtimize image"})
+			return c.Status(fiber.StatusInternalServerError).JSON(utils.ErrorOutput{Message: "Server error", Data: "Cannot obtimize image"})
 		}
 
 		head_b_opti, err = utils.OptiPNGBytes(head_b)
 		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error on create request", "data": "Cannot obtimize image"})
+			return c.Status(fiber.StatusInternalServerError).JSON(utils.ErrorOutput{Message: "Server error", Data: "Cannot obtimize image"})
 		}
 	}
 
@@ -83,7 +83,7 @@ func SkinCreate(c *fiber.Ctx) error {
 	}
 
 	if err := database.DB.Create(&l).Error; err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Cannot interact with database", "data": err})
+		return c.Status(fiber.StatusInternalServerError).JSON(utils.ErrorOutput{Message: "Cannot interact with database", Data: err.Error()})
 	}
 
 	return c.Status(fiber.StatusOK).JSON(l)
