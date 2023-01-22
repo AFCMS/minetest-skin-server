@@ -23,10 +23,6 @@ const userNavigation: { name: string; href: string }[] = [
 	{ name: "Sign out", href: "#" },
 ];
 
-function classNames(...classes: any[]) {
-	return classes.filter(Boolean).join(" ");
-}
-
 function Header(): JSX.Element {
 	const isAuthenticated = useRecoilValue(AuthStateIsAuthenticated);
 
