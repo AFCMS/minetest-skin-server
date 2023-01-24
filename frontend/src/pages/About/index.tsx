@@ -6,7 +6,6 @@ import {
 import isDev from "../../services/is_dev";
 
 function About() {
-	console.log("MODE: ", isDev());
 	return (
 		<div className="flex justify-center align-middle">
 			<div className=" container m-10 max-w-prose rounded bg-slate-50 p-8 shadow-md">
