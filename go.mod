@@ -27,5 +27,5 @@ require (
 	github.com/valyala/fasthttp v1.43.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	golang.org/x/sys v0.4.0 // indirect
-	gorm.io/gorm v1.24.3
+	gorm.io/gorm v1.24.4
 )
