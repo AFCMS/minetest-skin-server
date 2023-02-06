@@ -1,5 +1,5 @@
 # Build Backend
-FROM golang:1.19-alpine3.17 as builder
+FROM golang:1.20-alpine3.17 as builder
 
 LABEL org.opencontainers.image.title="Minetest Skin Server"
 LABEL org.opencontainers.image.description="Skin server for the Minetest engine"
