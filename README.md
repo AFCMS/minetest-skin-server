@@ -2,6 +2,9 @@
 
 ![GitHub Workflow Status](https://img.shields.io/github/checks-status/AFCMS/minetest-skin-server/master?style=flat-square)
 
+> ⚠️ This server is still in development and is not ready for production use.
+> Breaking changes may occur at any time.
+
 This server is made for serving Minetest skins to Minetest servers. It is licensed under GPLv3.
 
 -   ✅ Easy to use and powerful **API**
