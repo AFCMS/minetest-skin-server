@@ -31,7 +31,7 @@ The frontend is build with the [**React**](https://reactjs.org) library and the 
 
 ### Production
 
-1. Install `docker` and `docker-compose`
+#### 1. Install `docker` and `docker-compose`
 
 Under Debian/Ubuntu:
 
@@ -39,13 +39,13 @@ Under Debian/Ubuntu:
 sudo apt install docker docker-compose
 ```
 
-2. Download source code
+#### 2. Download source code
 
 ```sh
 git clone https://github.com/AFCMS/minetest-skin-server && cd minetest-skin-server
 ```
 
-3. Configure server
+#### 3. Configure server
 
 ```sh
 cp exemple.env .env
@@ -65,7 +65,7 @@ POSTGRES_PASSWORD=adminpassword
 POSTGRES_USER=admin
 ```
 
-4. Run service
+#### 4. Run service
 
 ```sh
 docker-compose up --build
@@ -83,13 +83,13 @@ docker-compose up --build
 
 It may be easier to not use docker while developing, both for frontend and backend development.
 
-1. Install Go and NodeJS
+#### 1. Install Go and NodeJS
 
 Follow the official guides for you OS.
 
 I recommend using NodeJS v16 installed using [**nvm**](https://github.com/nvm-sh/nvm) under linux.
 
-2. (Optional) Install OptiPNG
+#### 2. (Optional) Install OptiPNG
 
 If you want to enable OptiPNG, you need to install it.
 
@@ -99,25 +99,25 @@ On Ubuntu, it is as easy as:
 sudo apt install optipng
 ```
 
-3. Download source code
+#### 3. Download source code
 
 ```sh
 git clone https://github.com/AFCMS/minetest-skin-server && cd minetest-skin-server
 ```
 
-4. Install Go dependencies
+#### 4. Install Go dependencies
 
 ```sh
 go mod download
 ```
 
-5. Install NodeJS dependencies
+#### 5. Install NodeJS dependencies
 
 ```sh
 cd frontend && npm install --include=dev && cd ..
 ```
 
-6. Configure server
+#### 6. Configure server
 
 ```sh
 cp exemple.env .env
@@ -142,7 +142,7 @@ POSTGRES_PASSWORD=
 POSTGRES_USER=
 ```
 
-7. Build frontend
+#### 7. Build frontend
 
 The frontend served by the Fiber backend needs to be build before running the app.
 
@@ -155,7 +155,7 @@ cd frontend && npm run build && cd ..
 > **Note**
 > You can run the frontend in development mode on another port with `npm start` while the backend is running, it will still use the backend's API
 
-8. Build and run backend
+#### 8. Build and run backend
 
 ```sh
 go build && ./minetest-skin-server
