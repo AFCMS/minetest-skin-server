@@ -10,7 +10,7 @@ LABEL org.opencontainers.image.source="https://github.com/AFCMS/minetest-skin-se
 RUN mkdir /build
 COPY . /build
 WORKDIR /build
-RUN apk add --no-cache git=2.38.3-r1 make=4.3-r1 build-base=0.5-r3
+RUN apk add --no-cache git make build-base
 ENV CGO_ENABLED=1
 RUN go build -o minetest-skin-server .
 
@@ -23,7 +23,7 @@ RUN npm install --include=dev && npm run build
 
 # Production Image
 FROM alpine:3.17 as production
-RUN apk update && apk add --no-cache optipng=0.7.7-r1
+RUN apk update && apk add --no-cache optipng
 COPY --from=builder /build/minetest-skin-server /
 RUN mkdir -p /frontend/dist
 COPY --from=frontend-builder /frontend/dist /frontend/dist
