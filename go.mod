@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/gofiber/fiber/v2 v2.44.0
-	github.com/gofiber/jwt/v3 v3.3.7
+	github.com/gofiber/jwt/v3 v3.3.8
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.3.0
 	github.com/joho/godotenv v1.5.1
