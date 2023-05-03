@@ -68,7 +68,7 @@ POSTGRES_USER=admin
 #### 4. Run service
 
 ```sh
-docker-compose up --build
+docker compose up --build
 ```
 
 > **Note** In case you do not want to build the image yourself, you can use the one present on the GitHub registery.
