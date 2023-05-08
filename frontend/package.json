@@ -47,7 +47,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tsconfig/vite-react": "^1.0.1",
     "@types/node": "^18.15.11",
-    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.5",
     "@typescript-eslint/parser": "^5.59.2",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.14",
