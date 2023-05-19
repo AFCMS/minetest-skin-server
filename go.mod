@@ -3,7 +3,7 @@ module minetest-skin-server
 go 1.19
 
 require (
-	github.com/gofiber/fiber/v2 v2.45.0
+	github.com/gofiber/fiber/v2 v2.46.0
 	github.com/gofiber/jwt/v3 v3.3.9
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.3.0
