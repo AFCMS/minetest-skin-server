@@ -28,7 +28,7 @@ jobs:
           cp exemple.env .env
 
       - name: Docker Compose Action
-        uses: isbang/compose-action@v1.4.1
+        uses: isbang/compose-action@v1.5.0
 
       - name: Run Newman
         run: |
