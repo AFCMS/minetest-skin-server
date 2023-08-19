@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.16",
-    "@heroicons/react": "^2.0.17",
+    "@heroicons/react": "^2.0.18",
     "@react-three/drei": "^9.80.1",
     "@react-three/fiber": "^8.13.6",
     "@testing-library/jest-dom": "^6.0.1",
