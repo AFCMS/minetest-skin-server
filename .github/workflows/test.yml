@@ -21,7 +21,7 @@ jobs:
           npm install -g newman
           npm install -g newman-reporter-htmlextra
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Create Env File
         run: |
