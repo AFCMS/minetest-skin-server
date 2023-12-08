@@ -22,7 +22,7 @@ WORKDIR /frontend
 RUN npm install --include=dev && npm run build
 
 # Production Image
-FROM alpine:3.18 as production
+FROM alpine:3.19 as production
 RUN apk update && apk add --no-cache optipng
 COPY --from=builder /build/minetest-skin-server /
 RUN mkdir -p /frontend/dist
