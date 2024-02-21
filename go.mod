@@ -9,7 +9,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
 	golang.org/x/crypto v0.19.0
-	gorm.io/driver/sqlite v1.5.3
+	gorm.io/driver/sqlite v1.5.5
 )
 
 require github.com/mattn/go-sqlite3 v1.14.17 // indirect
