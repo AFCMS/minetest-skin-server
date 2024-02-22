@@ -2,7 +2,8 @@
 
 ![GitHub Workflow Status](https://img.shields.io/github/checks-status/AFCMS/minetest-skin-server/master?style=flat-square)
 
-> ⚠️ This server is still in development and is not ready for production use.
+> [!IMPORTANT]
+> This server is still in development and is not ready for production use.
 > Breaking changes may occur at any time.
 
 This server is made for serving Minetest skins to Minetest servers. It is licensed under GPLv3.
@@ -71,7 +72,8 @@ POSTGRES_USER=admin
 docker compose up --build
 ```
 
-> **Note** In case you do not want to build the image yourself, you can use the one present on the GitHub registery.
+> [!NOTE]
+> In case you do not want to build the image yourself, you can use the one present on the GitHub registery.
 >
 > ```py
 > docker pull ghcr.io/afcms/minetest-skin-server:master
@@ -125,7 +127,7 @@ cp exemple.env .env
 
 Edit the `.env` file with the config you want.
 
-> **Warning**
+> [!WARNING]
 > If you don't want to setup a PostgreSQL database, you can use SQLite instead
 >
 > It will use a `database.db` file created at the root directory of the app
@@ -152,7 +154,7 @@ This can be done like this:
 cd frontend && npm run build && cd ..
 ```
 
-> **Note**
+> [!NOTE]
 > You can run the frontend in development mode on another port with `npm start` while the backend is running, it will still use the backend's API
 
 #### 8. Build and run backend
