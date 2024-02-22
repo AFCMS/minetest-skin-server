@@ -1,0 +1,32 @@
+---
+version: "3"
+services:
+  db:
+    image: "postgres:16.2-alpine"
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - DATABASE_HOST=${DB_HOST}
+    expose:
+      - 5432
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  server:
+    build: .
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  db:

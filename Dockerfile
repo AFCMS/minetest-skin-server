@@ -1,5 +1,5 @@
 # Build Backend
-FROM golang:1.21.5-alpine3.17 as builder
+FROM --platform=$BUILDPLATFORM golang:1.21.5-alpine3.19 as builder
 
 LABEL org.opencontainers.image.title="Minetest Skin Server"
 LABEL org.opencontainers.image.description="Skin server for the Minetest engine"
@@ -7,24 +7,42 @@ LABEL org.opencontainers.image.authors="AFCM <afcm.contact@gmail.com>"
 LABEL org.opencontainers.image.licenses="GPL-3.0"
 LABEL org.opencontainers.image.source="https://github.com/AFCMS/minetest-skin-server"
 
-RUN mkdir /build
-COPY . /build
-WORKDIR /build
+ARG TARGETOS
+ARG TARGETARCH
+
+ENV GOCACHE=/root/.cache/go-build
+
+# Install build dependencies
 RUN apk add --no-cache git make build-base
-ENV CGO_ENABLED=1
-RUN go build -o minetest-skin-server .
+WORKDIR /app
+
+# Download Go modules
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . ./
+
+# Build Cache
+# https://dev.to/jacktt/20x-faster-golang-docker-builds-289n
+RUN --mount=type=cache,target="/root/.cache/go-build" CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o minetest-skin-server .
 
 # Build Frontend
-FROM node:18 as frontend-builder
-RUN mkdir /build
-COPY ./frontend /frontend
+FROM --platform=$BUILDPLATFORM node:20-alpine3.19 as frontend-builder
+
+RUN mkdir /frontend
 WORKDIR /frontend
-RUN npm install --include=dev && npm run build
+
+COPY ./frontend/package.json ./
+COPY ./frontend/package-lock.json ./
+RUN npm ci
+
+COPY ./frontend ./
+RUN npm run build
 
 # Production Image
 FROM alpine:3.19 as production
 RUN apk update && apk add --no-cache optipng
-COPY --from=builder /build/minetest-skin-server /
+COPY --from=builder /app/minetest-skin-server /
 RUN mkdir -p /frontend/dist
 COPY --from=frontend-builder /frontend/dist /frontend/dist
 
