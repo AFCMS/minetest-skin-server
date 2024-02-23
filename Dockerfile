@@ -1,5 +1,5 @@
 # Build Backend
-FROM --platform=$BUILDPLATFORM golang:1.21.5-alpine3.19 as builder
+FROM --platform=$BUILDPLATFORM golang:1.22.0-alpine3.19 as builder
 
 LABEL org.opencontainers.image.title="Minetest Skin Server"
 LABEL org.opencontainers.image.description="Skin server for the Minetest engine"
