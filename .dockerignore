@@ -1,1 +1,18 @@
 .git
+.github
+.vscode
+
+postman
+tools
+
+.editorconfig
+.gitignore
+.hadolint.yaml
+.luacheckrc
+.markdownlint.json
+.prettierrc
+LICENSE
+# Build output
+minetest-skin-server
+*.md
+.env
