@@ -44,7 +44,7 @@ Follow the official guide for your OS.
 > [!NOTE]
 > The installation links are from Docker Engine, which works only under Linux.
 >
-> Docker Desktop can be used on Windows, MacOS and Linux.
+> [Docker Desktop](https://www.docker.com/products/docker-desktop) can be used on Windows, MacOS and Linux.
 >
 > It runs a Linux VM in the background and isn't as performant as the native version, but it's easier to install and use.
 
@@ -103,7 +103,7 @@ I recommend using NodeJS v20 installed using [**nvm**](https://github.com/nvm-sh
 
 #### 2. (Optional) Install OptiPNG
 
-If you want to enable OptiPNG, you need to install it.
+If you want to enable [OptiPNG](https://optipng.sourceforge.net), you need to install it.
 
 On Ubuntu/Debian:
 
