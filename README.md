@@ -32,23 +32,31 @@ The frontend is build with the [**React**](https://reactjs.org) library and the 
 
 ### Production
 
-#### 1. Install `docker` and `docker-compose`
+#### 1. Install `docker`
 
-Under Debian/Ubuntu:
+Follow the official guide for your OS.
 
-```sh
-sudo apt install docker docker-compose
-```
+- [Ubuntu](https://docs.docker.com/engine/install/ubuntu)
+- [Debian](https://docs.docker.com/engine/install/debian)
+- [Fedora](https://docs.docker.com/engine/install/fedora)
+- [RHEL/CentOS](https://docs.docker.com/engine/install/centos)
+
+> [!NOTE]
+> The installation links are from Docker Engine, which works only under Linux.
+>
+> Docker Desktop can be used on Windows, MacOS and Linux.
+>
+> It runs a Linux VM in the background and isn't as performant as the native version, but it's easier to install and use.
 
 #### 2. Download source code
 
-```sh
+```shell
 git clone https://github.com/AFCMS/minetest-skin-server && cd minetest-skin-server
 ```
 
 #### 3. Configure server
 
-```sh
+```shell
 cp exemple.env .env
 ```
 
@@ -57,18 +65,20 @@ Edit the `.env` file with the config you want.
 A typical production config would be:
 
 ```ini
-USE_SQLITE=false
-DEBUG_DATABASE=false
 JWT_SECRET=secret
+DEBUG_DATABASE=false
 ENABLE_OPTIPNG=true
-POSTGRES_DB=skin_server
-POSTGRES_PASSWORD=adminpassword
-POSTGRES_USER=admin
+
+DB_HOST=db
+DB_USER=user
+DB_PASSWORD=azerty
+DB_PORT=5432
+DB_NAME=skin_server
 ```
 
 #### 4. Run service
 
-```sh
+```shell
 docker compose up --build
 ```
 
@@ -89,59 +99,62 @@ It may be easier to not use docker while developing, both for frontend and backe
 
 Follow the official guides for you OS.
 
-I recommend using NodeJS v16 installed using [**nvm**](https://github.com/nvm-sh/nvm) under linux.
+I recommend using NodeJS v20 installed using [**nvm**](https://github.com/nvm-sh/nvm) under linux.
 
 #### 2. (Optional) Install OptiPNG
 
 If you want to enable OptiPNG, you need to install it.
 
-On Ubuntu, it is as easy as:
+On Ubuntu/Debian:
 
-```sh
+```shell
 sudo apt install optipng
+```
+
+On Fedora/RHEL:
+
+```shell
+sudo dnf install optipng
 ```
 
 #### 3. Download source code
 
-```sh
+```shell
 git clone https://github.com/AFCMS/minetest-skin-server && cd minetest-skin-server
 ```
 
 #### 4. Install Go dependencies
 
-```sh
+```shell
 go mod download
 ```
 
 #### 5. Install NodeJS dependencies
 
-```sh
+```shell
 cd frontend && npm install --include=dev && cd ..
 ```
 
 #### 6. Configure server
 
-```sh
+```shell
 cp exemple.env .env
 ```
 
 Edit the `.env` file with the config you want.
 
-> [!WARNING]
-> If you don't want to setup a PostgreSQL database, you can use SQLite instead
->
-> It will use a `database.db` file created at the root directory of the app
-
 A typical development config would be:
 
 ```ini
-USE_SQLITE=true
-DEBUG_DATABASE=true
 JWT_SECRET=secret
+DEBUG_DATABASE=true
 ENABLE_OPTIPNG=true
-POSTGRES_DB=
-POSTGRES_PASSWORD=
-POSTGRES_USER=
+
+DB_HOST=db
+DB_USER=user
+DB_PASSWORD=azerty
+DB_PORT=5432
+DB_NAME=skin_server
 ```
 
 #### 7. Build frontend
@@ -150,7 +163,7 @@ The frontend served by the Fiber backend needs to be build before running the ap
 
 This can be done like this:
 
-```sh
+```shell
 cd frontend && npm run build && cd ..
 ```
 
@@ -159,7 +172,7 @@ cd frontend && npm run build && cd ..
 
 #### 8. Build and run backend
 
-```sh
+```shell
 go build && ./minetest-skin-server
 ```
 
