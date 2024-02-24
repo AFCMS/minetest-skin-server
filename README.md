@@ -48,6 +48,9 @@ Follow the official guide for your OS.
 >
 > It runs a Linux VM in the background and isn't as performant as the native version, but it's easier to install and use.
 
+> [!WARNING]
+> You need a [BuildKit](https://docs.docker.com/build/buildkit) enabled version of Docker to build the image.
+
 #### 2. Download source code
 
 ```shell
