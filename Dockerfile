@@ -18,13 +18,15 @@ WORKDIR /app
 
 # Download Go modules
 COPY go.mod go.sum ./
-RUN go mod download
+RUN --mount=type=cache,id=gomod,target="/go/pkg/mod" go mod download
 
 COPY . ./
 
 # Build Cache
 # https://dev.to/jacktt/20x-faster-golang-docker-builds-289n
-RUN --mount=type=cache,target="/root/.cache/go-build" CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o minetest-skin-server .
+RUN --mount=type=cache,id=gomod,target="/go/pkg/mod" \
+    --mount=type=cache,id=gobuild,target="/root/.cache/go-build" \
+    CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o minetest-skin-server .
 
 # Build Frontend
 FROM --platform=$BUILDPLATFORM node:20-alpine3.19 as frontend-builder
@@ -34,7 +36,7 @@ WORKDIR /frontend
 
 COPY ./frontend/package.json ./
 COPY ./frontend/package-lock.json ./
-RUN npm ci
+RUN --mount=type=cache,id=npmmod,target="/root/.npm" npm ci
 
 COPY ./frontend ./
 RUN npm run build
