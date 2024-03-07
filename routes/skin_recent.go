@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// TODO: cache result
+// SkinRecent TODO: cache result
 func SkinRecent(c *fiber.Ctx) error {
 	results, err := database.SkinRecent(10)
 

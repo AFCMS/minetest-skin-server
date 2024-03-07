@@ -9,7 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Set user permissions
+// UsersPermissions Set user permissions
 func UsersPermissions(c *fiber.Ctx) error {
 	var a models.Account
 

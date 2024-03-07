@@ -13,7 +13,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Handle Skin creation
+// SkinCreate Handle Skin creation
 //
 // Use a multipart request
 func SkinCreate(c *fiber.Ctx) error {

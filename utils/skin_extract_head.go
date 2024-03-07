@@ -4,7 +4,7 @@ import (
 	"image"
 )
 
-// Return the 8x8 head of a 64x32 skin
+// SkinExtractHead Return the 8x8 head of a 64x32 skin
 func SkinExtractHead(img image.Image) image.Image {
 	img2 := image.NewRGBA(image.Rect(0, 0, 8, 8))
 

@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-// Get skin from UUID
+// SkinFromUUID Get skin from UUID
 func SkinFromUUID(id uuid.UUID) (models.Skin, error) {
 	var s = models.Skin{}
 

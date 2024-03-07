@@ -2,7 +2,7 @@ package database
 
 import "minetest-skin-server/models"
 
-// Return users that are not banned
+// AccountList Return users that are not banned
 func AccountList() ([]models.Account, error) {
 	var result []models.Account
 

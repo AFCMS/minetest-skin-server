@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Return the skin file
+// UsersID Return the skin file
 func UsersID(c *fiber.Ctx) error {
 	var a models.Account
 

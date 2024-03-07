@@ -2,7 +2,7 @@ package database
 
 import "minetest-skin-server/models"
 
-// Return the `count` recently published skins
+// SkinRecent Return the `count` recently published skins
 func SkinRecent(count uint8) ([]models.Skin, error) {
 	var results []models.Skin
 

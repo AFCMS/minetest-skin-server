@@ -6,7 +6,7 @@ import (
 	"os/exec"
 )
 
-// Return true if OptiPNG is present on the system
+// OptiPNGPresent Return true if OptiPNG is present on the system
 //
 // Try to execute `optipng --version`
 func OptiPNGPresent() bool {
@@ -16,7 +16,7 @@ func OptiPNGPresent() bool {
 	return c.Run() == nil
 }
 
-// Run OptiPNG on a byte array
+// OptiPNGBytes Run OptiPNG on a byte array
 //
 // Make use of temporary files
 func OptiPNGBytes(input []byte) (output []byte, err error) {

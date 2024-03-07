@@ -2,7 +2,7 @@ package database
 
 import "minetest-skin-server/models"
 
-// Get account from ID
+// AccountFromID Get account from ID
 func AccountFromID(id uint) (models.Account, error) {
 	var a = models.Account{}
 

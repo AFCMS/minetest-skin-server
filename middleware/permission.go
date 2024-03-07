@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Refuse interaction if user doens't have required permission level
+// PermissionHandler Refuse interaction if user doens't have required permission level
 //
 // Must be used after the auth handler
 func PermissionHandler(level int8) fiber.Handler {

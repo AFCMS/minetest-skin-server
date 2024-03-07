@@ -8,7 +8,7 @@ import (
 	"github.com/google/uuid"
 )
 
-// Return the skin file
+// SkinHead Return the skin file
 func SkinHead(c *fiber.Ctx) error {
 	var skin models.Skin
 
