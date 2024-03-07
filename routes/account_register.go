@@ -27,15 +27,15 @@ func AccountRegister(c *fiber.Ctx) error {
 	password, _ := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 
 	// TODO: validate email
-	var parsed_email *mail.Address
+	var parsedEmail *mail.Address
 	var err error
-	if parsed_email, err = mail.ParseAddress(input.Email); err != nil || parsed_email.Name != "" {
+	if parsedEmail, err = mail.ParseAddress(input.Email); err != nil || parsedEmail.Name != "" {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on email format", "data": "Invalid email"})
 	}
 
 	user := models.Account{
 		Name:      input.Name,
-		Email:     parsed_email.Address,
+		Email:     parsedEmail.Address,
 		Password:  password,
 		CreatedAt: time.Now(),
 	}

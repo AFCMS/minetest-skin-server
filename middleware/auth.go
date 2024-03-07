@@ -31,17 +31,17 @@ func AuthHandler() fiber.Handler {
 				return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "Invalid JWT"})
 			}
 
-			user_account, err := database.AccountFromID(uint(cs))
+			userAccount, err := database.AccountFromID(uint(cs))
 
 			if err != nil {
 				return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"message": "User not found"})
 			}
 
-			if user_account.Banned {
-				return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "User is banned", "reason": user_account.BanReason})
+			if userAccount.Banned {
+				return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "User is banned", "reason": userAccount.BanReason})
 			}
 
-			c.Locals("user", user_account)
+			c.Locals("user", userAccount)
 			return c.Next()
 		},
 		ContextKey:    "user_jwt",

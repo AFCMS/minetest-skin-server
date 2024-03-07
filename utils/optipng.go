@@ -21,14 +21,14 @@ func OptiPNGPresent() bool {
 // Make use of temporary files
 func OptiPNGBytes(input []byte) (output []byte, err error) {
 	// Create a temporary file
-	tmp_file, err := os.CreateTemp("", "optipng-")
-	tmp_file.Write(input)
+	tmpFile, err := os.CreateTemp("", "optipng-")
+	tmpFile.Write(input)
 
-	defer tmp_file.Close()
-	defer os.Remove(tmp_file.Name())
+	defer tmpFile.Close()
+	defer os.Remove(tmpFile.Name())
 
 	// Run OptiPNG on the image in place
-	cmd := exec.Command("optipng", "-o7", "-zm1-9", "-nc", "-strip", "all", "-clobber", tmp_file.Name())
+	cmd := exec.Command("optipng", "-o7", "-zm1-9", "-nc", "-strip", "all", "-clobber", tmpFile.Name())
 
 	// Redirect the output to the null device
 	cmd.Stdout = nil

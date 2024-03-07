@@ -14,36 +14,36 @@ func SetupRoutes(app *fiber.App) {
 	api.Get("/info", Info)
 
 	// API Authentication
-	api_account := api.Group("/account")
+	apiAccount := api.Group("/account")
 
-	api_account.Post("/register", AccountRegister)
-	api_account.Post("/login", AccountLogin)
-	api_account.Get("/user", middleware.AuthHandler(), AccountUser)
-	api_account.Post("/logout", AccountLogout)
+	apiAccount.Post("/register", AccountRegister)
+	apiAccount.Post("/login", AccountLogin)
+	apiAccount.Get("/user", middleware.AuthHandler(), AccountUser)
+	apiAccount.Post("/logout", AccountLogout)
 
 	// Interacting with skins
-	api_skin := api.Group("/skin")
+	apiSkin := api.Group("/skin")
 
-	api_skin.Get("/list", SkinList)
-	api_skin.Get("/skin/:uuid", SkinDetails)
-	api_skin.Get("/skin/:uuid/full", SkinFull)
-	api_skin.Get("/skin/:uuid/head", SkinHead)
-	api_skin.Post("/skin/:uuid/approve", middleware.AuthHandler(), middleware.PermissionHandler(models.PermissionLevelApprover), SkinApprove)
-	api_skin.Post("/skin/:uuid/delete", middleware.AuthHandler(), NotImplemented)
-	api_skin.Post("/create", middleware.AuthHandler(), SkinCreate)
-	api_skin.Get("/recent", SkinRecent)
-	api_skin.Get("/rss", SkinRSS)
+	apiSkin.Get("/list", SkinList)
+	apiSkin.Get("/skin/:uuid<guid>", SkinDetails)
+	apiSkin.Get("/skin/:uuid<guid>/full", SkinFull)
+	apiSkin.Get("/skin/:uuid<guid>/head", SkinHead)
+	apiSkin.Post("/skin/:uuid<guid>/approve", middleware.AuthHandler(), middleware.PermissionHandler(models.PermissionLevelApprover), SkinApprove)
+	apiSkin.Post("/skin/:uuid<guid>/delete", middleware.AuthHandler(), NotImplemented)
+	apiSkin.Post("/create", middleware.AuthHandler(), SkinCreate)
+	apiSkin.Get("/recent", SkinRecent)
+	apiSkin.Get("/rss", SkinRSS)
 
 	// Interacting with users
-	api_users := api.Group("/users")
+	apiUsers := api.Group("/users")
 
-	api_users.Get("/list", UsersList)
-	api_users.Get("/list/banned", middleware.AuthHandler(), middleware.PermissionHandler(models.PermissionLevelAdmin), NotImplemented)
-	api_users.Get("/:id", UsersID)
-	api_users.Post("/:id/ban", middleware.AuthHandler(), middleware.PermissionHandler(models.PermissionLevelAdmin), NotImplemented)
-	api_users.Post("/:id/unban", middleware.AuthHandler(), middleware.PermissionHandler(models.PermissionLevelAdmin), NotImplemented)
-	api_users.Post("/:id/delete", middleware.AuthHandler(), NotImplemented)
-	api_users.Post("/:id/permissions", middleware.AuthHandler(), middleware.PermissionHandler(models.PermissionLevelAdmin), UsersPermissions)
+	apiUsers.Get("/list", UsersList)
+	apiUsers.Get("/list/banned", middleware.AuthHandler(), middleware.PermissionHandler(models.PermissionLevelAdmin), NotImplemented)
+	apiUsers.Get("/:id<int;min(1)>", UsersID)
+	apiUsers.Post("/:id<int;min(1)>/ban", middleware.AuthHandler(), middleware.PermissionHandler(models.PermissionLevelAdmin), NotImplemented)
+	apiUsers.Post("/:id<int;min(1)>/unban", middleware.AuthHandler(), middleware.PermissionHandler(models.PermissionLevelAdmin), NotImplemented)
+	apiUsers.Post("/:id<int;min(1)>/delete", middleware.AuthHandler(), NotImplemented)
+	apiUsers.Post("/:id<int;min(1)>/permissions", middleware.AuthHandler(), middleware.PermissionHandler(models.PermissionLevelAdmin), UsersPermissions)
 
 	// Handle 404 errors
 	api.All("/*", NotFound)

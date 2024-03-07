@@ -28,14 +28,14 @@ func SkinCreate(c *fiber.Ctx) error {
 	}
 
 	// Get file part
-	var skin_b []byte
+	var skinB []byte
 	var err error
-	if skin_b, err = utils.LoadFormFile(c, "data"); err != nil {
+	if skinB, err = utils.LoadFormFile(c, "data"); err != nil {
 		return err
 	}
 
 	// Decode image
-	img, err := png.Decode(bytes.NewReader(skin_b))
+	img, err := png.Decode(bytes.NewReader(skinB))
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(utils.ErrorOutput{Message: "Cannot decode skin", Data: err.Error()})
 	}
@@ -48,50 +48,50 @@ func SkinCreate(c *fiber.Ctx) error {
 	}
 
 	// Extract head
-	var head_buffer bytes.Buffer
+	var headBuffer bytes.Buffer
 
-	head_img := utils.SkinExtractHead(img)
-	err = png.Encode(&head_buffer, head_img)
+	headImg := utils.SkinExtractHead(img)
+	err = png.Encode(&headBuffer, headImg)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(utils.ErrorOutput{Message: "Server error", Data: "Cannot extract head from image"})
 	}
-	head_b := head_buffer.Bytes()
+	headB := headBuffer.Bytes()
 
-	var skin_b_opti = skin_b
-	var head_b_opti = head_b
+	var skinBOpti = skinB
+	var headBOpti = headB
 
 	// Optionally run OptiPNG
 	// TODO: Run them async to get them done faster
 	// https://stackoverflow.com/questions/27792389/golang-functions-parallel-execution-with-return
 	if utils.ConfigOptipngEnabled {
-		var out_1 []byte
-		var err_1 error
+		var out1 []byte
+		var err1 error
 
-		var out_2 []byte
-		var err_2 error
+		var out2 []byte
+		var err2 error
 
 		var sg sync.WaitGroup
 
 		sg.Add(2)
 
 		go func(out *[]byte, err *error, sg *sync.WaitGroup) {
-			*out, *err = utils.OptiPNGBytes(skin_b)
+			*out, *err = utils.OptiPNGBytes(skinB)
 			sg.Done()
-		}(&out_1, &err_1, &sg)
+		}(&out1, &err1, &sg)
 
 		go func(out *[]byte, err *error, sg *sync.WaitGroup) {
-			*out, *err = utils.OptiPNGBytes(head_b)
+			*out, *err = utils.OptiPNGBytes(headB)
 			sg.Done()
-		}(&out_2, &err_2, &sg)
+		}(&out2, &err2, &sg)
 
 		sg.Wait()
 
-		if err_1 != nil || err_2 != nil {
+		if err1 != nil || err2 != nil {
 			return c.Status(fiber.StatusInternalServerError).JSON(utils.ErrorOutput{Message: "Server error", Data: "Cannot obtimize image"})
 		}
 
-		skin_b_opti = out_1
-		head_b_opti = out_2
+		skinBOpti = out1
+		headBOpti = out2
 	}
 
 	// Create entry in database
@@ -99,8 +99,8 @@ func SkinCreate(c *fiber.Ctx) error {
 		Description: input.Description,
 		Public:      input.Public,
 		Owner:       user,
-		Data:        skin_b_opti,
-		DataHead:    head_b_opti,
+		Data:        skinBOpti,
+		DataHead:    headBOpti,
 		CreatedAt:   time.Now(),
 	}
 

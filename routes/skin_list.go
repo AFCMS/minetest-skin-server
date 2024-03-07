@@ -10,21 +10,21 @@ import (
 
 func SkinList(c *fiber.Ctx) error {
 	// Parse query
-	query_r := types.QuerySkinList{}
-	if err := c.QueryParser(&query_r); err != nil {
+	queryR := types.QuerySkinList{}
+	if err := c.QueryParser(&queryR); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON("Bad request")
 	}
 
 	// Convert values to handle GORM API
-	count := int(query_r.Count)
+	count := int(queryR.Count)
 
-	if query_r.Count == 0 {
+	if queryR.Count == 0 {
 		count = -1
 	}
 
-	page := int(query_r.Page)
+	page := int(queryR.Page)
 
-	if query_r.Page == 0 {
+	if queryR.Page == 0 {
 		page = -1
 	}
 
