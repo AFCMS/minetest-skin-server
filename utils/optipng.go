@@ -44,16 +44,16 @@ func OptiPNGBytes(input []byte) (output []byte, err error) {
 	}
 
 	// Open the temporary file in read mode
-	tmp_file_r, err := os.Open(tmp_file.Name())
+	tmpFileR, err := os.Open(tmpFile.Name())
 
 	if err != nil {
 		return nil, err
 	}
 
-	defer tmp_file_r.Close()
+	defer tmpFileR.Close()
 
 	// Read the file content, return output
-	output, err = io.ReadAll(tmp_file_r)
+	output, err = io.ReadAll(tmpFileR)
 	if err != nil {
 		return nil, err
 	}
