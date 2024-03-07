@@ -8,7 +8,6 @@ import (
 )
 
 var (
-	ConfigUseSQLite      bool
 	ConfigDebugDatabase  bool
 	ConfigJWTSecret      []byte
 	ConfigOptipngEnabled bool
@@ -16,31 +15,24 @@ var (
 
 func loadConfig() {
 	var str string
-	var is_present bool
+	var isPresent bool
 
-	str, is_present = os.LookupEnv("USE_SQLITE")
-	if is_present {
-		ConfigUseSQLite = str == "true"
-	} else {
-		ConfigUseSQLite = false
-	}
-
-	str, is_present = os.LookupEnv("DEBUG_DATABASE")
-	if is_present {
+	str, isPresent = os.LookupEnv("DEBUG_DATABASE")
+	if isPresent {
 		ConfigDebugDatabase = str == "true"
 	} else {
 		ConfigDebugDatabase = false
 	}
 
-	str, is_present = os.LookupEnv("JWT_SECRET")
-	if is_present {
+	str, isPresent = os.LookupEnv("JWT_SECRET")
+	if isPresent {
 		ConfigJWTSecret = []byte(str)
 	} else {
 		log.Panicln("No JWT secret configured!")
 	}
 
-	str, is_present = os.LookupEnv("ENABLE_OPTIPNG")
-	if is_present {
+	str, isPresent = os.LookupEnv("ENABLE_OPTIPNG")
+	if isPresent {
 		ConfigOptipngEnabled = str == "true"
 	} else {
 		ConfigOptipngEnabled = true
