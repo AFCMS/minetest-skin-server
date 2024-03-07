@@ -1,62 +1,42 @@
 {
   "name": "frontend",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
-    "@heroicons/react": "^2.0.18",
-    "@react-three/drei": "^9.99.0",
-    "@react-three/fiber": "^8.15.16",
-    "@testing-library/jest-dom": "^6.1.2",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^14.5.2",
-    "@types/three": "^0.161.2",
+    "@heroicons/react": "^2.1.1",
+    "@react-three/drei": "^9.101.0",
+    "@react-three/fiber": "^8.15.19",
+    "@types/three": "^0.162.0",
     "axios": "^1.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router": "^6.15.0",
-    "react-router-dom": "^6.22.1",
+    "react-router": "^6.22.3",
+    "react-router-dom": "^6.22.3",
     "recoil": "^0.7.7",
-    "three": "^0.161.0",
-    "web-vitals": "^3.4.0"
-  },
-  "scripts": {
-    "start": "vite",
-    "build": "vite build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "three": "^0.162.0"
   },
   "devDependencies": {
     "@headlessui/tailwindcss": "^0.2.0",
-    "@tailwindcss/forms": "^0.5.6",
-    "@tsconfig/vite-react": "^3.0.0",
-    "@types/node": "^20.5.4",
-    "@typescript-eslint/eslint-plugin": "^6.8.0",
-    "@typescript-eslint/parser": "^6.4.1",
+    "@tailwindcss/forms": "^0.5.7",
+    "@types/node": "^20.11.25",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
     "@vitejs/plugin-react": "^4.2.1",
-    "autoprefixer": "^10.4.17",
+    "autoprefixer": "^10.4.18",
     "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.33.2",
-    "postcss": "^8.4.31",
+    "eslint-plugin-react": "^7.34.0",
+    "postcss": "^8.4.35",
     "prettier": "^3.2.5",
-    "prettier-plugin-tailwindcss": "^0.5.11",
+    "prettier-plugin-tailwindcss": "^0.5.12",
     "tailwindcss": "^3.4.1",
-    "vite": "^4.5.2"
+    "vite": "^5.1.5"
   }
 }
