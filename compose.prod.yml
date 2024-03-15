@@ -14,17 +14,8 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
 
-  server_frontend:
-    build: ./frontend
-    expose:
-      - "5173:5173"
-    volumes:
-      - type: bind
-        source: ./frontend
-        target: /frontend
-
   server:
-    build: .
+    image: ghcr.io/afcms/minetest-skin-server:master
     environment:
       - MT_SKIN_SERVER_DB_USER=${MT_SKIN_SERVER_DB_USER}
       - MT_SKIN_SERVER_DB_PASSWORD=${MT_SKIN_SERVER_DB_PASSWORD}
@@ -33,8 +24,7 @@ services:
       - MT_SKIN_SERVER_DB_PORT=${MT_SKIN_SERVER_DB_PORT}
       - MT_SKIN_SERVER_DATABASE_LOGGING=${MT_SKIN_SERVER_DATABASE_LOGGING}
       - MT_SKIN_SERVER_ENABLE_OPTIPNG=${MT_SKIN_SERVER_ENABLE_OPTIPNG}
-      - MT_SKIN_SERVER_FRONTEND_DEV_MODE=true
-      - MT_SKIN_SERVER_FRONTEND_URL=http://server_frontend:5173
+      - MT_SKIN_SERVER_FRONTEND_DEV_MODE=false
     ports:
       - "8080:8080"
     depends_on:
