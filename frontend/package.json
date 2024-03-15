@@ -26,7 +26,7 @@
   "devDependencies": {
     "@headlessui/tailwindcss": "^0.2.0",
     "@tailwindcss/forms": "^0.5.7",
-    "@types/node": "^20.11.25",
+    "@types/node": "^20.11.28",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "@vitejs/plugin-react": "^4.2.1",
