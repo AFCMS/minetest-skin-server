@@ -21,6 +21,7 @@ WORKDIR /app
 # Download Go modules
 COPY go.mod go.sum ./
 RUN --mount=type=cache,id=gomod,target="/go/pkg/mod" go mod download
+RUN --mount=type=cache,id=gomod,target="/go/pkg/mod" go mod verify
 
 COPY . ./
 
