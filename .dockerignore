@@ -5,6 +5,7 @@
 
 postman
 tools
+frontend/node_modules
 
 .editorconfig
 .gitignore
