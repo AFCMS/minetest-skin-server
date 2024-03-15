@@ -53,7 +53,7 @@ func init() {
 	log.Println("Loading config...")
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Println("Error loading .env file")
+		log.Println("Cannot load .env file: ", err)
 	}
 	loadConfig()
 }
