@@ -25,7 +25,7 @@ RUN --mount=type=cache,id=gomod,target="/go/pkg/mod" go mod verify
 
 COPY . ./
 
-# Build Cache
+# Build with cache
 # https://dev.to/jacktt/20x-faster-golang-docker-builds-289n
 RUN --mount=type=cache,id=gomod,target="/go/pkg/mod" \
     --mount=type=cache,id=gobuild,target="/root/.cache/go-build" \
@@ -34,7 +34,6 @@ RUN --mount=type=cache,id=gomod,target="/go/pkg/mod" \
 # Build Frontend
 FROM --platform=$BUILDPLATFORM node:20-alpine3.19 as frontend-builder
 
-RUN mkdir /frontend
 WORKDIR /frontend
 
 COPY ./frontend/package.json ./
