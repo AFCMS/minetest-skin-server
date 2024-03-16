@@ -1,10 +1,16 @@
 package routes
 
 import (
-	"minetest-skin-server/middleware"
-	"minetest-skin-server/models"
+	"encoding/json"
+	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/proxy"
+
+	"minetest-skin-server/middleware"
+	"minetest-skin-server/models"
+	"minetest-skin-server/utils"
 )
 
 func SetupRoutes(app *fiber.App) {
@@ -46,9 +52,39 @@ func SetupRoutes(app *fiber.App) {
 	apiUsers.Post("/:id<int;min(1)>/permissions", middleware.AuthHandler(), middleware.PermissionHandler(models.PermissionLevelAdmin), UsersPermissions)
 
 	// Handle 404 errors
-	api.All("/*", NotFound)
+	api.All("*", NotFound)
 
 	// Serve the React frontend
-	app.Static("/", "./frontend/dist")
-	app.Static("*", "./frontend/dist/index.html")
+	if utils.ConfigFrontendDevMode {
+		app.Get("*", proxy.Balancer(proxy.Config{
+			Servers: []string{utils.ConfigFrontendURL},
+			ModifyResponse: func(c *fiber.Ctx) error {
+				if c.Response().StatusCode() == fiber.StatusNotFound {
+					return c.Status(fiber.StatusOK).Render("index", fiber.Map{
+						"DevMode": utils.ConfigFrontendDevMode,
+					})
+				}
+				return nil
+			},
+		}))
+	} else {
+		// Parse JSON Vite manifest
+		manifest := utils.ViteManifest{}
+		data, err := os.ReadFile("./frontend/dist/.vite/manifest.json")
+		if err != nil {
+			log.Fatal(err)
+		}
+		if err == nil {
+			err = json.Unmarshal(data, &manifest)
+		}
+
+		app.Static("/", "./frontend/dist")
+		app.Get("*", func(c *fiber.Ctx) error {
+			return c.Render("index", fiber.Map{
+				"DevMode": false,
+				"MainCSS": manifest["src/main.tsx"].Css[0],
+				"MainJS":  manifest["src/main.tsx"].File,
+			})
+		})
+	}
 }
