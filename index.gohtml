@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta name="description" content="Minetest Skin Server"/>
+    <title>Minetest Skin Server</title>
+    {{if .DevMode}}
+        <!--suppress JSUnresolvedReference, JSFileReferences -->
+        <script type="module">
+            import RefreshRuntime from '/@react-refresh'
+
+            RefreshRuntime.injectIntoGlobalHook(window)
+            window.$RefreshReg$ = () => {
+            }
+            window.$RefreshSig$ = () => (type) => type
+            window.__vite_plugin_react_preamble_installed__ = true
+        </script>
+        <script type="module" src="/@vite/client"></script>
+    {{end}}
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    {{if .DevMode}}
+        <script type="module" src="/src/main.tsx"></script>
+    {{else}}
+        <link rel="stylesheet" href="/{{ .MainCSS }}"/>
+        <script type="module" src="/{{ .MainJS }}"></script>
+    {{end}}
+</body>
+</html>
