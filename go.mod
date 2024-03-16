@@ -1,18 +1,20 @@
 module minetest-skin-server
 
-go 1.19
+go 1.22
 
 require (
-	github.com/gofiber/fiber/v2 v2.52.1
-	github.com/gofiber/jwt/v3 v3.3.10
-	github.com/golang-jwt/jwt/v4 v4.5.0
+	github.com/gofiber/fiber/v2 v2.52.2
+	github.com/gofiber/storage/memory/v2 v2.0.0
+	github.com/gofiber/template/html/v2 v2.1.1
 	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
-	golang.org/x/crypto v0.19.0
-	gorm.io/driver/postgres v1.5.6
+	golang.org/x/crypto v0.21.0
+	gorm.io/driver/postgres v1.5.7
 )
 
 require (
+	github.com/gofiber/template v1.8.3 // indirect
+	github.com/gofiber/utils v1.1.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
 	github.com/jackc/pgx/v5 v5.4.3 // indirect
@@ -31,6 +33,6 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.51.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
-	golang.org/x/sys v0.17.0 // indirect
+	golang.org/x/sys v0.18.0 // indirect
 	gorm.io/gorm v1.25.7
 )
