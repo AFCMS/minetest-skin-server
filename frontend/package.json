@@ -12,10 +12,10 @@
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
-    "@react-three/drei": "^9.101.0",
+    "@react-three/drei": "^9.102.5",
     "@react-three/fiber": "^8.15.19",
     "@types/three": "^0.162.0",
-    "axios": "^1.6.7",
+    "axios": "^1.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.22.3",
@@ -26,17 +26,17 @@
   "devDependencies": {
     "@headlessui/tailwindcss": "^0.2.0",
     "@tailwindcss/forms": "^0.5.7",
-    "@types/node": "^20.11.25",
-    "@typescript-eslint/eslint-plugin": "^7.1.1",
-    "@typescript-eslint/parser": "^7.1.1",
+    "@types/node": "^20.11.28",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.18",
     "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react": "^7.34.1",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.12",
     "tailwindcss": "^3.4.1",
-    "vite": "^5.1.5"
+    "vite": "^5.1.6"
   }
 }
