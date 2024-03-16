@@ -6,6 +6,9 @@ import react from "@vitejs/plugin-react"
 export default defineConfig({
     build: {
         manifest: true,
+        rollupOptions: {
+            input: "src/main.tsx"
+        },
         modulePreload: {
             polyfill: false
         }
