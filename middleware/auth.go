@@ -1,52 +1,27 @@
 package middleware
 
 import (
-	"minetest-skin-server/database"
-	"minetest-skin-server/utils"
-	"strconv"
-
 	"github.com/gofiber/fiber/v2"
-	jwtware "github.com/gofiber/jwt/v3"
-	"github.com/golang-jwt/jwt/v4"
+	"minetest-skin-server/auth"
+	"minetest-skin-server/database"
 )
 
 // AuthHandler Check if the user is authenticated
 //
 // Put the database entry for the user in locals
-func AuthHandler() fiber.Handler {
-	return jwtware.New(jwtware.Config{
-		//Claims: jwt.RegisteredClaims{},
-		ErrorHandler: func(c *fiber.Ctx, err error) error {
-			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "Invalid JWT", "data": err})
-		},
-		SuccessHandler: func(c *fiber.Ctx) error {
-			token := c.Locals("user_jwt").(*jwt.Token)
+func AuthHandler(c *fiber.Ctx) error {
+	sess, err := auth.SessionStore.Get(c)
+	if err != nil {
+		panic(err)
+	}
 
-			// TODO: use RegisteredClaims instead of MapClaims
-			claims := token.Claims.(jwt.MapClaims)
+	userAccount, err := database.AccountFromID(sess.Get("uid").(uint))
 
-			cs, err := strconv.ParseInt(claims["iss"].(string), 10, 0)
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"message": "User not found"})
+	}
 
-			if err != nil {
-				return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "Invalid JWT"})
-			}
-
-			userAccount, err := database.AccountFromID(uint(cs))
-
-			if err != nil {
-				return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"message": "User not found"})
-			}
-
-			if userAccount.Banned {
-				return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "User is banned", "reason": userAccount.BanReason})
-			}
-
-			c.Locals("user", userAccount)
-			return c.Next()
-		},
-		ContextKey:    "user_jwt",
-		SigningKey:    utils.ConfigJWTSecret,
-		SigningMethod: jwt.SigningMethodHS256.Name,
-		TokenLookup:   "cookie:jwt",
-	})
+	c.Locals("session", sess)
+	c.Locals("user", userAccount)
+	return c.Next()
 }

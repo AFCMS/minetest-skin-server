@@ -1,17 +1,14 @@
 package routes
 
 import (
+	"github.com/gofiber/fiber/v2"
+	"golang.org/x/crypto/bcrypt"
+	"log"
+	"minetest-skin-server/auth"
 	"minetest-skin-server/database"
 	"minetest-skin-server/models"
 	"minetest-skin-server/types"
-	"minetest-skin-server/utils"
-	"strconv"
 	"time"
-
-	"golang.org/x/crypto/bcrypt"
-
-	"github.com/gofiber/fiber/v2"
-	"github.com/golang-jwt/jwt/v4"
 )
 
 func AccountLogin(c *fiber.Ctx) error {
@@ -38,29 +35,31 @@ func AccountLogin(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": "Incorrect password"})
 	}
 
-	// Create JWT token
-
-	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.RegisteredClaims{
-		Issuer:    strconv.FormatUint(uint64(user.ID), 10),
-		ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 24)), // 1 day
-	})
-
-	token, err := claims.SignedString(utils.ConfigJWTSecret)
-
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Could not login"})
 	}
 
-	// Store JWT in cookie
+	sess, err := auth.SessionStore.Get(c)
 
-	cookie := fiber.Cookie{
-		Name:     "jwt",
-		Value:    token,
-		Expires:  time.Now().Add(time.Hour * 24),
-		HTTPOnly: true,
+	if sess.Fresh() {
+		// Get session ID
+		sid := sess.ID()
+
+		// Get user ID
+		uid := user.ID
+
+		// Save session data
+		sess.Set("uid", uid)
+		sess.Set("sid", sid)
+		sess.Set("ip", c.Context().RemoteIP().String())
+		sess.Set("login", time.Unix(time.Now().Unix(), 0).UTC().String())
+		sess.Set("ua", string(c.Request().Header.UserAgent()))
+
+		err := sess.Save()
+		if err != nil {
+			log.Println(err)
+		}
 	}
-
-	c.Cookie(&cookie)
 
 	if err := database.AccountSetLastConnection(&user); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error interacting with database", "data": err.Error()})
