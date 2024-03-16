@@ -46,9 +46,23 @@ RUN npm run build
 # Production Image
 FROM alpine:3.19 as production
 RUN apk update && apk add --no-cache optipng
-COPY --from=builder /app/minetest-skin-server /
-RUN mkdir -p /frontend/dist
-COPY --from=frontend-builder /frontend/dist /frontend/dist
+
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "10001" \
+    "appuser"
+
+COPY --from=builder /app/minetest-skin-server /app/
+COPY --from=builder /app/index.gohtml /app/
+COPY --from=frontend-builder /frontend/dist /app/frontend/dist
+
+USER appuser:appuser
+
+WORKDIR /app
 
 EXPOSE 8080
-CMD ["./minetest-skin-server"]
+CMD ["/app/minetest-skin-server"]
