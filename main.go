@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gofiber/template/html/v2"
 	"log"
 
 	"minetest-skin-server/database"
@@ -28,9 +29,13 @@ func main() {
 
 	database.ConnectDB()
 
+	// Create template engine
+	engine := html.New("./", ".gohtml")
+
 	// Init Web Server
 	app := fiber.New(fiber.Config{
 		AppName: "Minetest Skin Server",
+		Views:   engine,
 	})
 
 	// Enable CORS
