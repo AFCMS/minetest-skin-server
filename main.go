@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gofiber/template/html/v2"
 	"log"
-
+	"minetest-skin-server/auth"
 	"minetest-skin-server/database"
 	"minetest-skin-server/routes"
 	"minetest-skin-server/utils"
@@ -26,8 +26,11 @@ func main() {
 
 	// Connection to Database
 	log.Println("Connecting to Database...")
-
 	database.ConnectDB()
+
+	// Initialize Auth
+	log.Println("Initializing Auth...")
+	auth.Initialize()
 
 	// Create template engine
 	engine := html.New("./", ".gohtml")
