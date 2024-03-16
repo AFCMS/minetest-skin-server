@@ -27,10 +27,10 @@ jobs:
           node-version: "lts/iron"
 
       - name: Install dependencies
-        run: npm install --include=dev # TODO: replace with npm ci
+        run: cd $GITHUB_WORKSPACE/frontend && npm ci
 
       - name: Lint with ESLint
-        run: npm run lint
+        run: cd $GITHUB_WORKSPACE/frontend && npm run lint
 
   GolangCI:
     runs-on: ubuntu-latest
