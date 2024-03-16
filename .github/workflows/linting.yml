@@ -27,7 +27,7 @@ jobs:
           node-version: "lts/iron"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --include=dev # TODO: replace with npm ci
 
       - name: Lint with ESLint
         run: npm run lint
