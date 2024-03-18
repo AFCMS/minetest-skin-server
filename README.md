@@ -15,11 +15,11 @@ This server is made for serving Minetest skins to Minetest servers. It is licens
 
 ## Design
 
-The server is build with the **Go** language on-top of the [**Fiber**](https://gofiber.io/) framework.
+The server is build with the [**Go**](https://go.dev) language on-top of the [**Fiber**](https://gofiber.io) framework.
 
 It uses also the [**GORM**](https://gorm.io) library for interacting with the database.
 
-The frontend is build with the [**React**](https://reactjs.org) library and the following modules:
+The frontend is build with the [**React**](https://reactjs.org) library, the [**Vite**](https://vitejs.dev) framework and the following libraries:
 
 - [**TailwindCSS**](https://tailwindcss.com) for styling
 - [**HeadlessUI**](https://headlessui.com) for dialogs, combobox, etc
