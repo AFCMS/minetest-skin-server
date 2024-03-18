@@ -20,7 +20,7 @@ const AuthStateEmail = selector({
 const AuthStateIsAuthenticated = selector({
 	key: "AuthStateIsAuthenticated",
 	get: ({ get }) => {
-		let a = get(AuthState);
+		const a = get(AuthState);
 		return (
 			a.email !== undefined || a.id !== undefined || a.name !== undefined
 		);

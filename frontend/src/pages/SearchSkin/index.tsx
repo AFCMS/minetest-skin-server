@@ -8,7 +8,7 @@ function SearchSkin() {
                     <div className="w-full h-24 bg-slate-400 rounded-t px-8"></div>
                     <div className="grid gap-8 px-8 pb-8 grid-cols-1 md:grid-cols-4 max xl:grid-cols-5 grid-flow-row justify-items-center">
                         {(() => {
-                            let e = [];
+                            const e = [];
 
                             for (let i = 0; i <= 10; i++) {
                                 e.push(
