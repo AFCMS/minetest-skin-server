@@ -199,6 +199,7 @@ It uses the [production image](https://github.com/AFCMS/minetest-skin-server/pkg
 by the GitHub Actions workflow, which supports `amd64`, `arm64`, `ppc64le`, `s390x`, `386` architectures.
 
 ```shell
+docker pull ghcr.io/afcms/minetest:master
 docker compose -f compose.dev.yml up
 ```
 
