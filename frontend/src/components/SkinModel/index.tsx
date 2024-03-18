@@ -1,5 +1,5 @@
 //import { useRef } from "react";
-import { NearestFilter } from "three";
+import THREE, { NearestFilter } from "three";
 import { ObjectMap } from "@react-three/fiber";
 import { useGLTF, useTexture } from "@react-three/drei";
 import skinModel from "../../assets/skin_character.gltf";
