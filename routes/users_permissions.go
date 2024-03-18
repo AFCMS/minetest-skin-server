@@ -29,7 +29,10 @@ func UsersPermissions(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusBadRequest)
 	}
 
-	database.AccountSetPermission(&a, input.Level)
+	err = database.AccountSetPermission(&a, input.Level)
+	if err != nil {
+		return err
+	}
 
 	return c.SendStatus(fiber.StatusOK)
 }
