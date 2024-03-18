@@ -4,7 +4,7 @@ go 1.22
 
 require (
 	github.com/gofiber/fiber/v2 v2.52.2
-	github.com/gofiber/storage/memory/v2 v2.0.0
+	github.com/gofiber/storage/memory/v2 v2.0.1
 	github.com/gofiber/template/html/v2 v2.1.1
 	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
