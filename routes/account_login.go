@@ -40,6 +40,9 @@ func AccountLogin(c *fiber.Ctx) error {
 	}
 
 	sess, err := auth.SessionStore.Get(c)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error interacting with session", "data": err.Error()})
+	}
 
 	if sess.Fresh() {
 		// Get session ID
