@@ -67,7 +67,12 @@ func OptiPNGBytes(input []byte) (output []byte, err error) {
 		return nil, err
 	}
 
-	defer tmpFileR.Close()
+	defer func(tmpFileR *os.File) {
+		err := tmpFileR.Close()
+		if err != nil {
+			log.Warn(err)
+		}
+	}(tmpFileR)
 
 	// Read the file content, return output
 	output, err = io.ReadAll(tmpFileR)
