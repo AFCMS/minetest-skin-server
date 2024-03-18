@@ -85,14 +85,8 @@ MT_SKIN_SERVER_DB_NAME=skin_server
 docker compose -f compose.dev.yml up --build
 ```
 
-> [!NOTE]
-> In case you do not want to build the image yourself, you can use the one present on the GitHub registery.
->
-> ```py
-> docker pull ghcr.io/afcms/minetest-skin-server:master
-> ```
->
-> You will be able to use it just by removing the `--build` flag from the docker-compose command line.
+You will now have access to the app (both frontend and API) at `http://localhost:8080`. Doing changes to the frontend
+files will trigger fast refresh without needing to restart the entire app.
 
 ### Development (host, not recommended)
 
