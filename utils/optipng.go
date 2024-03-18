@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"github.com/gofiber/fiber/v2/log"
 	"io"
 	"os"
 	"os/exec"
@@ -22,10 +23,26 @@ func OptiPNGPresent() bool {
 func OptiPNGBytes(input []byte) (output []byte, err error) {
 	// Create a temporary file
 	tmpFile, err := os.CreateTemp("", "optipng-")
-	tmpFile.Write(input)
+	if err != nil {
+		return nil, err
+	}
+	_, err = tmpFile.Write(input)
+	if err != nil {
+		return nil, err
+	}
 
-	defer tmpFile.Close()
-	defer os.Remove(tmpFile.Name())
+	defer func(tmpFile *os.File) {
+		err := tmpFile.Close()
+		if err != nil {
+			log.Warn(err)
+		}
+	}(tmpFile)
+	defer func(name string) {
+		err := os.Remove(name)
+		if err != nil {
+			log.Warn(err)
+		}
+	}(tmpFile.Name())
 
 	// Run OptiPNG on the image in place
 	cmd := exec.Command("optipng", "-o7", "-zm1-9", "-nc", "-strip", "all", "-clobber", tmpFile.Name())
