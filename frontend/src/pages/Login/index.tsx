@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
@@ -13,7 +13,7 @@ function Login() {
 	const [canSubmit, setCanSubmit] = useState(false);
 
 	const [loading, setLoading] = useState(false);
-	const [err, setErr] = useState(null);
+	const [err, setErr] = useState<string | null>(null);
 
 	useEffect(() => {
 		if (email === "" || password === "") {
@@ -30,10 +30,7 @@ function Login() {
 		return <Navigate to="/" />;
 	}
 
-	/**
-	 * @param {React.FormEvent<HTMLFormElement>} e
-	 */
-	async function handleSubmit(e) {
+	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		setLoading(true);
 		await axios
@@ -41,19 +38,19 @@ function Login() {
 				email: email,
 				password: password,
 			})
-			.then((r) => {
+			.then(() => {
 				//console.log(r);
 				setLoading(false);
 				navigate("/");
 			})
-			.catch((e) => {
+			.catch((e: {message: string}) => {
 				//console.log(e);
 				setLoading(false);
-				setErr(e);
+				setErr(e.message);
 			});
 	}
 
-	return (
+    return (
 		<div className="flex justify-center align-middle">
 			<div className="app-pannel m-10 flex max-w-md flex-col p-6">
 				<h1 className="panel-text-heading">Login</h1>
@@ -92,13 +89,13 @@ function Login() {
 					{err !== null ? (
 						<div className="mt-4 flex flex-row items-center gap-2 text-red-600">
 							<ExclamationTriangleIcon className="h-8 w-8" />
-							{err.message}
+							{err}
 						</div>
 					) : undefined}
 					<div className="mt-4 flex gap-4">
 						<button
 							className="button-secondary w-full"
-							onClick={(e) => {
+							onClick={() => {
 								navigate("/register");
 							}}
 						>

@@ -14,7 +14,7 @@ const AuthStateEmail = selector({
 	get: ({ get }) => {
 		return get(AuthState).email;
 	},
-	set: ({ set, get }) => {},
+	set: ({}) => {},
 });
 
 const AuthStateIsAuthenticated = selector({
