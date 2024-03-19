@@ -200,7 +200,7 @@ by the GitHub Actions workflow, which supports `amd64`, `arm64`, `ppc64le`, `s39
 
 ```shell
 docker pull ghcr.io/afcms/minetest:master
-docker compose -f compose.dev.yml up
+docker compose -f compose.prod.yml up
 ```
 
 ## Development Tools
