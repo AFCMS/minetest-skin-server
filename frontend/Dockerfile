@@ -8,4 +8,4 @@ RUN npm update -g npm
 
 WORKDIR /frontend
 
-CMD npm install --include=dev && npm run dev
+CMD npm install --include=dev --no-fund && npm run dev
