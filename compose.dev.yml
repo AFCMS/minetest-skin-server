@@ -3,7 +3,7 @@ version: "3"
 services:
   db:
     image: "postgres:16.2-alpine"
-    restart: always
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=${MT_SKIN_SERVER_DB_USER}
       - POSTGRES_PASSWORD=${MT_SKIN_SERVER_DB_PASSWORD}
