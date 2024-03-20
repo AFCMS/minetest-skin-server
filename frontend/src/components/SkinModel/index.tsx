@@ -14,6 +14,7 @@ function SkinModel() {
 
 	// Make texture render pixelated
 	texture.magFilter = NearestFilter;
+    texture.flipY = false;
 
 	//const myMesh = useRef();
 	return (
