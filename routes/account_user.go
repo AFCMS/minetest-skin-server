@@ -11,8 +11,7 @@ func AccountUser(c *fiber.Ctx) error {
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"id":               user.ID,
-		"name":             user.Name,
-		"email":            user.Email,
+		"username":         user.Username,
 		"permission_level": user.PermissionLevel,
 	})
 }

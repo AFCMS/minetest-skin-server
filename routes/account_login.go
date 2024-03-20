@@ -20,9 +20,9 @@ func AccountLogin(c *fiber.Ctx) error {
 
 	var user models.Account
 
-	// Find user by email
+	// Find user by name
 
-	user, err := database.AccountFromEmail(input.Email)
+	user, err := database.AccountFromUsername(input.Username)
 	if err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"message": "User not found"})
 	}
