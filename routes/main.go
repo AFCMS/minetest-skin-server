@@ -82,9 +82,10 @@ func SetupRoutes(app *fiber.App) {
 		app.Static("/", "./frontend/dist")
 		app.Get("*", func(c *fiber.Ctx) error {
 			return c.Render("index", fiber.Map{
-				"DevMode": false,
-				"MainCSS": manifest["src/main.tsx"].Css[0],
-				"MainJS":  manifest["src/main.tsx"].File,
+				"DevMode":                false,
+				"MainCSS":                manifest["src/main.tsx"].Css[0],
+				"MainJS":                 manifest["src/main.tsx"].File,
+				"GoogleSiteVerification": utils.ConfigVerificationGoogle,
 			})
 		})
 	}

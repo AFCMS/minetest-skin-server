@@ -11,9 +11,10 @@ var (
 	// ConfigFrontendDevMode is true if the frontend is in development mode (served externally and proxied by the backend)
 	ConfigFrontendDevMode bool
 	// ConfigFrontendURL is the URL of the frontend when in development mode
-	ConfigFrontendURL    string
-	ConfigDebugDatabase  bool
-	ConfigOptipngEnabled bool
+	ConfigFrontendURL        string
+	ConfigDebugDatabase      bool
+	ConfigOptipngEnabled     bool
+	ConfigVerificationGoogle string
 )
 
 func loadConfig() {
@@ -46,6 +47,13 @@ func loadConfig() {
 		ConfigOptipngEnabled = str == "true"
 	} else {
 		ConfigOptipngEnabled = true
+	}
+
+	str, isPresent = os.LookupEnv("MT_SKIN_SERVER_VERIFICATION_GOOGLE_SEARCH_CONSOLE")
+	if isPresent {
+		ConfigVerificationGoogle = str
+	} else {
+		ConfigVerificationGoogle = ""
 	}
 }
 
