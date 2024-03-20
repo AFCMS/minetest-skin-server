@@ -203,6 +203,18 @@ docker pull ghcr.io/afcms/minetest:master
 docker compose -f compose.prod.yml up
 ```
 
+#### Configuration
+
+For production the server supports some more configuration variables.
+
+##### Google Search Console Verification
+
+The server can use the HTML tag verification method for the [Google Search Console](https://search.google.com/search-console) (URL prefix).
+
+You can set the `MT_SKIN_SERVER_VERIFICATION_GOOGLE_SEARCH_CONSOLE` environment variable to Google's verification token.
+
+You can also use the DNS record method if you want, please checkout [Google's documentation](https://support.google.com/webmasters/answer/9008080) for more information.
+
 ## Development Tools
 
 I recommand using either **VSCode** or **GoLand**.
