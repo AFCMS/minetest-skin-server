@@ -1,16 +1,17 @@
 package main
 
 import (
-	"github.com/gofiber/template/html/v2"
 	"log"
+
+	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/cors"
+	flogger "github.com/gofiber/fiber/v3/middleware/logger"
+	"github.com/gofiber/template/html/v2"
+
 	"minetest-skin-server/auth"
 	"minetest-skin-server/database"
 	"minetest-skin-server/routes"
 	"minetest-skin-server/utils"
-
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	flogger "github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 func main() {
@@ -37,8 +38,9 @@ func main() {
 
 	// Init Web Server
 	app := fiber.New(fiber.Config{
-		AppName: "Minetest Skin Server",
-		Views:   engine,
+		AppName:       "Minetest Skin Server",
+		CaseSensitive: false,
+		Views:         engine,
 	})
 
 	// Enable CORS

@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/gofiber/fiber/v2/log"
+	"github.com/gofiber/fiber/v3/log"
 	"io"
 	"os"
 	"os/exec"

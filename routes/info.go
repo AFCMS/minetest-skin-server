@@ -3,12 +3,12 @@ package routes
 import (
 	"minetest-skin-server/database"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
-// TODO: include user and skin count
+// TODO: include user count
 
-func Info(c *fiber.Ctx) error {
+func Info(c fiber.Ctx) error {
 	accountCount, err := database.AccountCount()
 	if err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)

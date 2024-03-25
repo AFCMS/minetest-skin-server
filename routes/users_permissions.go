@@ -6,11 +6,11 @@ import (
 	"minetest-skin-server/types"
 	"strconv"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 // UsersPermissions Set user permissions
-func UsersPermissions(c *fiber.Ctx) error {
+func UsersPermissions(c fiber.Ctx) error {
 	var a models.Account
 
 	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
@@ -23,9 +23,9 @@ func UsersPermissions(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusNotFound)
 	}
 
-	input := types.InputUsersPermissions{}
+	input := new(types.InputUsersPermissions)
 
-	if err := c.BodyParser(&input); err != nil {
+	if err := c.Bind().JSON(input); err != nil {
 		return c.SendStatus(fiber.StatusBadRequest)
 	}
 

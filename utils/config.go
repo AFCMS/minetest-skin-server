@@ -15,6 +15,12 @@ var (
 	ConfigDebugDatabase      bool
 	ConfigOptipngEnabled     bool
 	ConfigVerificationGoogle string
+	ConfigOAuthRedirectHost  string
+	// ConfigOAuthContentDB is the ContentDB OAuth enabled
+	ConfigOAuthContentDB             bool
+	ConfigOAuthContentDBURL          string
+	ConfigOAuthContentDBClientID     string
+	ConfigOAuthContentDBClientSecret string
 )
 
 func loadConfig() {
@@ -55,6 +61,36 @@ func loadConfig() {
 	} else {
 		ConfigVerificationGoogle = ""
 	}
+
+	str, isPresent = os.LookupEnv("MT_SKIN_SERVER_OAUTH_REDIRECT_HOST")
+	if isPresent {
+		ConfigOAuthRedirectHost = str
+	} else {
+		ConfigOAuthRedirectHost = ""
+	}
+
+	str, isPresent = os.LookupEnv("MT_SKIN_SERVER_OAUTH_CONTENTDB_URL")
+	if isPresent {
+		ConfigOAuthContentDBURL = str
+	} else {
+		ConfigOAuthContentDBURL = "https://content.minetest.net"
+	}
+
+	str, isPresent = os.LookupEnv("MT_SKIN_SERVER_OAUTH_CONTENTDB_CLIENT_ID")
+	if isPresent {
+		ConfigOAuthContentDBClientID = str
+	} else {
+		ConfigOAuthContentDBClientID = ""
+	}
+
+	str, isPresent = os.LookupEnv("MT_SKIN_SERVER_OAUTH_CONTENTDB_CLIENT_SECRET")
+	if isPresent {
+		ConfigOAuthContentDBClientSecret = str
+	} else {
+		ConfigOAuthContentDBClientSecret = ""
+	}
+
+	ConfigOAuthContentDB = ConfigOAuthContentDBClientID != "" && ConfigOAuthContentDBClientSecret != ""
 }
 
 func init() {

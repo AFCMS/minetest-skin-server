@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 type entryDetails struct {
@@ -13,7 +13,7 @@ type entry struct {
 	Note entryDetails `xml:"note"`
 }
 
-func SkinRSS(c *fiber.Ctx) error {
+func SkinRSS(c fiber.Ctx) error {
 	err := c.XML(entry{
 		Note: entryDetails{
 			Language: "en",

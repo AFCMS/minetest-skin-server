@@ -3,10 +3,10 @@ package routes
 import (
 	"minetest-skin-server/models"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
-func AccountUser(c *fiber.Ctx) error {
+func AccountUser(c fiber.Ctx) error {
 	user := c.Locals("user").(models.Account)
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{

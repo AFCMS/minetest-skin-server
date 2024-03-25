@@ -215,6 +215,15 @@ You can set the `MT_SKIN_SERVER_VERIFICATION_GOOGLE_SEARCH_CONSOLE` environment 
 
 You can also use the DNS record method if you want, please checkout [Google's documentation](https://support.google.com/webmasters/answer/9008080) for more information.
 
+##### OAuth2
+
+The server supports OAuth2 for authentication, you can set the following environment variables to enable it:
+
+- `MT_SKIN_SERVER_OAUTH_REDIRECT_HOST`: the host where the OAuth2 callback will be redirected to
+- ContentDB (if one of the two variables are not set OAuth2 will be disabled for ContentDB):
+  - `MT_SKIN_SERVER_OAUTH_CONTENTDB_CLIENT_ID`: the OAuth2 client ID for the ContentDB API
+  - `MT_SKIN_SERVER_OAUTH_CONTENTDB_CLIENT_SECRET` the OAuth2 client secret for the ContentDB API
+
 ## Development Tools
 
 I recommand using either **VSCode** or **GoLand**.

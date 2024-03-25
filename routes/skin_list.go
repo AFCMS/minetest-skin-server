@@ -5,13 +5,13 @@ import (
 	"minetest-skin-server/models"
 	"minetest-skin-server/types"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
-func SkinList(c *fiber.Ctx) error {
+func SkinList(c fiber.Ctx) error {
 	// Parse query
-	queryR := types.QuerySkinList{}
-	if err := c.QueryParser(&queryR); err != nil {
+	queryR := new(types.QuerySkinList)
+	if err := c.Bind().Query(queryR); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON("Bad request")
 	}
 
@@ -19,13 +19,13 @@ func SkinList(c *fiber.Ctx) error {
 	count := int(queryR.Count)
 
 	if queryR.Count == 0 {
-		count = -1
+		count = 10
 	}
 
 	page := int(queryR.Page)
 
 	if queryR.Page == 0 {
-		page = -1
+		page = 0
 	}
 
 	// Query database

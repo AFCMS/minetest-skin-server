@@ -5,9 +5,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/proxy"
+	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/proxy"
 
+	"minetest-skin-server/auth"
 	"minetest-skin-server/middleware"
 	"minetest-skin-server/models"
 	"minetest-skin-server/utils"
@@ -24,8 +25,12 @@ func SetupRoutes(app *fiber.App) {
 
 	apiAccount.Post("/register", AccountRegister)
 	apiAccount.Post("/login", AccountLogin)
-	apiAccount.Get("/user", middleware.AuthHandler, AccountUser)
-	apiAccount.Post("/logout", AccountLogout)
+	apiAccount.Get("/user", AccountUser, middleware.AuthHandler)
+	apiAccount.Post("/logout", AccountLogout, middleware.AuthHandler)
+
+	apiOauthEndpoints := apiAccount.Group("/providers")
+
+	auth.RegisterEndpoints(apiOauthEndpoints)
 
 	// Interacting with skins
 	apiSkin := api.Group("/skin")
@@ -34,9 +39,9 @@ func SetupRoutes(app *fiber.App) {
 	apiSkin.Get("/skin/:uuid<guid>", SkinDetails)
 	apiSkin.Get("/skin/:uuid<guid>/full", SkinFull)
 	apiSkin.Get("/skin/:uuid<guid>/head", SkinHead)
-	apiSkin.Post("/skin/:uuid<guid>/approve", middleware.AuthHandler, middleware.PermissionHandler(models.PermissionLevelApprover), SkinApprove)
-	apiSkin.Post("/skin/:uuid<guid>/delete", middleware.AuthHandler, NotImplemented)
-	apiSkin.Post("/create", middleware.AuthHandler, SkinCreate)
+	apiSkin.Post("/skin/:uuid<guid>/approve", SkinApprove, middleware.AuthHandler, middleware.PermissionHandler(models.PermissionLevelApprover))
+	apiSkin.Post("/skin/:uuid<guid>/delete", NotImplemented, middleware.AuthHandler)
+	apiSkin.Post("/create", SkinCreate, middleware.AuthHandler)
 	apiSkin.Get("/recent", SkinRecent)
 	apiSkin.Get("/rss", SkinRSS)
 
@@ -44,12 +49,12 @@ func SetupRoutes(app *fiber.App) {
 	apiUsers := api.Group("/users")
 
 	apiUsers.Get("/list", UsersList)
-	apiUsers.Get("/list/banned", middleware.AuthHandler, middleware.PermissionHandler(models.PermissionLevelAdmin), NotImplemented)
+	apiUsers.Get("/list/banned", NotImplemented, middleware.AuthHandler, middleware.PermissionHandler(models.PermissionLevelAdmin))
 	apiUsers.Get("/:id<int;min(1)>", UsersID)
-	apiUsers.Post("/:id<int;min(1)>/ban", middleware.AuthHandler, middleware.PermissionHandler(models.PermissionLevelAdmin), NotImplemented)
-	apiUsers.Post("/:id<int;min(1)>/unban", middleware.AuthHandler, middleware.PermissionHandler(models.PermissionLevelAdmin), NotImplemented)
-	apiUsers.Post("/:id<int;min(1)>/delete", middleware.AuthHandler, NotImplemented)
-	apiUsers.Post("/:id<int;min(1)>/permissions", middleware.AuthHandler, middleware.PermissionHandler(models.PermissionLevelAdmin), UsersPermissions)
+	apiUsers.Post("/:id<int;min(1)>/ban", NotImplemented, middleware.AuthHandler, middleware.PermissionHandler(models.PermissionLevelAdmin))
+	apiUsers.Post("/:id<int;min(1)>/unban", NotImplemented, middleware.AuthHandler, middleware.PermissionHandler(models.PermissionLevelAdmin))
+	apiUsers.Post("/:id<int;min(1)>/delete", NotImplemented, middleware.AuthHandler)
+	apiUsers.Post("/:id<int;min(1)>/permissions", UsersPermissions, middleware.AuthHandler, middleware.PermissionHandler(models.PermissionLevelAdmin))
 
 	// Handle 404 errors
 	api.All("*", NotFound)
@@ -58,7 +63,7 @@ func SetupRoutes(app *fiber.App) {
 	if utils.ConfigFrontendDevMode {
 		app.Get("*", proxy.Balancer(proxy.Config{
 			Servers: []string{utils.ConfigFrontendURL},
-			ModifyResponse: func(c *fiber.Ctx) error {
+			ModifyResponse: func(c fiber.Ctx) error {
 				if c.Response().StatusCode() == fiber.StatusNotFound {
 					return c.Status(fiber.StatusOK).Render("index", fiber.Map{
 						"DevMode": utils.ConfigFrontendDevMode,
@@ -80,7 +85,7 @@ func SetupRoutes(app *fiber.App) {
 		}
 
 		app.Static("/", "./frontend/dist")
-		app.Get("*", func(c *fiber.Ctx) error {
+		app.Get("*", func(c fiber.Ctx) error {
 			return c.Render("index", fiber.Map{
 				"DevMode":                false,
 				"MainCSS":                manifest["src/main.tsx"].Css[0],

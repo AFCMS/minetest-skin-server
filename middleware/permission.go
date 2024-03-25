@@ -3,14 +3,14 @@ package middleware
 import (
 	"minetest-skin-server/models"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 // PermissionHandler Refuse interaction if user doens't have required permission level
 //
 // Must be used after the auth handler
 func PermissionHandler(level int8) fiber.Handler {
-	return func(c *fiber.Ctx) error {
+	return func(c fiber.Ctx) error {
 		user := c.Locals("user").(models.Account)
 
 		if user.PermissionLevel >= level {

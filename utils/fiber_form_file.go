@@ -3,10 +3,10 @@ package utils
 import (
 	"mime/multipart"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
-func LoadFormFile(c *fiber.Ctx, name string) ([]byte, error) {
+func LoadFormFile(c fiber.Ctx, name string) ([]byte, error) {
 	// Get file header
 	var fileHeader *multipart.FileHeader
 	var err error

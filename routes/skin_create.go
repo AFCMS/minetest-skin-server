@@ -10,20 +10,20 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 // SkinCreate Handle Skin creation
 //
 // Use a multipart request
-func SkinCreate(c *fiber.Ctx) error {
+func SkinCreate(c fiber.Ctx) error {
 	// Get User
 	user := c.Locals("user").(models.Account)
 
-	input := types.InputSkinCreate{}
+	input := new(types.InputSkinCreate)
 
 	// Get the text fields
-	if err := c.BodyParser(&input); err != nil {
+	if err := c.Bind().MultipartForm(input); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(utils.ErrorOutput{Message: "Invalid request body", Data: err.Error()})
 	}
 

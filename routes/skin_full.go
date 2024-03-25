@@ -4,12 +4,12 @@ import (
 	"minetest-skin-server/database"
 	"minetest-skin-server/models"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 	"github.com/google/uuid"
 )
 
 // SkinFull Return the skin file
-func SkinFull(c *fiber.Ctx) error {
+func SkinFull(c fiber.Ctx) error {
 	var skin models.Skin
 
 	id, err := uuid.Parse(c.Params("uuid"))

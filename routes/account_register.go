@@ -1,20 +1,20 @@
 package routes
 
 import (
+	"time"
+
+	"github.com/gofiber/fiber/v3"
+	"golang.org/x/crypto/bcrypt"
+
 	"minetest-skin-server/database"
 	"minetest-skin-server/models"
 	"minetest-skin-server/types"
-	"time"
-
-	"golang.org/x/crypto/bcrypt"
-
-	"github.com/gofiber/fiber/v2"
 )
 
-func AccountRegister(c *fiber.Ctx) error {
-	input := types.InputRegister{}
+func AccountRegister(c fiber.Ctx) error {
+	input := new(types.InputRegister)
 
-	if err := c.BodyParser(&input); err != nil {
+	if err := c.Bind().JSON(input); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on register request", "data": err.Error()})
 	}
 

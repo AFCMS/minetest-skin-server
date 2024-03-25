@@ -1,20 +1,22 @@
 package routes
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"golang.org/x/crypto/bcrypt"
 	"log"
+	"time"
+
+	"github.com/gofiber/fiber/v3"
+	"golang.org/x/crypto/bcrypt"
+
 	"minetest-skin-server/auth"
 	"minetest-skin-server/database"
 	"minetest-skin-server/models"
 	"minetest-skin-server/types"
-	"time"
 )
 
-func AccountLogin(c *fiber.Ctx) error {
-	input := types.InputLogin{}
+func AccountLogin(c fiber.Ctx) error {
+	input := new(types.InputLogin)
 
-	if err := c.BodyParser(&input); err != nil {
+	if err := c.Bind().JSON(input); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error on login request", "data": err})
 	}
 
