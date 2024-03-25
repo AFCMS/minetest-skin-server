@@ -34,3 +34,28 @@ func AuthHandler(c fiber.Ctx) error {
 	c.Locals("user", userAccount)
 	return c.Next()
 }
+
+func AuthHandlerOptional(c fiber.Ctx) error {
+	sess, err := auth.SessionStore.Get(c)
+	if err != nil {
+		return c.SendStatus(fiber.StatusInternalServerError)
+	}
+
+	if sess.Fresh() || sess.Get("uid").(uint) == 0 {
+		return c.Next()
+	}
+
+	userAccount, err := database.AccountFromID(sess.Get("uid").(uint))
+
+	if err != nil {
+		err := sess.Destroy()
+		if err != nil {
+			return c.SendStatus(fiber.StatusInternalServerError)
+		}
+		return c.Next()
+	}
+
+	c.Locals("session", sess)
+	c.Locals("user", userAccount)
+	return c.Next()
+}

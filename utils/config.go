@@ -21,6 +21,9 @@ var (
 	ConfigOAuthContentDBURL          string
 	ConfigOAuthContentDBClientID     string
 	ConfigOAuthContentDBClientSecret string
+	ConfigOAuthGitHub                bool
+	ConfigOAuthGitHubClientID        string
+	ConfigOAuthGitHubClientSecret    string
 )
 
 func loadConfig() {
@@ -90,7 +93,23 @@ func loadConfig() {
 		ConfigOAuthContentDBClientSecret = ""
 	}
 
-	ConfigOAuthContentDB = ConfigOAuthContentDBClientID != "" && ConfigOAuthContentDBClientSecret != ""
+	ConfigOAuthContentDB = ConfigOAuthContentDBClientID != "" || ConfigOAuthContentDBClientSecret != ""
+
+	str, isPresent = os.LookupEnv("MT_SKIN_SERVER_OAUTH_GITHUB_CLIENT_ID")
+	if isPresent {
+		ConfigOAuthGitHubClientID = str
+	} else {
+		ConfigOAuthGitHubClientID = ""
+	}
+
+	str, isPresent = os.LookupEnv("MT_SKIN_SERVER_OAUTH_GITHUB_CLIENT_SECRET")
+	if isPresent {
+		ConfigOAuthGitHubClientSecret = str
+	} else {
+		ConfigOAuthGitHubClientSecret = ""
+	}
+
+	ConfigOAuthGitHub = ConfigOAuthGitHubClientID != "" || ConfigOAuthGitHubClientSecret != ""
 }
 
 func init() {

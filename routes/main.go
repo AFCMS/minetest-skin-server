@@ -30,7 +30,15 @@ func SetupRoutes(app *fiber.App) {
 
 	apiOauthEndpoints := apiAccount.Group("/providers")
 
-	auth.RegisterEndpoints(apiOauthEndpoints)
+	if utils.ConfigOAuthContentDB {
+		apiOauthEndpoints.Get("/contentdb", auth.ContentDBAuthorize, middleware.AuthHandlerOptional)
+		apiOauthEndpoints.Get("/contentdb/callback", auth.ContentDBCallback, middleware.AuthHandlerOptional)
+	}
+
+	if utils.ConfigOAuthGitHub {
+		apiOauthEndpoints.Get("/github", auth.GitHubAuthorize, middleware.AuthHandlerOptional)
+		apiOauthEndpoints.Get("/github/callback", auth.GitHubCallback, middleware.AuthHandlerOptional)
+	}
 
 	// Interacting with skins
 	apiSkin := api.Group("/skin")

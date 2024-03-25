@@ -217,12 +217,18 @@ You can also use the DNS record method if you want, please checkout [Google's do
 
 ##### OAuth2
 
-The server supports OAuth2 for authentication, you can set the following environment variables to enable it:
+The server supports OAuth2 for authentication, you can set the following environment variables to enable it.
+
+If one of the two variables (client id, client secret) for a provider are not set, OAuth2 will be disabled for that provider.
 
 - `MT_SKIN_SERVER_OAUTH_REDIRECT_HOST`: the host where the OAuth2 callback will be redirected to
-- ContentDB (if one of the two variables are not set OAuth2 will be disabled for ContentDB):
+- ContentDB:
   - `MT_SKIN_SERVER_OAUTH_CONTENTDB_CLIENT_ID`: the OAuth2 client ID for the ContentDB API
   - `MT_SKIN_SERVER_OAUTH_CONTENTDB_CLIENT_SECRET` the OAuth2 client secret for the ContentDB API
+  - `MT_SKIN_SERVER_OAUTH_CONTENTDB_URL`: the URL of the ContentDB instance, default to `https://content.minetest.net`
+- GitHub:
+  - `MT_SKIN_SERVER_OAUTH_GITHUB_CLIENT_ID`: the OAuth2 client ID for the GitHub API
+  - `MT_SKIN_SERVER_OAUTH_GITHUB_CLIENT_SECRET` the OAuth2 client secret for the GitHub API
 
 ## Development Tools
 

@@ -26,6 +26,10 @@ func Info(c fiber.Ctx) error {
 		supportedOAuthProviders = append(supportedOAuthProviders, "contentdb")
 	}
 
+	if utils.ConfigOAuthGitHub {
+		supportedOAuthProviders = append(supportedOAuthProviders, "github")
+	}
+
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"version":                   "1.0",
 		"account_count":             accountCount,

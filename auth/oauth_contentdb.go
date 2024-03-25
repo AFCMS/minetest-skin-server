@@ -51,6 +51,7 @@ func ContentDBExchange(code string) (string, error) {
 	req := c.R()
 
 	req.SetHeader(fiber.HeaderContentType, fiber.MIMEMultipartForm)
+	req.SetHeader(fiber.HeaderAccept, fiber.MIMEApplicationJSON)
 	req.SetFormDatas(map[string]string{
 		"grant_type":    "authorization_code",
 		"client_id":     utils.ConfigOAuthContentDBClientID,
@@ -61,7 +62,6 @@ func ContentDBExchange(code string) (string, error) {
 	cdbURL, _ := url.Parse(utils.ConfigOAuthContentDBURL)
 	cdbURL.Path = "/oauth/token/"
 
-	log.Println(cdbURL.String())
 	resp, err := req.Post(cdbURL.String())
 	if err != nil {
 		return "", err
@@ -103,26 +103,22 @@ func ContentDBFetchUser(token string) (*ContentDBUser, error) {
 	return d, nil
 }
 
-func RegisterEndpoints(group fiber.Router) {
-	group.Get("/contentdb", ContentDBAuthorize)
+func ContentDBCallback(c fiber.Ctx) error {
+	code := c.Query("code")
 
-	group.Get("/contentdb/callback", func(c fiber.Ctx) error {
-		code := c.Query("code")
+	token, err := ContentDBExchange(code)
+	if err != nil {
+		return err
+	}
 
-		token, err := ContentDBExchange(code)
-		if err != nil {
-			return err
-		}
+	user, err := ContentDBFetchUser(token)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "ContentDB error", "data": err.Error(),
+		})
+	}
 
-		user, err := ContentDBFetchUser(token)
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-				"message": "ContentDB error", "data": err.Error(),
-			})
-		}
+	log.Println(user.Username)
 
-		log.Println(user.Username)
-
-		return c.Redirect().To("/")
-	})
+	return c.Redirect().To("/")
 }
