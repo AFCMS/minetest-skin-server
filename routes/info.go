@@ -7,8 +7,6 @@ import (
 	"minetest-skin-server/utils"
 )
 
-// TODO: include user count
-
 func Info(c fiber.Ctx) error {
 	accountCount, err := database.AccountCount()
 	if err != nil {
