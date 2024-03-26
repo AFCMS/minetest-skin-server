@@ -13,4 +13,6 @@ type Account struct {
 	BanReason       string    `json:"ban_reason" gorm:"default:"`
 	CreatedAt       time.Time `json:"created_at"`
 	LastConnection  time.Time `json:"last_connection"`
+	CDBUsername     string    `json:"cdb_username" gorm:"unique;default:null;size:50"`
+	GitHubID        uint      `json:"github_id" gorm:"unique;default:null"`
 }

@@ -1,9 +1,6 @@
 package routes
 
 import (
-	"log"
-	"time"
-
 	"github.com/gofiber/fiber/v3"
 	"golang.org/x/crypto/bcrypt"
 
@@ -41,33 +38,9 @@ func AccountLogin(c fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Could not login"})
 	}
 
-	sess, err := auth.SessionStore.Get(c)
+	err = auth.InitSession(c, &user)
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error interacting with session", "data": err.Error()})
-	}
-
-	if sess.Fresh() {
-		// Get session ID
-		sid := sess.ID()
-
-		// Get user ID
-		uid := user.ID
-
-		// Save session data
-		sess.Set("uid", uid)
-		sess.Set("sid", sid)
-		sess.Set("ip", c.Context().RemoteIP().String())
-		sess.Set("login", time.Unix(time.Now().Unix(), 0).UTC().String())
-		sess.Set("ua", string(c.Request().Header.UserAgent()))
-
-		err := sess.Save()
-		if err != nil {
-			log.Println(err)
-		}
-	}
-
-	if err := database.AccountSetLastConnection(&user); err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error interacting with database", "data": err.Error()})
+		return err
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "Success"})

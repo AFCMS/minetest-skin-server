@@ -11,6 +11,7 @@ import (
 //
 // Put the database entry for the user in locals
 func AuthHandler(c fiber.Ctx) error {
+	c.Locals("logged_in", true)
 	sess, err := auth.SessionStore.Get(c)
 	if err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
@@ -36,6 +37,7 @@ func AuthHandler(c fiber.Ctx) error {
 }
 
 func AuthHandlerOptional(c fiber.Ctx) error {
+	c.Locals("logged_in", false)
 	sess, err := auth.SessionStore.Get(c)
 	if err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
@@ -55,6 +57,7 @@ func AuthHandlerOptional(c fiber.Ctx) error {
 		return c.Next()
 	}
 
+	c.Locals("logged_in", true)
 	c.Locals("session", sess)
 	c.Locals("user", userAccount)
 	return c.Next()

@@ -13,5 +13,6 @@ func AccountUser(c fiber.Ctx) error {
 		"id":               user.ID,
 		"username":         user.Username,
 		"permission_level": user.PermissionLevel,
+		"cdb_username":     user.CDBUsername,
 	})
 }

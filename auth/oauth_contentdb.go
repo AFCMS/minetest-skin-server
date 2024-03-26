@@ -9,6 +9,8 @@ import (
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/client"
 
+	"minetest-skin-server/database"
+	"minetest-skin-server/models"
 	"minetest-skin-server/utils"
 )
 
@@ -111,14 +113,63 @@ func ContentDBCallback(c fiber.Ctx) error {
 		return err
 	}
 
-	user, err := ContentDBFetchUser(token)
+	cdbuser, err := ContentDBFetchUser(token)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "ContentDB error", "data": err.Error(),
 		})
 	}
 
-	log.Println(user.Username)
+	loggedIn := c.Locals("logged_in").(bool)
+
+	if loggedIn {
+		user := c.Locals("user").(models.Account)
+
+		if user.CDBUsername != "" {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"message": "User already has a ContentDB account",
+			})
+		} else {
+			if err := database.DB.Model(&user).Update("cdb_username", cdbuser.Username).Error; err != nil {
+				return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+					"message": "Database error",
+					"data":    err.Error(),
+				})
+			}
+		}
+	} else {
+		user, err := database.AccountFromCDBUsername(cdbuser.Username)
+		if err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"message": "User not found",
+				"data":    err.Error(),
+			})
+		}
+
+		err = InitSession(c, &user)
+		if err != nil {
+			return err
+		}
+	}
+
+	return c.Redirect().To("/")
+}
+
+func ContentDBUnlink(c fiber.Ctx) error {
+	user := c.Locals("user").(models.Account)
+
+	if user.CDBUsername == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "User does not have a ContentDB account",
+		})
+	}
+
+	if err := database.DB.Model(&user).Update("cdb_username", "").Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Database error",
+			"data":    err.Error(),
+		})
+	}
 
 	return c.Redirect().To("/")
 }

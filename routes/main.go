@@ -33,6 +33,7 @@ func SetupRoutes(app *fiber.App) {
 	if utils.ConfigOAuthContentDB {
 		apiOauthEndpoints.Get("/contentdb", auth.ContentDBAuthorize, middleware.AuthHandlerOptional)
 		apiOauthEndpoints.Get("/contentdb/callback", auth.ContentDBCallback, middleware.AuthHandlerOptional)
+		apiOauthEndpoints.Post("/contentdb/unlink", auth.ContentDBUnlink, middleware.AuthHandler)
 	}
 
 	if utils.ConfigOAuthGitHub {
