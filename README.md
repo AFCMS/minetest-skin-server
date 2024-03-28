@@ -27,7 +27,6 @@ and the following libraries:
 - [**Heroicons**](https://heroicons.com) for most icons
 - [**React Router**](https://reactrouter.com)
 - [**React Three Fiber**](https://github.com/pmndrs/react-three-fiber) for the 3D preview of skins
-- [**Recoil**](https://recoiljs.org) for state managment
 
 ## Running Server
 
