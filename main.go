@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/compress"
 	"github.com/gofiber/fiber/v3/middleware/cors"
 	flogger "github.com/gofiber/fiber/v3/middleware/logger"
 	"github.com/gofiber/template/html/v2"
@@ -48,6 +49,11 @@ func main() {
 
 	// Log requests
 	app.Use(flogger.New())
+
+	// Compress responses
+	app.Use(compress.New(compress.Config{
+		Level: compress.LevelDefault,
+	}))
 
 	routes.SetupRoutes(app)
 

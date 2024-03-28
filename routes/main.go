@@ -93,7 +93,9 @@ func SetupRoutes(app *fiber.App) {
 			log.Fatal(err)
 		}
 
-		app.Static("/", "./frontend/dist")
+		app.Static("/", "./frontend/dist", fiber.Static{
+			Compress: true,
+		})
 		app.Get("*", func(c fiber.Ctx) error {
 			return c.Render("index", fiber.Map{
 				"DevMode":                false,
