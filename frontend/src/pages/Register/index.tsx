@@ -8,11 +8,6 @@ import { AppContext } from "../../services/AppContext.tsx";
 function Register() {
     const { loggedIn } = useContext(AppContext);
 
-    // Navigate to homepage if already authenticated
-    if (loggedIn) {
-        return <Navigate to="/" />;
-    }
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [agreedTOS, setAgreedTOS] = useState(false);
@@ -50,6 +45,11 @@ function Register() {
                 setLoading(false);
                 setErr(e.message);
             });
+    }
+
+    // Navigate to homepage if already authenticated
+    if (loggedIn) {
+        return <Navigate to="/" />;
     }
 
     return (
