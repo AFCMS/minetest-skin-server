@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import SearchSkin from "./pages/SearchSkin";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import { AppContextProvider } from "./services/AppContext.tsx";
 
 import "./style/main.css";
 import "./style/forms.css";
@@ -15,21 +16,23 @@ import "./style/font.css";
 import "./style/pannel.css";
 
 function App() {
-	return (
-		<div className="min-h-screen bg-blue-200">
-			<BrowserRouter>
-				<Header />
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/register" element={<Register />} />
-					<Route path="/search" element={<SearchSkin />} />
-					<Route path="/about" element={<About />} />
-					<Route path="/*" element={<NotFound />} />
-				</Routes>
-			</BrowserRouter>
-		</div>
-	);
+    return (
+        <div className="min-h-screen bg-blue-200">
+            <AppContextProvider>
+                <BrowserRouter>
+                    <Header />
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/search" element={<SearchSkin />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/*" element={<NotFound />} />
+                    </Routes>
+                </BrowserRouter>
+            </AppContextProvider>
+        </div>
+    );
 }
 
 export default App;

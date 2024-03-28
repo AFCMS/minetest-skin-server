@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
+
+.rendering-pixelated {
+    image-rendering: pixelated;
+}
