@@ -3,7 +3,7 @@ module minetest-skin-server
 go 1.22
 
 require (
-	github.com/gofiber/fiber/v3 v3.0.0-20240324195456-95c181469d87
+	github.com/gofiber/fiber/v3 v3.0.0-20240328094538-dfe5c6fd0427
 	github.com/gofiber/storage/memory/v2 v2.0.1
 	github.com/gofiber/template/html/v2 v2.1.1
 	github.com/google/uuid v1.6.0
@@ -16,7 +16,7 @@ require (
 require (
 	github.com/gofiber/template v1.8.3 // indirect
 	github.com/gofiber/utils v1.1.0 // indirect
-	github.com/gofiber/utils/v2 v2.0.0-beta.3 // indirect
+	github.com/gofiber/utils/v2 v2.0.0-beta.4 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
 	github.com/jackc/pgx/v5 v5.4.3 // indirect
