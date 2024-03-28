@@ -67,7 +67,7 @@ const AppContextProvider = (props: { children?: ReactNode | undefined }) => {
         setLoadingUser(true);
         fetchServerInfo().then();
         checkAuthentication().then();
-    }, []);
+    }, [checkAuthentication, fetchServerInfo]);
 
     window.addEventListener("storage", () => {
         checkAuthentication().then();
