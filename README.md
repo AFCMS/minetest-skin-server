@@ -19,7 +19,8 @@ The server is build with the [**Go**](https://go.dev) language on-top of the [**
 
 It uses also the [**GORM**](https://gorm.io) library for interacting with the database.
 
-The frontend is build with the [**React**](https://reactjs.org) library, the [**Vite**](https://vitejs.dev) framework and the following libraries:
+The frontend is build with the [**React**](https://reactjs.org) library, the [**Vite**](https://vitejs.dev) framework
+and the following libraries:
 
 - [**TailwindCSS**](https://tailwindcss.com) for styling
 - [**HeadlessUI**](https://headlessui.com) for dialogs, combobox, etc
@@ -209,26 +210,31 @@ For production the server supports some more configuration variables.
 
 ##### Google Search Console Verification
 
-The server can use the HTML tag verification method for the [Google Search Console](https://search.google.com/search-console) (URL prefix).
+The server can use the HTML tag verification method for
+the [Google Search Console](https://search.google.com/search-console) (URL prefix).
 
 You can set the `MT_SKIN_SERVER_VERIFICATION_GOOGLE_SEARCH_CONSOLE` environment variable to Google's verification token.
 
-You can also use the DNS record method if you want, please checkout [Google's documentation](https://support.google.com/webmasters/answer/9008080) for more information.
+You can also use the DNS record method if you want, please
+checkout [Google's documentation](https://support.google.com/webmasters/answer/9008080) for more information.
 
 ##### OAuth2
 
 The server supports OAuth2 for authentication, you can set the following environment variables to enable it.
 
-If one of the two variables (client id, client secret) for a provider are not set, OAuth2 will be disabled for that provider.
+If one of the two variables (client id, client secret) for a provider are not set, OAuth2 will be disabled for that
+provider.
 
 - `MT_SKIN_SERVER_OAUTH_REDIRECT_HOST`: the host where the OAuth2 callback will be redirected to
 - ContentDB:
-  - `MT_SKIN_SERVER_OAUTH_CONTENTDB_CLIENT_ID`: the OAuth2 client ID for the ContentDB API
-  - `MT_SKIN_SERVER_OAUTH_CONTENTDB_CLIENT_SECRET` the OAuth2 client secret for the ContentDB API
-  - `MT_SKIN_SERVER_OAUTH_CONTENTDB_URL`: the URL of the ContentDB instance, default to `https://content.minetest.net`
+    - `MT_SKIN_SERVER_OAUTH_CONTENTDB_CLIENT_ID`: the OAuth2 client ID for the ContentDB API
+    - `MT_SKIN_SERVER_OAUTH_CONTENTDB_CLIENT_SECRET` the OAuth2 client secret for the ContentDB API
+    - `MT_SKIN_SERVER_OAUTH_CONTENTDB_URL`: the URL of the ContentDB instance, default to `https://content.minetest.net`
+    - [Create Application](https://content.minetest.net/user/apps/)
 - GitHub:
-  - `MT_SKIN_SERVER_OAUTH_GITHUB_CLIENT_ID`: the OAuth2 client ID for the GitHub API
-  - `MT_SKIN_SERVER_OAUTH_GITHUB_CLIENT_SECRET` the OAuth2 client secret for the GitHub API
+    - `MT_SKIN_SERVER_OAUTH_GITHUB_CLIENT_ID`: the OAuth2 client ID for the GitHub API
+    - `MT_SKIN_SERVER_OAUTH_GITHUB_CLIENT_SECRET` the OAuth2 client secret for the GitHub API
+    - [Create Application](https://github.com/settings/applications/new)
 
 ## Development Tools
 
