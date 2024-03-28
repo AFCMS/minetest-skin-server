@@ -95,6 +95,10 @@ func SetupRoutes(app *fiber.App) {
 
 		app.Static("/", "./frontend/dist", fiber.Static{
 			Compress: true,
+			ModifyResponse: func(ctx fiber.Ctx) error {
+				ctx.Response().Header.Set(fiber.HeaderCacheControl, "public, max-age=600")
+				return nil
+			},
 		})
 		app.Get("*", func(c fiber.Ctx) error {
 			return c.Render("index", fiber.Map{
