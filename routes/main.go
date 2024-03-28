@@ -2,6 +2,7 @@ package routes
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 
@@ -96,7 +97,7 @@ func SetupRoutes(app *fiber.App) {
 		app.Static("/", "./frontend/dist", fiber.Static{
 			Compress: true,
 			ModifyResponse: func(ctx fiber.Ctx) error {
-				ctx.Response().Header.Set(fiber.HeaderCacheControl, "public, max-age=600")
+				ctx.Response().Header.Set(fiber.HeaderCacheControl, fmt.Sprintf("public, max-age=%d", 60*60*24*30*6))
 				return nil
 			},
 		})
