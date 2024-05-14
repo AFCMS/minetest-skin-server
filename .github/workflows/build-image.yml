@@ -86,4 +86,4 @@ jobs:
         with:
           subject-name: ${{ env.IMAGE_FULL }}
           subject-digest: ${{ steps.build-and-push.outputs.digest }}
-          push-to-registry: true
+          push-to-registry: false
