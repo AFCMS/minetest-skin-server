@@ -203,6 +203,11 @@ docker pull ghcr.io/afcms/minetest:master
 docker compose -f compose.prod.yml up
 ```
 
+You can verify that the image have been really built by the GitHub Actions workflow and find the build log using the GitHub CLI:
+```shell
+gh attestation verify oci://ghcr.io/afcms/minetest-skin-server:master --repo AFCMS/minetest-skin-server
+```
+
 #### Configuration
 
 For production the server supports some more configuration variables.
