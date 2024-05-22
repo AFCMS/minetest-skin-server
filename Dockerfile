@@ -44,7 +44,7 @@ COPY ./frontend ./
 RUN npm run build
 
 # Production Image
-FROM alpine:3.19 as production
+FROM alpine:3.20 as production
 RUN apk update && apk add --no-cache optipng
 
 RUN adduser \
