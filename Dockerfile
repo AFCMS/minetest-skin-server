@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Build Backend
-FROM --platform=$BUILDPLATFORM golang:1.22.1-alpine3.19 as builder
+FROM --platform=$BUILDPLATFORM golang:1.22.1-alpine3.19 AS builder
 
 LABEL org.opencontainers.image.title="Minetest Skin Server"
 LABEL org.opencontainers.image.description="Skin server for the Minetest engine"
@@ -32,7 +32,7 @@ RUN --mount=type=cache,id=gomod,target="/go/pkg/mod" \
     CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o minetest-skin-server .
 
 # Build Frontend
-FROM --platform=$BUILDPLATFORM node:20-alpine3.19 as frontend-builder
+FROM --platform=$BUILDPLATFORM node:20-alpine3.19 AS frontend-builder
 
 WORKDIR /frontend
 
@@ -44,7 +44,7 @@ COPY ./frontend ./
 RUN npm run build
 
 # Production Image
-FROM alpine:3.19 as production
+FROM alpine:3.19 AS production
 RUN apk update && apk add --no-cache optipng
 
 RUN adduser \
