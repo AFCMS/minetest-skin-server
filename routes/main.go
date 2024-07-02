@@ -8,6 +8,7 @@ import (
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/proxy"
+	"github.com/gofiber/fiber/v3/middleware/static"
 
 	"minetest-skin-server/auth"
 	"minetest-skin-server/middleware"
@@ -94,13 +95,13 @@ func SetupRoutes(app *fiber.App) {
 			log.Fatal(err)
 		}
 
-		app.Static("/", "./frontend/dist", fiber.Static{
+		app.Get("/", static.New("./frontend/dist", static.Config{
 			Compress: true,
-			ModifyResponse: func(ctx fiber.Ctx) error {
-				ctx.Response().Header.Set(fiber.HeaderCacheControl, fmt.Sprintf("public, max-age=%d", 60*60*24*30*6))
-				return nil
-			},
+		}), func(ctx fiber.Ctx) error {
+			ctx.Response().Header.Set(fiber.HeaderCacheControl, fmt.Sprintf("public, max-age=%d", 60*60*24*30*6))
+			return nil
 		})
+
 		app.Get("*", func(c fiber.Ctx) error {
 			return c.Render("index", fiber.Map{
 				"DevMode":                false,
