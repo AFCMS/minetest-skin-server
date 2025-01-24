@@ -43,9 +43,12 @@ RUN --mount=type=cache,id=npmmod,target="/root/.npm" npm ci
 COPY ./frontend ./
 RUN npm run build
 
+FROM ghcr.io/shssoichiro/oxipng:v9.1.3 AS oxipng
+
 # Production Image
 FROM alpine:3.21 AS production
-RUN apk update && apk add --no-cache optipng
+
+COPY --from=oxipng /usr/local/bin/oxipng /app/oxipng
 
 RUN adduser \
     --disabled-password \

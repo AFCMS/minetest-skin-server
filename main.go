@@ -16,23 +16,19 @@ import (
 )
 
 func main() {
-	// Check for OptiPNG installation
+	// Check for Oxipng installation
 	if utils.ConfigOptipngEnabled {
-		optipngPresent := utils.OptiPNGPresent()
-		if optipngPresent {
-			log.Println("OptiPNG found")
+		oxipngPresent := utils.OxipngPresent()
+		if oxipngPresent {
+			log.Println("Oxipng found")
 		} else {
-			log.Fatalln("OptiPNG not found")
+			log.Fatalln("Oxipng not found")
 		}
 	}
 
 	// Connection to Database
 	log.Println("Connecting to Database...")
 	database.ConnectDB()
-
-	// Initialize Auth
-	log.Println("Initializing Auth...")
-	auth.Initialize()
 
 	// Create template engine
 	engine := html.New("./", ".gohtml")
@@ -43,6 +39,10 @@ func main() {
 		CaseSensitive: false,
 		Views:         engine,
 	})
+
+	// Initialize Auth
+	log.Println("Initializing Auth...")
+	auth.Initialize(app)
 
 	// Enable CORS
 	app.Use(cors.New())

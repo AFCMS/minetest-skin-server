@@ -51,7 +51,7 @@ func GitHubExchange(code string) (string, error) {
 
 	req.SetHeader(fiber.HeaderContentType, fiber.MIMEMultipartForm)
 	req.SetHeader(fiber.HeaderAccept, fiber.MIMEApplicationJSON)
-	req.SetFormDatas(map[string]string{
+	req.SetFormDataWithMap(map[string]string{
 		"client_id":     utils.ConfigOAuthGitHubClientID,
 		"client_secret": utils.ConfigOAuthGitHubClientSecret,
 		"code":          code,

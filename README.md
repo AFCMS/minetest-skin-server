@@ -11,7 +11,7 @@ This server is made for serving Luanti skins to Luanti servers. It is licensed u
 - ✅ Easy to use and powerful **API**
 - ✅ Skins compatible with both **VoxeLibre** and **Minetest Game**
 - ✅ Fast and reliable, thanks to **Docker**, **Golang**, **Fiber** and **PostgreSQL**
-- ✅ Optimised images using **OptiPNG**
+- ✅ Optimised images using **Oxipng**
 
 ## Design
 
@@ -98,21 +98,9 @@ Follow the official guides for you OS.
 
 I recommend using NodeJS v20 installed using [**nvm**](https://github.com/nvm-sh/nvm) under linux.
 
-#### 2. (Optional) Install OptiPNG
+#### 2. (Optional) Install Oxipng
 
-If you want to enable [OptiPNG](https://optipng.sourceforge.net), you need to install it.
-
-On Ubuntu/Debian:
-
-```shell
-sudo apt install optipng
-```
-
-On Fedora/RHEL:
-
-```shell
-sudo dnf install optipng
-```
+If you want to enable [Oxipng](https://github.com/shssoichiro/oxipng), you need to install it.
 
 #### 3. Download source code
 

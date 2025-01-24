@@ -54,7 +54,7 @@ func ContentDBExchange(code string) (string, error) {
 
 	req.SetHeader(fiber.HeaderContentType, fiber.MIMEMultipartForm)
 	req.SetHeader(fiber.HeaderAccept, fiber.MIMEApplicationJSON)
-	req.SetFormDatas(map[string]string{
+	req.SetFormDataWithMap(map[string]string{
 		"grant_type":    "authorization_code",
 		"client_id":     utils.ConfigOAuthContentDBClientID,
 		"client_secret": utils.ConfigOAuthContentDBClientSecret,

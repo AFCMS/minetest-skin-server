@@ -5,8 +5,8 @@ import (
 	"image/png"
 	"luanti-skin-server/database"
 	"luanti-skin-server/models"
-	"luanti-skin-server/types"
 	"luanti-skin-server/utils"
+	"mime/multipart"
 	"sync"
 	"time"
 
@@ -20,16 +20,17 @@ func SkinCreate(c fiber.Ctx) error {
 	// Get User
 	user := c.Locals("user").(models.Account)
 
-	input := new(types.InputSkinCreate)
+	// input := new(types.InputSkinCreate)
 
 	// Get the text fields
-	if err := c.Bind().MultipartForm(input); err != nil {
+	var form *multipart.Form
+	var err error
+	if form, err = c.MultipartForm(); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(utils.ErrorOutput{Message: "Invalid request body", Data: err.Error()})
 	}
 
 	// Get file part
 	var skinB []byte
-	var err error
 	if skinB, err = utils.LoadFormFile(c, "data"); err != nil {
 		return err
 	}
@@ -60,7 +61,7 @@ func SkinCreate(c fiber.Ctx) error {
 	var skinBOpti = skinB
 	var headBOpti = headB
 
-	// Optionally run OptiPNG
+	// Optionally run Oxipng
 	// TODO: Run them async to get them done faster
 	// https://stackoverflow.com/questions/27792389/golang-functions-parallel-execution-with-return
 	if utils.ConfigOptipngEnabled {
@@ -75,12 +76,12 @@ func SkinCreate(c fiber.Ctx) error {
 		sg.Add(2)
 
 		go func(out *[]byte, err *error, sg *sync.WaitGroup) {
-			*out, *err = utils.OptiPNGBytes(skinB)
+			*out, *err = utils.OxipngBytes(skinB)
 			sg.Done()
 		}(&out1, &err1, &sg)
 
 		go func(out *[]byte, err *error, sg *sync.WaitGroup) {
-			*out, *err = utils.OptiPNGBytes(headB)
+			*out, *err = utils.OxipngBytes(headB)
 			sg.Done()
 		}(&out2, &err2, &sg)
 
@@ -96,8 +97,8 @@ func SkinCreate(c fiber.Ctx) error {
 
 	// Create entry in database
 	var l = models.Skin{
-		Description: input.Description,
-		Public:      input.Public,
+		Description: form.Value["description"][0],
+		Public:      form.Value["public"][0] == "true",
 		Owner:       user,
 		Data:        skinBOpti,
 		DataHead:    headBOpti,

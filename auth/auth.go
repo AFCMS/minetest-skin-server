@@ -13,10 +13,10 @@ import (
 )
 
 var SessionStore *session.Store
+var SessionMiddleware fiber.Handler
 
-func Initialize() {
-	SessionStore = session.New(session.Config{
-		Expiration:        24 * time.Hour,
+func Initialize(app *fiber.App) {
+	SessionMiddleware, SessionStore = session.NewWithStore(session.Config{
 		Storage:           memory.New(), // TODO: use Redis
 		KeyLookup:         "cookie:session_id",
 		CookieDomain:      "",
@@ -25,6 +25,8 @@ func Initialize() {
 		CookieHTTPOnly:    true,
 		CookieSessionOnly: false,
 	})
+
+	app.Use(SessionMiddleware)
 }
 
 func InitSession(c fiber.Ctx, user *models.Account) error {
@@ -43,7 +45,7 @@ func InitSession(c fiber.Ctx, user *models.Account) error {
 		// Save session data
 		sess.Set("uid", uid)
 		sess.Set("sid", sid)
-		sess.Set("ip", c.Context().RemoteIP().String())
+		sess.Set("ip", c.IP())
 		sess.Set("login", time.Unix(time.Now().Unix(), 0).UTC().String())
 		sess.Set("ua", string(c.Request().Header.UserAgent()))
 
