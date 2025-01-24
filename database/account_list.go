@@ -1,6 +1,6 @@
 package database
 
-import "minetest-skin-server/models"
+import "luanti-skin-server/models"
 
 // AccountList Return users that are not banned
 func AccountList() ([]models.Account, error) {

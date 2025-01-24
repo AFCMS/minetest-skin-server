@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"minetest-skin-server/database"
-	"minetest-skin-server/models"
+	"luanti-skin-server/database"
+	"luanti-skin-server/models"
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/google/uuid"

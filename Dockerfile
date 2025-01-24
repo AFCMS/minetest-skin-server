@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.title="Minetest Skin Server"
 LABEL org.opencontainers.image.description="Skin server for the Minetest engine"
 LABEL org.opencontainers.image.authors="AFCM <afcm.contact@gmail.com>"
 LABEL org.opencontainers.image.licenses="GPL-3.0"
-LABEL org.opencontainers.image.source="https://github.com/AFCMS/minetest-skin-server"
+LABEL org.opencontainers.image.source="https://github.com/AFCMS/luanti-skin-server"
 
 ARG TARGETOS
 ARG TARGETARCH
@@ -29,7 +29,7 @@ COPY . ./
 # https://dev.to/jacktt/20x-faster-golang-docker-builds-289n
 RUN --mount=type=cache,id=gomod,target="/go/pkg/mod" \
     --mount=type=cache,id=gobuild,target="/root/.cache/go-build" \
-    CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o minetest-skin-server .
+    CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o luanti-skin-server .
 
 # Build Frontend
 FROM --platform=$BUILDPLATFORM node:20-alpine3.21 AS frontend-builder
@@ -56,7 +56,7 @@ RUN adduser \
     --uid "10001" \
     "appuser"
 
-COPY --from=builder /app/minetest-skin-server /app/
+COPY --from=builder /app/luanti-skin-server /app/
 COPY --from=builder /app/index.gohtml /app/
 COPY --from=frontend-builder /frontend/dist /app/frontend/dist
 
@@ -65,4 +65,4 @@ USER appuser:appuser
 WORKDIR /app
 
 EXPOSE 8080
-CMD ["/app/minetest-skin-server"]
+CMD ["/app/luanti-skin-server"]

@@ -1,6 +1,6 @@
 package database
 
-import "minetest-skin-server/models"
+import "luanti-skin-server/models"
 
 // AccountFromCDBUsername Get account from CDB username
 func AccountFromCDBUsername(cdbUsername string) (models.Account, error) {

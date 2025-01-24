@@ -1,7 +1,7 @@
 package utils_test
 
 import (
-	"minetest-skin-server/utils"
+	"luanti-skin-server/utils"
 	"testing"
 )
 

@@ -1,6 +1,6 @@
 package database
 
-import "minetest-skin-server/models"
+import "luanti-skin-server/models"
 
 // AccountCount Count accounts registered
 func AccountCount() (int64, error) {

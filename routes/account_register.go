@@ -6,9 +6,9 @@ import (
 	"github.com/gofiber/fiber/v3"
 	"golang.org/x/crypto/bcrypt"
 
-	"minetest-skin-server/database"
-	"minetest-skin-server/models"
-	"minetest-skin-server/types"
+	"luanti-skin-server/database"
+	"luanti-skin-server/models"
+	"luanti-skin-server/types"
 )
 
 func AccountRegister(c fiber.Ctx) error {

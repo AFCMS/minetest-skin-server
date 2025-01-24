@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"minetest-skin-server/models"
+	"luanti-skin-server/models"
 
 	"github.com/gofiber/fiber/v3"
 )

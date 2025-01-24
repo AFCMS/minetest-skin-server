@@ -1,6 +1,6 @@
 package database
 
-import "minetest-skin-server/models"
+import "luanti-skin-server/models"
 
 func SkinApproval(s *models.Skin, state bool) error {
 	if err := DB.Model(&s).Update("approved", state).Error; err != nil {

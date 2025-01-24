@@ -8,8 +8,8 @@ import (
 	"github.com/gofiber/fiber/v3/middleware/session"
 	"github.com/gofiber/storage/memory/v2"
 
-	"minetest-skin-server/database"
-	"minetest-skin-server/models"
+	"luanti-skin-server/database"
+	"luanti-skin-server/models"
 )
 
 var SessionStore *session.Store

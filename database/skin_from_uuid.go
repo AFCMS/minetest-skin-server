@@ -1,7 +1,7 @@
 package database
 
 import (
-	"minetest-skin-server/models"
+	"luanti-skin-server/models"
 
 	"github.com/google/uuid"
 )

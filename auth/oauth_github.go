@@ -10,7 +10,7 @@ import (
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/client"
 
-	"minetest-skin-server/utils"
+	"luanti-skin-server/utils"
 )
 
 type GitHubTokenResponse struct {

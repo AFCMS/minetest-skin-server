@@ -1,6 +1,6 @@
 package database
 
-import "minetest-skin-server/models"
+import "luanti-skin-server/models"
 
 // SkinCount Count skins in database
 func SkinCount() (int64, error) {

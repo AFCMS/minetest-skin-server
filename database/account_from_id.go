@@ -1,6 +1,6 @@
 package database
 
-import "minetest-skin-server/models"
+import "luanti-skin-server/models"
 
 // AccountFromID Get account from ID
 func AccountFromID(id uint) (models.Account, error) {

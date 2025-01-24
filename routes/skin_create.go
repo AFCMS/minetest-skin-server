@@ -3,10 +3,10 @@ package routes
 import (
 	"bytes"
 	"image/png"
-	"minetest-skin-server/database"
-	"minetest-skin-server/models"
-	"minetest-skin-server/types"
-	"minetest-skin-server/utils"
+	"luanti-skin-server/database"
+	"luanti-skin-server/models"
+	"luanti-skin-server/types"
+	"luanti-skin-server/utils"
 	"sync"
 	"time"
 

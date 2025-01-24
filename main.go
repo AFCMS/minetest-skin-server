@@ -9,10 +9,10 @@ import (
 	flogger "github.com/gofiber/fiber/v3/middleware/logger"
 	"github.com/gofiber/template/html/v2"
 
-	"minetest-skin-server/auth"
-	"minetest-skin-server/database"
-	"minetest-skin-server/routes"
-	"minetest-skin-server/utils"
+	"luanti-skin-server/auth"
+	"luanti-skin-server/database"
+	"luanti-skin-server/routes"
+	"luanti-skin-server/utils"
 )
 
 func main() {

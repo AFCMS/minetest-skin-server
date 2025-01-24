@@ -1,15 +1,15 @@
-# Minetest Skin Server
+# Luanti Skin Server
 
-![GitHub Workflow Status](https://img.shields.io/github/checks-status/AFCMS/minetest-skin-server/master?style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/checks-status/AFCMS/luanti-skin-server/master?style=flat-square)
 
 > [!IMPORTANT]
 > This server is still in development and is not ready for production use.
 > Breaking changes may occur at any time.
 
-This server is made for serving Minetest skins to Minetest servers. It is licensed under GPLv3.
+This server is made for serving Luanti skins to Luanti servers. It is licensed under GPLv3.
 
 - ✅ Easy to use and powerful **API**
-- ✅ Skins compatible with both **MineClone2** and **Minetest Game**
+- ✅ Skins compatible with both **VoxeLibre** and **Minetest Game**
 - ✅ Fast and reliable, thanks to **Docker**, **Golang**, **Fiber** and **PostgreSQL**
 - ✅ Optimised images using **OptiPNG**
 
@@ -55,7 +55,7 @@ Follow the official guide for your OS.
 #### 2. Download source code
 
 ```shell
-git clone https://github.com/AFCMS/minetest-skin-server && cd minetest-skin-server
+git clone https://github.com/AFCMS/luanti-skin-server && cd luanti-skin-server
 ```
 
 #### 3. Configure server
@@ -117,7 +117,7 @@ sudo dnf install optipng
 #### 3. Download source code
 
 ```shell
-git clone https://github.com/AFCMS/minetest-skin-server && cd minetest-skin-server
+git clone https://github.com/AFCMS/luanti-skin-server && cd luanti-skin-server
 ```
 
 #### 4. Install Go dependencies
@@ -187,25 +187,25 @@ MT_SKIN_SERVER_FRONTEND_URL=http://localhost:5173
 #### 8. Build and run backend
 
 ```shell
-go build && ./minetest-skin-server
+go build && ./luanti-skin-server
 ```
 
 ### Production
 
-There is an [exemple](https://github.com/AFCMS/minetest-skin-server/blob/master/compose.prod.yml) production Docker
+There is an [exemple](https://github.com/AFCMS/luanti-skin-server/blob/master/compose.prod.yml) production Docker
 Compose file in the repository.
 
-It uses the [production image](https://github.com/AFCMS/minetest-skin-server/pkgs/container/minetest-skin-server) built
-by the GitHub Actions workflow, which supports `amd64`, `arm64`, `ppc64le`, `s390x`, `386` architectures.
+It uses the [production image](https://github.com/AFCMS/luanti-skin-server/pkgs/container/luanti-skin-server) built
+by the GitHub Actions workflow, which supports `amd64` and `arm64` architectures.
 
 ```shell
-docker pull ghcr.io/afcms/minetest:master
+docker pull ghcr.io/afcms/luanti-skin-server:master
 docker compose -f compose.prod.yml up
 ```
 
 You can verify that the image have been really built by the GitHub Actions workflow and find the build log using the GitHub CLI:
 ```shell
-gh attestation verify oci://ghcr.io/afcms/minetest-skin-server:master --repo AFCMS/minetest-skin-server
+gh attestation verify oci://ghcr.io/afcms/luanti-skin-server:master --repo AFCMS/luanti-skin-server
 ```
 
 #### Configuration
@@ -233,8 +233,8 @@ provider.
 - ContentDB:
     - `MT_SKIN_SERVER_OAUTH_CONTENTDB_CLIENT_ID`: the OAuth2 client ID for the ContentDB API
     - `MT_SKIN_SERVER_OAUTH_CONTENTDB_CLIENT_SECRET` the OAuth2 client secret for the ContentDB API
-    - `MT_SKIN_SERVER_OAUTH_CONTENTDB_URL`: the URL of the ContentDB instance, default to `https://content.minetest.net`
-    - [Create Application](https://content.minetest.net/user/apps/)
+    - `MT_SKIN_SERVER_OAUTH_CONTENTDB_URL`: the URL of the ContentDB instance, default to `https://content.luanti.org`
+    - [Create Application](https://content.luanti.org/user/apps/)
 - GitHub:
     - `MT_SKIN_SERVER_OAUTH_GITHUB_CLIENT_ID`: the OAuth2 client ID for the GitHub API
     - `MT_SKIN_SERVER_OAUTH_GITHUB_CLIENT_SECRET` the OAuth2 client secret for the GitHub API

@@ -1,4 +1,4 @@
-module minetest-skin-server
+module luanti-skin-server
 
 go 1.23
 

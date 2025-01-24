@@ -3,8 +3,8 @@ package routes
 import (
 	"github.com/gofiber/fiber/v3"
 
-	"minetest-skin-server/database"
-	"minetest-skin-server/utils"
+	"luanti-skin-server/database"
+	"luanti-skin-server/utils"
 )
 
 func Info(c fiber.Ctx) error {

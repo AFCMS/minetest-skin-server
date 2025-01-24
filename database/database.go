@@ -6,8 +6,8 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"log"
-	"minetest-skin-server/models"
-	"minetest-skin-server/utils"
+	"luanti-skin-server/models"
+	"luanti-skin-server/utils"
 	"os"
 )
 

@@ -1,6 +1,6 @@
 package database
 
-import "minetest-skin-server/models"
+import "luanti-skin-server/models"
 
 // SkinRecent Return the `count` recently published skins
 func SkinRecent(count uint8) ([]models.Skin, error) {

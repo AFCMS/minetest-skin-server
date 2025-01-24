@@ -1,7 +1,7 @@
 package database
 
 import (
-	"minetest-skin-server/models"
+	"luanti-skin-server/models"
 )
 
 func AccountSetPermission(a *models.Account, level int8) error {

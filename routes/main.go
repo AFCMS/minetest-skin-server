@@ -10,10 +10,10 @@ import (
 	"github.com/gofiber/fiber/v3/middleware/proxy"
 	"github.com/gofiber/fiber/v3/middleware/static"
 
-	"minetest-skin-server/auth"
-	"minetest-skin-server/middleware"
-	"minetest-skin-server/models"
-	"minetest-skin-server/utils"
+	"luanti-skin-server/auth"
+	"luanti-skin-server/middleware"
+	"luanti-skin-server/models"
+	"luanti-skin-server/utils"
 )
 
 func SetupRoutes(app *fiber.App) {

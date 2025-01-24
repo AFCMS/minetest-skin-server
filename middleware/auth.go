@@ -3,8 +3,8 @@ package middleware
 import (
 	"github.com/gofiber/fiber/v3"
 
-	"minetest-skin-server/auth"
-	"minetest-skin-server/database"
+	"luanti-skin-server/auth"
+	"luanti-skin-server/database"
 )
 
 // AuthHandler Check if the user is authenticated

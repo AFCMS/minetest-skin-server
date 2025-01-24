@@ -16,6 +16,6 @@ frontend/dist
 .prettierrc
 LICENSE
 # Build output
-minetest-skin-server
+luanti-skin-server
 *.md
 .env
