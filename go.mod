@@ -1,6 +1,6 @@
 module minetest-skin-server
 
-go 1.22
+go 1.23
 
 require (
 	github.com/gofiber/fiber/v3 v3.0.0-beta.3
