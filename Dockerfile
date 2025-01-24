@@ -48,7 +48,7 @@ FROM ghcr.io/shssoichiro/oxipng:v9.1.3 AS oxipng
 # Production Image
 FROM alpine:3.21 AS production
 
-COPY --from=oxipng /usr/local/bin/oxipng /app/oxipng
+COPY --from=oxipng /usr/local/bin/oxipng /usr/local/bin/oxipng
 
 RUN adduser \
     --disabled-password \
